@@ -1,122 +1,212 @@
-<!--
------------------
-https://github.com/ardacarofficial/links-website is open source project.
------------------
--->
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short Cut links-Area 2</title>
-	<link rel="shortcut icon" href="img/favicon.ico">
-    <meta name="description" content="List all your links on one website.">
-    <meta property="og:title" content="links-website" />
-    <meta property="og:description" content="List all your links on one website." />
-    <meta property="og:image" content="img/logo2.png" />
-    <meta property="og:author" content="John Doe" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <header>
-    <!-- Logo, Title and Description Codes Start -->
-     <div class="header_img flex_column_center">
-        <img src="img/logo.png" alt="Logo" />
-      </div>
-      <div class="header_text flex_column_center">
-        <h1 class="header_h_item">Area 2</h1>
-        <h2 class="header_h_item">Short Cut Link Report per Store</h2>
-      </div>
-    <!-- Logo, Title and Description Codes End -->  
-
- 
-
-    <!-- Social Media Icons Codes End -->
-
-    <!-- Menu Codes Start -->
-      <nav>
-        <ul class="header_nav_menu_list flex_no_wrap_row_center">
-          <li data-target="#main_section_container_1" id="header_nav_menu_item_1" class="header_nav_menu_item" href="">Inventory Harian</li>
-          
-          
-        </ul>
-      </nav>
-    <!-- Menu Codes End -->
-    </header>
-    <main>
-      <!-- Menu Container 1 Codes Start -->
-      <section id="main_section_container_1" class="flex_column_center">
-        <!-- Menu Text Item -->
-        <div class="main_text_item">
-          <p>Di isi setiap hari  berdasarkan bulannya<p>
-        </div>
-        <!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JANUARI</button>
-          </a>
-          <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">FEBRUARI</button>
-          </a>
-		  <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">MARET</button>
-          </a>
-        </div>
-        <!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">APRIL</button>
-          </a>
-          <a class="main_small_a_item" href="https://ekabogainti-my.sharepoint.com/:x:/g/personal/hhb_senayancity_hokben_co_id/EbKqDRcx5P1Fi_0A1MfIjDwBSA0SUyOYtqhC77HivTfzqg?e=iv45tb" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">MEI</button>
-          </a>
-	   <a class="main_small_a_item" href="https://ekabogainti-my.sharepoint.com/:x:/g/personal/hhb_rscarolus_hokben_co_id/EbN6ACTKpzNBuTpT0RiI0DIButnGNGlmcMkgfOcNf47gKQ?e=cdwyjf" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JUNI</button>
-          </a>
-        </div>
-		<!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JULI</button>
-          </a>
-          <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">AGUSTUS</button>
-          </a>
-		  <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">SEPTEMBER</button>
-          </a>
-        </div>
-		<!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">OKTOBER</button>
-          </a>
-         <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">NOVEMBER</button>
-          </a>
-		  <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">DESEMBER</button>
-          </a>
-        </div>
-        <!-- Menu Item -->
-        <a class="main_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-          <button class="main_button_item">Rekap Area 2</button>
+    <title>Dashboard Day Of Inventory ( DOI )</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .months-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .month-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        
+        .month-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .month-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .month-card:hover .month-icon {
+            transform: scale(1.1);
+        }
+        
+        .month-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Warna berbeda untuk setiap bulan */
+        .januari .month-icon { color: #e74c3c; }
+        .februari .month-icon { color: #9b59b6; }
+        .maret .month-icon { color: #3498db; }
+        .april .month-icon { color: #1abc9c; }
+        .mei .month-icon { color: #f1c40f; }
+        .juni .month-icon { color: #e67e22; }
+        .juli .month-icon { color: #e74c3c; }
+        .agustus .month-icon { color: #2ecc71; }
+        .september .month-icon { color: #9b59b6; }
+        .oktober .month-icon { color: #34495e; }
+        .november .month-icon { color: #f39c12; }
+        .desember .month-icon { color: #16a085; }
+        
+        /* Latar belakang hover sesuai warna bulan */
+        .month-card.januari:hover { background-color: rgba(231, 76, 60, 0.1); }
+        .month-card.februari:hover { background-color: rgba(155, 89, 182, 0.1); }
+        .month-card.maret:hover { background-color: rgba(52, 152, 219, 0.1); }
+        .month-card.april:hover { background-color: rgba(26, 188, 156, 0.1); }
+        .month-card.mei:hover { background-color: rgba(241, 196, 15, 0.1); }
+        .month-card.juni:hover { background-color: rgba(230, 126, 34, 0.1); }
+        .month-card.juli:hover { background-color: rgba(231, 76, 60, 0.1); }
+        .month-card.agustus:hover { background-color: rgba(46, 204, 113, 0.1); }
+        .month-card.september:hover { background-color: rgba(155, 89, 182, 0.1); }
+        .month-card.oktober:hover { background-color: rgba(52, 73, 94, 0.1); }
+        .month-card.november:hover { background-color: rgba(243, 156, 18, 0.1); }
+        .month-card.desember:hover { background-color: rgba(22, 160, 133, 0.1); }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>Kalender Bulanan</h1>
+        <p>Pilih bulan untuk melihat detail</p>
+    </div>
+    
+    <div class="months-container">
+        <!-- Januari -->
+        <a href="januari.html" class="month-card januari">
+            <div class="month-icon">
+                <i class="fas fa-snowflake"></i>
+            </div>
+            <div class="month-name">Januari</div>
         </a>
-      </section>	   
-      <!-- Menu Container 1 Codes End -->
-
-    </main>
-    <footer>
-      <!-- Footer Codes Start -->
-      <div class="footer_div_item flex_row_center">
-        <a class="footer_a_item" href="#link">Link Report v 1.0</a>&nbsp;| Copyright By Area 02
-      </div>
-    </footer>
-      <!-- Footer Codes End -->
-    <script src="js/main.js"></script>
-  </body>
+        
+        <!-- Februari -->
+        <a href="februari.html" class="month-card februari">
+            <div class="month-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="month-name">Februari</div>
+        </a>
+        
+        <!-- Maret -->
+        <a href="maret.html" class="month-card maret">
+            <div class="month-icon">
+                <i class="fas fa-wind"></i>
+            </div>
+            <div class="month-name">Maret</div>
+        </a>
+        
+        <!-- April -->
+        <a href="april.html" class="month-card april">
+            <div class="month-icon">
+                <i class="fas fa-umbrella"></i>
+            </div>
+            <div class="month-name">April</div>
+        </a>
+        
+        <!-- Mei -->
+        <a href="https://ekabogainti-my.sharepoint.com/:x:/g/personal/hhb_senayancity_hokben_co_id/EbKqDRcx5P1Fi_0A1MfIjDwBSA0SUyOYtqhC77HivTfzqg?e=iv45tb" class="month-card mei">
+            <div class="month-icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <div class="month-name">Mei</div>
+        </a>
+        
+        <!-- Juni -->
+        <a href="https://ekabogainti-my.sharepoint.com/:x:/g/personal/hhb_rscarolus_hokben_co_id/EbN6ACTKpzNBuTpT0RiI0DIButnGNGlmcMkgfOcNf47gKQ?e=cdwyjf" class="month-card juni">
+            <div class="month-icon">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="month-name">Juni</div>
+        </a>
+        
+        <!-- Juli -->
+        <a href="juli.html" class="month-card juli">
+            <div class="month-icon">
+                <i class="fas fa-swimming-pool"></i>
+            </div>
+            <div class="month-name">Juli</div>
+        </a>
+        
+        <!-- Agustus -->
+        <a href="agustus.html" class="month-card agustus">
+            <div class="month-icon">
+                <i class="fas fa-campground"></i>
+            </div>
+            <div class="month-name">Agustus</div>
+        </a>
+        
+        <!-- September -->
+        <a href="september.html" class="month-card september">
+            <div class="month-icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="month-name">September</div>
+        </a>
+        
+        <!-- Oktober -->
+        <a href="oktober.html" class="month-card oktober">
+            <div class="month-icon">
+                <i class="fas fa-cloud-rain"></i>
+            </div>
+            <div class="month-name">Oktober</div>
+        </a>
+        
+        <!-- November -->
+        <a href="november.html" class="month-card november">
+            <div class="month-icon">
+                <i class="fas fa-tree"></i>
+            </div>
+            <div class="month-name">November</div>
+        </a>
+        
+        <!-- Desember -->
+        <a href="desember.html" class="month-card desember">
+            <div class="month-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="month-name">Desember</div>
+        </a>
+    </div>
+</body>
 </html>
