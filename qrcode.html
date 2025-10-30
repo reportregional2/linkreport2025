@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .preview-section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="url"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-generate {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .btn-pdf {
+            background: #d32f2f;
+            color: white;
+        }
+
+        /* A4 Page Layout */
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 15mm;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 12mm;
+            page-break-after: always;
+        }
+
+        /* Template Design - Horizontal Layout */
+        .bincard-template {
+            width: 85mm;
+            height: 45mm;
+            border: 2px solid #000;
+            background: white;
+            display: flex;
+        }
+
+        /* QR Code di sebelah kiri */
+        .qr-section {
+            width: 45mm;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2mm;
+            border-right: 2px solid #000;
+        }
+
+        .qr-container {
+            padding: 1mm;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        .qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qrcode canvas {
+            width: 100px !important;
+            height: 100px !important;
+        }
+
+        /* Content di sebelah kanan */
+        .content-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header kuning di sebelah kanan atas */
+        .yellow-header {
+            background: #ffeb3b;
+            padding: 3mm 2mm;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 2px solid #000;
+            text-transform: uppercase;
+            text-align: center;
+            height: 12mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Area untuk tulisan kategori */
+        .category-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2mm;
+            text-align: center;
+        }
+
+        .category-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: #000;
+            text-transform: uppercase;
+            line-height: 1.3;
+            margin-bottom: 2mm;
+        }
+
+        .category-number {
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .empty-state {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-print {
+            background: #388e3c;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .form-section, .controls, header {
+                display: none !important;
+            }
+            .preview-section {
+                padding: 0 !important;
+                background: white !important;
+            }
+            .a4-page {
+                padding: 15mm !important;
+                margin: 0 !important;
+            }
+        }
+
+        .url-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .url-input-item {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>QR Generator</h1>
+        </header>
+
+        <div class="main-content">
+            <!-- Form Input Section -->
+            <div class="form-section">
+                <h3>URL Spreadsheet</h3>
+                
+                <div class="url-input-group">
+                    <div class="url-input-item">
+                        <label>Bincard Frozen:</label>
+                        <input type="url" id="url-frozen" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Bincard Fast Moving:</label>
+                        <input type="url" id="url-fast-moving" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Bincard Merchandise:</label>
+                        <input type="url" id="url-merchandise" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Bincard Dessert Buah Sayur:</label>
+                        <input type="url" id="url-dessert" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Bincard Slow Moving:</label>
+                        <input type="url" id="url-slow-moving" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Perhitungan Minyak:</label>
+                        <input type="url" id="url-minyak" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+
+                    <div class="url-input-item">
+                        <label>Uji Organoleptik:</label>
+                        <input type="url" id="url-organoleptik" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-generate" onclick="generateAllQR()">Generate QR Codes</button>
+                    <button class="btn-pdf" onclick="saveAsPDF()">Download PDF</button>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section">
+                <div class="a4-page" id="a4Page">
+                    <div class="empty-state">
+                        QR Codes akan muncul di sini setelah di-generate
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-print" onclick="printPage()">Print Halaman</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            {
+                id: 'frozen',
+                name: 'QR BINCARD',
+                categoryText: 'BINCARD FROZEN',
+                categoryNumber: '(01)',
+                inputId: 'url-frozen'
+            },
+            {
+                id: 'fast-moving',
+                name: 'QR BINCARD',
+                categoryText: 'BINCARD FAST MOVING',
+                categoryNumber: '(02)',
+                inputId: 'url-fast-moving'
+            },
+            {
+                id: 'merchandise',
+                name: 'QR BINCARD',
+                categoryText: 'BINCARD MERCHANDISE',
+                categoryNumber: '(07)',
+                inputId: 'url-merchandise'
+            },
+            {
+                id: 'dessert',
+                name: 'QR BINCARD',
+                categoryText: 'BINCARD DESSERT BUAH SAYUR',
+                categoryNumber: '(03)',
+                inputId: 'url-dessert'
+            },
+            {
+                id: 'slow-moving',
+                name: 'QR BINCARD',
+                categoryText: 'BINCARD SLOW MOVING',
+                categoryNumber: '(08)',
+                inputId: 'url-slow-moving'
+            },
+            {
+                id: 'minyak',
+                name: 'QR BINCARD',
+                categoryText: 'PERHITUNGAN MINYAK',
+                categoryNumber: '',
+                inputId: 'url-minyak'
+            },
+            {
+                id: 'organoleptik',
+                name: 'QR BINCARD',
+                categoryText: 'UJI ORGANOLEPTIK',
+                categoryNumber: '',
+                inputId: 'url-organoleptik'
+            }
+        ];
+
+        let qrInstances = {};
+
+        function generateAllQR() {
+            // Clear previous content
+            document.getElementById('a4Page').innerHTML = '';
+            
+            let hasValidUrl = false;
+
+            // Generate QR untuk setiap kategori
+            categories.forEach((category) => {
+                const url = document.getElementById(category.inputId).value;
+                
+                if (url && url.includes('docs.google.com/spreadsheets')) {
+                    hasValidUrl = true;
+                    generateQRCodeForCategory(category, url);
+                }
+            });
+
+            if (!hasValidUrl) {
+                alert('Masukkan URL Google Spreadsheet yang valid');
+                return;
+            }
+        }
+
+        function generateQRCodeForCategory(category, url) {
+            const template = document.createElement('div');
+            template.className = 'bincard-template';
+
+            template.innerHTML = `
+                <!-- QR Code di Sebelah Kiri -->
+                <div class="qr-section">
+                    <div class="qr-container">
+                        <div class="qrcode" id="qrcode-${category.id}"></div>
+                    </div>
+                </div>
+                
+                <!-- Konten di Sebelah Kanan -->
+                <div class="content-section">
+                    <!-- Header Kuning dengan tulisan QR BINCARD -->
+                    <div class="yellow-header">
+                        ${category.name}
+                    </div>
+                    
+                    <!-- Area untuk tulisan kategori -->
+                    <div class="category-area">
+                        <div class="category-name">${category.categoryText}</div>
+                        <div class="category-number">${category.categoryNumber}</div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('a4Page').appendChild(template);
+
+            // Generate QR Code
+            const qrContainer = document.getElementById(`qrcode-${category.id}`);
+            qrContainer.innerHTML = '';
+
+            // Clear previous QR instance
+            if (qrInstances[category.id]) {
+                qrInstances[category.id].clear();
+            }
+
+            qrInstances[category.id] = new QRCode(qrContainer, {
+                text: url,
+                width: 100,
+                height: 100,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function saveAsPDF() {
+            const a4Page = document.getElementById('a4Page');
+            
+            if (a4Page.children.length === 0) {
+                alert('Generate QR Codes terlebih dahulu!');
+                return;
+            }
+
+            html2canvas(a4Page, {
+                scale: 3,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const imgWidth = 210;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                const imgData = canvas.toDataURL('image/png');
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save(`QR-Bincards-${new Date().toISOString().split('T')[0]}.pdf`);
+            });
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        // Auto-fill example URLs on load
+        window.addEventListener('load', function() {
+            categories.forEach(category => {
+                const input = document.getElementById(category.inputId);
+                input.value = `https://docs.google.com/spreadsheets/d/1EXAMPLE_${category.id.toUpperCase()}`;
+            });
+            
+            // Auto-generate QR codes on load
+            setTimeout(() => {
+                generateAllQR();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
