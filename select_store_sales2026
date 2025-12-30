@@ -237,7 +237,7 @@
             <div class="store-name">Grand Indonesia</div>
         </div>
 
-        <!-- Menteng Huis - Ikon rumah Belanda/taman -->
+	<!-- Menteng Huis - Ikon rumah Belanda/taman -->
         <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
             <i class="fas fa-house-chimney store-icon"></i>
             <div class="store-name">Menteng Huis</div>
