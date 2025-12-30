@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-Report Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .report-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--dark-color);
+        }
+        
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .report-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .report-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Daily Report Colors */
+        .daily-1 { color: #e74c3c; }
+        .daily-2 { color: #3498db; }
+        .daily-3 { color: #2ecc71; }
+        .daily-4 { color: #f39c12; }
+        .daily-5 { color: #9b59b6; }
+        .daily-6 { color: #1abc9c; }
+        .daily-7 { color: #d35400; }
+        .daily-8 { color: #27ae60; }
+        .daily-9 { color: #2980b9; }
+        .daily-10 { color: #2980b9; }
+        .daily-11 { color: #9b59b6; }
+        .daily-12 { color: #27ae60; }
+        .daily-13 { color: #e74c3c; }
+        .daily-14 { color: #3498db; }
+        .daily-15 { color: #9b59b6; }
+        
+        /* Weekly Report Colors */
+        .weekly-1 { color: #e67e22; }
+        .weekly-2 { color: #16a085; }
+        .weekly-3 { color: #c0392b; }
+        .weekly-4 { color: #8e44ad; }
+        
+        /* Monthly Report Colors */
+        .monthly-1 { color: #3498db; }
+        .monthly-2 { color: #2ecc71; }
+        .monthly-3 { color: #f1c40f; }
+        .monthly-4 { color: #e74c3c; }
+        .monthly-5 { color: #9b59b6; }
+        .monthly-6 { color: #f39c12; }
+        .monthly-7 { color: #d35400; }
+        .monthly-8 { color: #27ae60; }
+        
+        /* Project Report Colors */
+        .project-1 { color: #9b59b6; }
+        .project-2 { color: #1abc9c; }
+        .project-3 { color: #d35400; }
+        .project-4 { color: #27ae60; }
+        .project-5 { color: #e74c3c; }
+        .project-6 { color: #2980b9; }
+        
+        /* App Report Colors */
+        .app-1 { color: #3498db; }
+        .app-2 { color: #2ecc71; }
+        .app-3 { color: #e74c3c; }
+        .app-4 { color: #f39c12; }
+        .app-5 { color: #9b59b6; }
+        .app-6 { color: #1abc9c; }
+        .app-7 { color: #d35400; }
+        .app-8 { color: #2980b9; }
+        .app-9 { color: #e74c3c; }
+        .app-10 { color: #3498db; }
+        .app-11 { color: #2ecc71; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Report Dashboard 2026</h1>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="daily">Daily Report</button>
+            <button class="tab-btn" data-tab="weekly">Weekly Report</button>
+            <button class="tab-btn" data-tab="monthly">Monthly Report</button>
+            <button class="tab-btn" data-tab="project">Project Report</button>
+            <button class="tab-btn" data-tab="app">App Report</button>
+        </div>
+        
+        <!-- Daily Report -->
+        <div id="daily" class="tab-content active">
+            <div class="dashboard-grid"> 
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-15"><i class="fas fa-list-alt"></i></div>
+                    <div class="report-title">QA Index 2026</div>
+                </a>                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-10"><i class="fas fa-address-book"></i></div>
+                    <div class="report-title">Laporan Modal TMS 2026</div>
+                </a>
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow"">
+                    <div class="report-icon daily-1"><i class="fas fa-chart-line"></i></div>
+                    <div class="report-title">Monitoring sales harian 2026 - Area 2</div>
+                </a>
+                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-2"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="report-title">Monitoring sales harian regional 2026</div>
+                </a>
+                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-3"><i class="fas fa-wallet"></i></div>
+                    <div class="report-title">Monitoring Tactical Promo 2026</div>
+                </a>
+
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-4"><i class="fas fa-user-shield"></i></div>
+                    <div class="report-title">Kontrol PEP harian 2026</div>
+                </a>
+                
+                <a href="https://hws.hokben.net:888/login.aspx" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-5"><i class="fas fa-bug"></i></div>
+                    <div class="report-title">Pest Control management</div>
+                </a>
+                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-6"><i class="fas fa-boxes"></i></div>
+                    <div class="report-title">Monitoring Day Of Inventory 2026 (DOI Area 2)</div>
+                </a>
+                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-11"><i class="fas fa-layer-group"></i></div>
+                    <div class="report-title">DOI Operasional Pusat - Desember 2026</div>
+                </a>
+                  
+            </div>
+        </div>
+        
+        <!-- Weekly Report -->
+        <div id="weekly" class="tab-content">
+            <div class="dashboard-grid">
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-12"><i class="fas fa-user-plus"></i></div>
+                    <div class="report-title">Rekap Keterisian Kursi dan Hujan 2025</div>
+                </a>
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon 13"><i class="fas fa-sort-amount-desc"></i></div>
+                    <div class="report-title">Rekap Traffic Count 2025</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Monthly Report -->
+        <div id="monthly" class="tab-content">
+            <div class="dashboard-grid">
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon monthly-1"><i class="fas fa-database"></i></div>
+                    <div class="report-title">Database Performance 2026</div>
+                </a>
+                
+                <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon monthly-2"><i class="fas fa-bullseye"></i></div>
+                    <div class="report-title">Restaurant Monthly Objektif 2026 (RMO )</div>
+                </a>
+                 <a href="commingsoon.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon monthly-8"><i class="fas fa-binoculars"></i></div>
+                    <div class="report-title">Area 2 -Report Audit QSC 2026</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Project Report -->
+        <div id="project" class="tab-content">
+            <div class="dashboard-grid">
+                <a href="https://docs.google.com/spreadsheets/d/1XK0AW0-ZLv4Aq-uOYH5UlMWUwM2j4e31/edit?usp=drivesdk&ouid=105850800277277443809&rtpof=true&sd=true" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon project-1"><i class="fas fa-trash-restore"></i></div>
+                    <div class="report-title"> Rekap Disposal Non Asset 2026( Non Logo )</div>
+                </a>
+                <a href="https://docs.google.com/spreadsheets/d/1DpafG1xJiUd1oQS38tRVGEmHHujDS23b/edit?usp=drivesdk&ouid=105850800277277443809&rtpof=true&sd=true" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon project-4"><i class="fas fa-swatchbook"></i></div>
+                    <div class="report-title">Assessment Disposal Asset 2026</div>
+                </a>
+                <a href="" class="report-card" target="_blank" rel="nofollow">                    
+                    <div class="report-icon project-2"><i class="fas fa-tools"></i></div>
+                    <div class="report-title">CX index 2026 Area 2</div>
+                </a>-->
+                
+                <a href="" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon project-3"><i class="fas fa-comment-dots"></i></div>
+                    <div class="report-title">Report monitoring Complain 2026</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- App Report -->
+        <div id="app" class="tab-content">
+            <div class="dashboard-grid">
+                <a href="https://tools.pdf24.org/en/all-tools" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-14"><i class="fas fa-tools"></i></div>
+                    <div class="report-title">Aplikasi Serba Bisa Free</div>
+                </a>
+                <a href="qrcode.html" class ="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-10"><i class="fas fa-barcode"></i></div>
+                    <div class="report-title">Generartor QR Code </div>
+                </a>
+		<!--<a href="grab.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-7"><i class="fas fa-motorcycle"></i></div>
+                    <div class="report-title">Check Menu Grab</div>
+                </a>
+                <a href="gofood.html" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon daily-8"><i class="fas fa-utensils"></i></div>
+                    <div class="report-title">Check Menu Gofood</div>
+                </a>
+                <a href="http://localhost:8082/fixorder/index.php/auth/login" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-1"><i class="fas fa-wrench"></i></div>
+                    <div class="report-title">Fix order</div>
+                </a>
+                
+                <a href="https://helpdesk.hokben.net/helpdesk/ticket/6452" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-2"><i class="fas fa-headset"></i></div>
+                    <div class="report-title">Helpdesk</div>
+                </a>
+                <a href="https://pettycash.hokben.io/" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-2"><i class="fas fa-cash-register"></i></div>
+                    <div class="report-title">LPS Petty cash</div>
+                </a>
+                 <a href="https://osds.hokben.net/?page=bGlzdG9yZGVy" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-3"><i class="fas fa-shipping-fast"></i></div>
+                    <div class="report-title">OSDS</div>
+                </a>
+                <a href="https://hsa.hokben.net/login" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-4"><i class="fas fa-shield-alt"></i></div>
+                    <div class="report-title">HSA DPTO</div>
+                </a>
+                
+                <a href="https://172.18.100.25:8183/Secure" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-5"><i class="fas fa-file-medical"></i></div>
+                    <div class="report-title">Hokadoc</div>
+                </a>
+                
+                <a href="http://172.18.100.164/login" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-6"><i class="fas fa-user-clock"></i></div>
+                    <div class="report-title">Absen</div>
+                </a>
+                
+                <a href="https://online.hokben.net/websurvey/amcp-panel/login" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-7"><i class="fas fa-key"></i></div>
+                    <div class="report-title">Feedback key</div>
+                </a>
+                
+                <a href="http://172.18.100.166/Reports/Pages/Report.aspx?ItemPath=%2fDept+Customer+Experience%2fLaporan+Feedback+Customer%2fFeedback+Store" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-8"><i class="fas fa-comment-alt"></i></div>
+                    <div class="report-title">Feedback monitoring</div>
+                </a>
+                <a href="https://online.hokben.net/lms/login/index.php" class="report-card" target="_blank" rel="nofollow"">
+                    <div class="report-icon app-9"><i class="fas fa-chart-line"></i></div>
+                    <div class="report-title">LMS</div>
+                </a>
+                <a href="https://forms.office.com/pages/responsepage.aspx?id=_ePu3TRUtkmHF1S-DfreIpRhEHlZ0-9KstYFWVq6n8hUOVBVR1I5NUI0VFFBU0pENTkwVklTV0lOOS4u&route=shorturl" class="report-card" target="_blank" rel="nofollow">
+                    <div class="report-icon app-11"><i class="fas fa-wallet"></i></div>
+                    <div class="report-title">Request Form Void Backdate</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and content
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked buutton
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
