@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard QA INDEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .months-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .month-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        
+        .month-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .month-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .month-card:hover .month-icon {
+            transform: scale(1.1);
+        }
+        
+        .month-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Warna berbeda untuk setiap bulan */
+        .januari .month-icon { color: #e74c3c; }
+        .februari .month-icon { color: #9b59b6; }
+        .maret .month-icon { color: #3498db; }
+        .april .month-icon { color: #1abc9c; }
+        .mei .month-icon { color: #f1c40f; }
+        .juni .month-icon { color: #e67e22; }
+        .juli .month-icon { color: #e74c3c; }
+        .agustus .month-icon { color: #2ecc71; }
+        .september .month-icon { color: #9b59b6; }
+        .oktober .month-icon { color: #34495e; }
+        .november .month-icon { color: #f39c12; }
+        .desember .month-icon { color: #16a085; }
+        
+        /* Latar belakang hover sesuai warna bulan */
+        .month-card.januari:hover { background-color: rgba(231, 76, 60, 0.1); }
+        .month-card.februari:hover { background-color: rgba(155, 89, 182, 0.1); }
+        .month-card.maret:hover { background-color: rgba(52, 152, 219, 0.1); }
+        .month-card.april:hover { background-color: rgba(26, 188, 156, 0.1); }
+        .month-card.mei:hover { background-color: rgba(241, 196, 15, 0.1); }
+        .month-card.juni:hover { background-color: rgba(230, 126, 34, 0.1); }
+        .month-card.juli:hover { background-color: rgba(231, 76, 60, 0.1); }
+        .month-card.agustus:hover { background-color: rgba(46, 204, 113, 0.1); }
+        .month-card.september:hover { background-color: rgba(155, 89, 182, 0.1); }
+        .month-card.oktober:hover { background-color: rgba(52, 73, 94, 0.1); }
+        .month-card.november:hover { background-color: rgba(243, 156, 18, 0.1); }
+        .month-card.desember:hover { background-color: rgba(22, 160, 133, 0.1); }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>Dashboard Daily Report QA INDEX Juni 2026</h1>
+        <p>Pilih CATEGORY untuk mengisi Laporan</p>
+         <p>NEW FORM</p>
+    
+    <div class="months-container">
+        <!-- Januari -->
+        <a href="comminngsoon.html" class="month-card januari" target="_blank" rel="nofollow">
+            <div class="month-icon">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <div class="month-name">GOOD MANUFACTURING PRACTICES (GMP)</div>
+        </a>
+        
+        <!-- Februari -->
+        <a href="comminngsoon.html" class="month-card januari" target="_blank" rel="nofollow">
+            <div class="month-icon">
+                <i class="fas fa-tag"></i>
+            </div>
+            <div class="month-name">Implementasi 5R (I5R)</div>
+        </a>
+        
+        <!-- Maret -->
+        <a href="comminngsoon.html" class="month-card januari" target="_blank" rel="nofollow">
+            <div class="month-icon">
+                <i class="fas fa-plug"></i>
+            </div>
+            <div class="month-name">Physical Inspection Equipment (PIE)</div>
+        </a>
+        
+        <!-- April -->
+        <a href="comminngsoon.html" class="month-card januari" target="_blank" rel="nofollow">
+            <div class="month-icon">
+                <i class="fas fa-bug"></i>
+            </div>
+            <div class="month-name">Pengendalian Pest (PST)</div>
+        </a>
+        
+        <!-- Mei -->
+        <a href="comminngsoon.html" class="month-card januari" target="_blank" rel="nofollow">
+            <div class="month-icon">
+                <i class="fas fa-sticky-note"></i>
+            </div>
+            <div class="month-name">QMP</div>
+        </a>
+        
+    </div>
+</body>
+</html>
