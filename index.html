@@ -990,7 +990,7 @@
             <div class="popup-footer">
                 <div class="popup-timer">
                     <i class="fas fa-clock"></i>
-                    <span>Auto close in: <span class="popup-auto-close" id="popupAutoClose">60</span> seconds</span>
+                    <span>Auto close in: <span class="popup-auto-close" id="popupAutoClose">20</span> seconds</span>
                 </div>
                 <button class="popup-settings-btn" id="popupSettingsBtn">
                     <i class="fas fa-cog"></i> Reminder Settings
@@ -1282,11 +1282,11 @@
         const VALID_PASSWORD = "8070";
         
         // Session timeout settings (dalam menit)
-        const SESSION_TIMEOUT = 15;
+        const SESSION_TIMEOUT = 45;
         
         // Running text popup settings
         const POPUP_INTERVAL = 10; // Muncul setiap 10 menit (600 detik)
-        const POPUP_DURATION = 60; // Durasi popup 1 menit (60 detik)
+        const POPUP_DURATION = 20; // Durasi popup 1 menit (20 detik)
         
         let sessionTimer;
         let logoutTimer;
