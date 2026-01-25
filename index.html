@@ -42,64 +42,166 @@
             overflow-x: hidden;
         }
 
-        /* Running Text Reminder - MOVED TO BOTTOM */
-        .running-text-container {
+        /* Running Text Pop-up Modal */
+        .running-text-popup {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--dark-color) 100%);
-            color: white;
-            padding: 10px 0;
-            overflow: hidden;
-            z-index: 999;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1003;
             display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
         }
 
-        .running-text-content {
+        .popup-content {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .popup-header {
             display: flex;
-            white-space: nowrap;
-            animation: marquee 30s linear infinite;
-            padding: 5px 0;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        .running-text-content:hover {
-            animation-play-state: paused;
-        }
-
-        .reminder-item {
+        .popup-title {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            margin-right: 50px;
+            gap: 10px;
+        }
+
+        .popup-countdown {
+            font-size: 1.2rem;
+            color: var(--warning-color);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
             padding: 5px 15px;
-            background: rgba(255, 255, 255, 0.15);
             border-radius: 20px;
-            backdrop-filter: blur(5px);
+            border: 2px solid var(--warning-color);
+            animation: countdownPulse 1s infinite;
+        }
+
+        .close-popup {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-popup:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .popup-reminders {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .popup-reminder-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: var(--transition);
+            backdrop-filter: blur(5px);
         }
 
-        .reminder-item:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
+        .popup-reminder-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
         }
 
-        .reminder-icon {
-            margin-right: 10px;
+        .popup-reminder-icon {
+            font-size: 2rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .popup-reminder-text {
+            color: white;
             font-size: 1.1rem;
-        }
-
-        .reminder-text {
             font-weight: 500;
-            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
         }
 
-        .urgent { color: #ff6b6b; }
-        .important { color: #feca57; }
-        .info { color: #48dbfb; }
-        .success { color: #1dd1a1; }
-        .warning { color: #ff9ff3; }
+        .popup-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .popup-timer {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .popup-auto-close {
+            color: var(--warning-color);
+            font-weight: 600;
+        }
+
+        .popup-settings-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-settings-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
 
         /* Settings Dropdown Menu (Gear Icon) */
         .settings-dropdown {
@@ -366,101 +468,9 @@
             transform: scale(1.1);
         }
 
-        /* Session Warning Modal - SHOWS AT 1 MINUTE LEFT */
+        /* Session Warning Modal (HIDDEN - Session timeout tetap bekerja di background) */
         .session-warning {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .warning-content {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 50px 40px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.4s ease;
-            border-top: 5px solid var(--warning-color);
-        }
-
-        .warning-icon {
-            font-size: 4rem;
-            color: var(--warning-color);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        .warning-title {
-            font-size: 1.8rem;
-            color: var(--dark-color);
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .warning-message {
-            color: var(--gray-color);
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
-
-        .countdown {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--danger-color);
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        .warning-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .warning-btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 150px;
-        }
-
-        .stay-logged-btn {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
-            color: white;
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
-        }
-
-        .stay-logged-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
-        }
-
-        .logout-btn-warning {
-            background: var(--light-color);
-            color: var(--dark-color);
-            border: 2px solid #e0e0e0;
-        }
-
-        .logout-btn-warning:hover {
-            background: #f0f0f0;
-            transform: translateY(-3px);
+            display: none !important;
         }
 
         /* Login Container */
@@ -608,38 +618,9 @@
             animation: slideUp 0.6s ease-out;
         }
 
-        /* Session Timer Display */
+        /* Session Timer Display - HIDDEN */
         .session-timer {
-            position: fixed;
-            bottom: 70px; /* Adjusted for bottom running text */
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 12px 20px;
-            box-shadow: var(--shadow);
-            font-size: 0.9rem;
-            color: var(--dark-color);
-            font-weight: 600;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-        }
-
-        .session-timer:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .timer-icon {
-            color: var(--secondary-color);
-        }
-
-        .timer-text {
-            color: var(--dark-color);
+            display: none !important;
         }
 
         header {
@@ -790,6 +771,13 @@
             color: var(--primary-color);
         }
 
+        /* Color classes for reminders */
+        .urgent { color: #ff6b6b; }
+        .important { color: #feca57; }
+        .info { color: #48dbfb; }
+        .success { color: #1dd1a1; }
+        .warning { color: #ff9ff3; }
+
         /* Daily Report Colors - ORIGINAL COLORS */
         .daily-1 { color: #e74c3c; }
         .daily-2 { color: #3498db; }
@@ -845,11 +833,6 @@
         .app-11 { color: #2ecc71; }
 
         /* Animations */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -912,36 +895,6 @@
                 font-size: 1.8rem;
             }
 
-            .session-timer {
-                bottom: 60px;
-                right: 10px;
-                left: 10px;
-                justify-content: center;
-            }
-
-            .warning-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .warning-btn {
-                width: 100%;
-                max-width: 250px;
-            }
-
-            .running-text-container {
-                padding: 8px 0;
-            }
-
-            .reminder-item {
-                margin-right: 30px;
-                padding: 4px 12px;
-            }
-
-            .reminder-text {
-                font-size: 0.8rem;
-            }
-
             .settings-toggle {
                 width: 45px;
                 height: 45px;
@@ -950,6 +903,33 @@
 
             .settings-menu {
                 min-width: 180px;
+            }
+
+            .popup-content {
+                padding: 20px;
+            }
+
+            .popup-title {
+                font-size: 1.5rem;
+            }
+
+            .popup-reminder-item {
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .popup-reminder-icon {
+                font-size: 1.5rem;
+            }
+
+            .popup-reminder-text {
+                font-size: 1rem;
+            }
+
+            .popup-footer {
+                flex-direction: column;
+                gap: 15px;
             }
 
             .editor-content {
@@ -986,18 +966,36 @@
             .login-logo {
                 font-size: 2.8rem;
             }
-
-            .running-text-container {
-                display: none !important;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Running Text Reminder - MOVED TO BOTTOM -->
-    <div class="running-text-container" id="runningTextContainer">
-        <div class="running-text-content" id="runningTextContent">
-            <!-- Reminders will be dynamically added here -->
+    <!-- Running Text Pop-up Modal (Muncul otomatis) -->
+    <div class="running-text-popup" id="runningTextPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="popup-title">
+                    <i class="fas fa-bell"></i> Important Reminders
+                    <div class="popup-countdown" id="popupCountdown">60</div>
+                </div>
+                <button class="close-popup" id="closePopup">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="popup-reminders" id="popupReminders">
+                <!-- Reminders will be dynamically added here -->
+            </div>
+            
+            <div class="popup-footer">
+                <div class="popup-timer">
+                    <i class="fas fa-clock"></i>
+                    <span>Auto close in: <span class="popup-auto-close" id="popupAutoClose">60</span> seconds</span>
+                </div>
+                <button class="popup-settings-btn" id="popupSettingsBtn">
+                    <i class="fas fa-cog"></i> Reminder Settings
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1010,17 +1008,8 @@
             <button class="settings-item" id="editRemindersBtn">
                 <i class="fas fa-edit"></i> Edit Reminders
             </button>
-            <button class="settings-item" id="pauseRunningTextBtn">
-                <i class="fas fa-pause"></i> Pause Reminders
-            </button>
-            <button class="settings-item" id="resumeRunningTextBtn">
-                <i class="fas fa-play"></i> Resume Reminders
-            </button>
-            <button class="settings-item" id="hideRunningTextBtn">
-                <i class="fas fa-eye-slash"></i> Hide Reminders
-            </button>
-            <button class="settings-item" id="showRunningTextBtn">
-                <i class="fas fa-eye"></i> Show Reminders
+            <button class="settings-item" id="showPopupNowBtn">
+                <i class="fas fa-bell"></i> Show Reminders Now
             </button>
             <div style="height: 1px; background: #e0e0e0; margin: 5px 0;"></div>
             <button class="settings-item logout" id="logoutBtn">
@@ -1059,31 +1048,6 @@
         </div>
     </div>
 
-    <!-- Session Warning Modal - SHOWS AT 1 MINUTE LEFT -->
-    <div class="session-warning" id="sessionWarning">
-        <div class="warning-content">
-            <div class="warning-icon">
-                <i class="fas fa-clock"></i>
-            </div>
-            <h2 class="warning-title">Session Timeout Warning</h2>
-            <p class="warning-message">
-                Your session will expire due to inactivity. You will be automatically logged out in:
-            </p>
-            <div class="countdown" id="countdown">60</div>
-            <p class="warning-message">
-                Click "Stay Logged In" to continue your session.
-            </p>
-            <div class="warning-actions">
-                <button class="warning-btn stay-logged-btn" id="stayLoggedBtn">
-                    <i class="fas fa-check-circle"></i> Stay Logged In
-                </button>
-                <button class="warning-btn logout-btn-warning" id="logoutNowBtn">
-                    <i class="fas fa-sign-out-alt"></i> Logout Now
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Login Form -->
     <div class="login-container" id="loginContainer">
         <div class="login-logo">
@@ -1095,7 +1059,7 @@
         <form class="login-form" id="loginForm">
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Enter your password" required autofocus>
+                <input type="password" id="password" placeholder="Enter password" required autofocus>
             </div>
             
             <button type="submit" class="login-btn">
@@ -1110,16 +1074,10 @@
         <div style="margin-top: 30px; font-size: 0.85rem; color: var(--gray-color);">
             <p><i class="fas fa-info-circle"></i> Update Version: <strong>v 2.126</strong></p>
             <p style="margin-top: 10px; font-size: 0.75rem;">
-                <i class="fas fa-shield-alt"></i> Session will timeout after 15 minutes of inactivity
+                <i class="fas fa-shield-alt"></i> Auto logout after 15 minutes of inactivity
             </p>
         </div>
     </div>
-
-    <!-- Session Timer Display 
-    <div class="session-timer" id="sessionTimer">
-        <i class="fas fa-clock timer-icon"></i>
-        <span class="timer-text">Session expires in: <span id="timerDisplay">15:00</span></span>
-    </div>-->
 
     <!-- Dashboard -->
     <div class="dashboard-container" id="dashboardContainer">
@@ -1320,53 +1278,54 @@
     </div>
 
     <script>
-        // Password yang valid
+        // Password yang valid - DIUBAH MENJADI 8070
         const VALID_PASSWORD = "8070";
         
         // Session timeout settings (dalam menit)
         const SESSION_TIMEOUT = 15;
-        const WARNING_TIME = 1; // Warning muncul saat sisa 1 menit
+        
+        // Running text popup settings
+        const POPUP_INTERVAL = 10; // Muncul setiap 10 menit (600 detik)
+        const POPUP_DURATION = 60; // Durasi popup 1 menit (60 detik)
         
         let sessionTimer;
-        let warningTimer;
         let logoutTimer;
         let lastActivityTime;
-        let isWarningActive = false;
         
-        // Running text settings
-        let isRunningTextPaused = false;
-        let runningTextSpeed = 30; // seconds for full cycle
-        let currentReminders = [];
-
+        // Popup timer settings
+        let popupTimer;
+        let popupCountdownInterval;
+        let isPopupVisible = false;
+        
         // Reminder data - EDITABLE
         let reminders = JSON.parse(localStorage.getItem('dashboardReminders')) || [
             { 
-                text: "⚠️ DOI /LPB harian diisi after closing!", 
+                text: "⚠️ Deadline DOI/LPB harian update after closing!", 
                 icon: "fas fa-calendar-exclamation",
                 type: "urgent"
             },
             { 
-                text: "📊 Jangan lupa update sales report after closing", 
+                text: "📊 Jangan lupa update sales report max jam 09:00", 
                 icon: "fas fa-chart-line",
                 type: "important"
             },
             { 
-                text: "✅ QA Index harus di-submit di setiap hari", 
+                text: "✅ QA Index harus di-isi setiap hari ( cut off hari selasa )", 
                 icon: "fas fa-clipboard-check",
                 type: "info"
             },
             { 
-                text: "🔔 Modal TMS harus diverifikasi setiap hari", 
+                text: "🔔 Serah Terima Modal TMS harus di-upload setiap hari ", 
                 icon: "fas fa-money-check-alt",
                 type: "warning"
             },
             { 
-                text: "📋 Monitoring DOI Area 2 perlu diperbarui harian", 
+                text: "📋 Monitoring DOI Area 2  diupdate harian", 
                 icon: "fas fa-boxes",
                 type: "info"
             },
             { 
-                text: "🚨 Pest Control report due setiap hari", 
+                text: "🚨 Pest Control report di-isi setiap hari", 
                 icon: "fas fa-bug",
                 type: "urgent"
             }
@@ -1388,7 +1347,7 @@
             if (isLoggedIn === 'true') {
                 showDashboard();
                 resetSessionTimer();
-                startRunningText();
+                startPopupTimer();
             }
             
             // Setup tab functionality
@@ -1405,6 +1364,9 @@
             
             // Setup reminder editor
             setupReminderEditor();
+            
+            // Setup popup controls
+            setupPopupControls();
         });
 
         // Setup tab functionality
@@ -1466,11 +1428,27 @@
             
             // Setup menu item actions
             document.getElementById('editRemindersBtn').addEventListener('click', openReminderEditor);
-            document.getElementById('pauseRunningTextBtn').addEventListener('click', pauseRunningText);
-            document.getElementById('resumeRunningTextBtn').addEventListener('click', resumeRunningText);
-            document.getElementById('hideRunningTextBtn').addEventListener('click', hideRunningText);
-            document.getElementById('showRunningTextBtn').addEventListener('click', showRunningText);
+            document.getElementById('showPopupNowBtn').addEventListener('click', showPopupNow);
             document.getElementById('logoutBtn').addEventListener('click', performLogout);
+        }
+
+        // Setup popup controls
+        function setupPopupControls() {
+            // Close popup button
+            document.getElementById('closePopup').addEventListener('click', closePopup);
+            
+            // Popup settings button
+            document.getElementById('popupSettingsBtn').addEventListener('click', function() {
+                closePopup();
+                openReminderEditor();
+            });
+            
+            // Close popup when clicking outside
+            document.getElementById('runningTextPopup').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closePopup();
+                }
+            });
         }
 
         // Setup reminder editor
@@ -1491,6 +1469,95 @@
                     closeReminderEditor();
                 }
             });
+        }
+
+        // Start popup timer
+        function startPopupTimer() {
+            // Clear existing timer
+            clearTimeout(popupTimer);
+            
+            // Schedule first popup immediately (saat login)
+            setTimeout(showPopupNow, 1000);
+            
+            // Schedule recurring popups every 10 minutes
+            popupTimer = setInterval(showPopupNow, POPUP_INTERVAL * 60 * 1000);
+            
+            // Show gear icon
+            document.getElementById('settingsToggle').style.display = 'flex';
+            
+            console.log(`Popup akan muncul setiap ${POPUP_INTERVAL} menit`);
+        }
+
+        // Show popup now
+        function showPopupNow() {
+            if (isPopupVisible) return;
+            
+            isPopupVisible = true;
+            const popup = document.getElementById('runningTextPopup');
+            const popupReminders = document.getElementById('popupReminders');
+            
+            // Clear existing content
+            popupReminders.innerHTML = '';
+            
+            // Add reminders to popup
+            reminders.forEach((reminder, index) => {
+                const reminderElement = document.createElement('div');
+                reminderElement.className = 'popup-reminder-item';
+                reminderElement.innerHTML = `
+                    <div class="popup-reminder-icon ${reminder.type}">
+                        <i class="${reminder.icon}"></i>
+                    </div>
+                    <div class="popup-reminder-text">${reminder.text}</div>
+                `;
+                popupReminders.appendChild(reminderElement);
+            });
+            
+            // Show popup
+            popup.style.display = 'flex';
+            
+            // Start countdown
+            startPopupCountdown();
+        }
+
+        // Start popup countdown
+        function startPopupCountdown() {
+            let countdown = POPUP_DURATION;
+            const countdownElement = document.getElementById('popupCountdown');
+            const autoCloseElement = document.getElementById('popupAutoClose');
+            
+            // Update initial display
+            countdownElement.textContent = countdown;
+            autoCloseElement.textContent = countdown;
+            
+            // Start countdown interval
+            popupCountdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                autoCloseElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(popupCountdownInterval);
+                    closePopup();
+                }
+                
+                // Update animation based on remaining time
+                if (countdown <= 10) {
+                    countdownElement.style.animation = 'pulse 0.5s infinite';
+                    countdownElement.style.color = '#ff6b6b';
+                }
+            }, 1000);
+        }
+
+        // Close popup
+        function closePopup() {
+            clearInterval(popupCountdownInterval);
+            document.getElementById('runningTextPopup').style.display = 'none';
+            isPopupVisible = false;
+            
+            // Reset countdown animation
+            const countdownElement = document.getElementById('popupCountdown');
+            countdownElement.style.animation = '';
+            countdownElement.style.color = 'var(--warning-color)';
         }
 
         // Open reminder editor
@@ -1625,8 +1692,10 @@
             reminders = updatedReminders;
             localStorage.setItem('dashboardReminders', JSON.stringify(reminders));
             
-            // Update running text
-            updateRunningText();
+            // Update popup if visible
+            if (isPopupVisible) {
+                showPopupNow();
+            }
             
             // Close editor
             closeReminderEditor();
@@ -1637,109 +1706,6 @@
         // Close reminder editor
         function closeReminderEditor() {
             document.getElementById('reminderEditorModal').style.display = 'none';
-        }
-
-        // Update running text with current reminders
-        function updateRunningText() {
-            const container = document.getElementById('runningTextContainer');
-            const content = document.getElementById('runningTextContent');
-            
-            // Clear existing content
-            content.innerHTML = '';
-            
-            // Create duplicate reminders for seamless loop
-            const duplicateReminders = [...reminders, ...reminders];
-            
-            // Add reminders to running text
-            duplicateReminders.forEach((reminder, index) => {
-                const reminderElement = document.createElement('div');
-                reminderElement.className = 'reminder-item';
-                reminderElement.innerHTML = `
-                    <i class="${reminder.icon} reminder-icon ${reminder.type}"></i>
-                    <span class="reminder-text">${reminder.text}</span>
-                `;
-                content.appendChild(reminderElement);
-            });
-            
-            // Set animation speed
-            content.style.animationDuration = `${runningTextSpeed}s`;
-            
-            // Store current reminders
-            currentReminders = duplicateReminders;
-        }
-
-        // Start running text
-        function startRunningText() {
-            const container = document.getElementById('runningTextContainer');
-            const settingsToggle = document.getElementById('settingsToggle');
-            
-            // Show container and settings toggle
-            container.style.display = 'block';
-            settingsToggle.style.display = 'flex';
-            
-            updateRunningText();
-        }
-
-        // Pause running text
-        function pauseRunningText() {
-            const content = document.getElementById('runningTextContent');
-            content.style.animationPlayState = 'paused';
-            isRunningTextPaused = true;
-            
-            // Update button text
-            document.getElementById('pauseRunningTextBtn').style.display = 'none';
-            document.getElementById('resumeRunningTextBtn').style.display = 'flex';
-            
-            // Close settings menu
-            document.getElementById('settingsMenu').classList.remove('active');
-            
-            showNotification('Running text paused', 'info');
-        }
-
-        // Resume running text
-        function resumeRunningText() {
-            const content = document.getElementById('runningTextContent');
-            content.style.animationPlayState = 'running';
-            isRunningTextPaused = false;
-            
-            // Update button text
-            document.getElementById('resumeRunningTextBtn').style.display = 'none';
-            document.getElementById('pauseRunningTextBtn').style.display = 'flex';
-            
-            // Close settings menu
-            document.getElementById('settingsMenu').classList.remove('active');
-            
-            showNotification('Running text resumed', 'success');
-        }
-
-        // Hide running text
-        function hideRunningText() {
-            const container = document.getElementById('runningTextContainer');
-            container.style.display = 'none';
-            
-            // Update button text
-            document.getElementById('hideRunningTextBtn').style.display = 'none';
-            document.getElementById('showRunningTextBtn').style.display = 'flex';
-            
-            // Close settings menu
-            document.getElementById('settingsMenu').classList.remove('active');
-            
-            showNotification('Running text hidden', 'warning');
-        }
-
-        // Show running text
-        function showRunningText() {
-            const container = document.getElementById('runningTextContainer');
-            container.style.display = 'block';
-            
-            // Update button text
-            document.getElementById('showRunningTextBtn').style.display = 'none';
-            document.getElementById('hideRunningTextBtn').style.display = 'flex';
-            
-            // Close settings menu
-            document.getElementById('settingsMenu').classList.remove('active');
-            
-            showNotification('Running text shown', 'success');
         }
 
         // Show notification
@@ -1819,7 +1785,7 @@
                 setTimeout(() => {
                     showDashboard();
                     resetSessionTimer();
-                    startRunningText();
+                    startPopupTimer();
                 }, 400);
                 
             } else {
@@ -1854,181 +1820,44 @@
         function resetSessionTimer() {
             // Clear existing timers
             clearTimeout(sessionTimer);
-            clearTimeout(warningTimer);
             clearTimeout(logoutTimer);
-            
-            // Reset warning state
-            isWarningActive = false;
-            
-            // Hide warning modal
-            document.getElementById('sessionWarning').style.display = 'none';
             
             // Update last activity time
             lastActivityTime = Date.now();
             
             // Start new session timer
-            const warningTimeMs = (SESSION_TIMEOUT - WARNING_TIME) * 60 * 1000;
             const logoutTimeMs = SESSION_TIMEOUT * 60 * 1000;
-            
-            // Set warning timer (muncul saat sisa 1 menit)
-            warningTimer = setTimeout(showSessionWarning, warningTimeMs);
             
             // Set logout timer
             logoutTimer = setTimeout(logoutDueToInactivity, logoutTimeMs);
-            
-            // Update timer display
-            updateTimerDisplay();
-        }
-
-        // Update timer display
-        function updateTimerDisplay() {
-            const timerDisplay = document.getElementById('timerDisplay');
-            const sessionTimerElement = document.getElementById('sessionTimer');
-            
-            if (!timerDisplay) return;
-            
-            // Show timer
-            sessionTimerElement.style.display = 'flex';
-            
-            // Update every second
-            const timerInterval = setInterval(() => {
-                if (localStorage.getItem('isLoggedIn') !== 'true') {
-                    clearInterval(timerInterval);
-                    sessionTimerElement.style.display = 'none';
-                    return;
-                }
-                
-                const now = Date.now();
-                const elapsed = now - lastActivityTime;
-                const remaining = (SESSION_TIMEOUT * 60 * 1000) - elapsed;
-                
-                if (remaining <= 0) {
-                    clearInterval(timerInterval);
-                    sessionTimerElement.style.display = 'none';
-                    return;
-                }
-                
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                
-                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Show timer when warning time approaches (1 menit)
-                if (remaining <= WARNING_TIME * 60 * 1000) {
-                    timerDisplay.style.color = 'var(--danger-color)';
-                    timerDisplay.style.animation = 'countdownPulse 1s infinite';
-                    sessionTimerElement.style.display = 'flex';
-                } else {
-                    timerDisplay.style.color = 'var(--dark-color)';
-                    timerDisplay.style.animation = '';
-                    // Hide timer if more than 1 minute left
-                    if (remaining > (WARNING_TIME + 1) * 60 * 1000) {
-                        sessionTimerElement.style.display = 'none';
-                    }
-                }
-            }, 1000);
-        }
-
-        // Show session warning (muncul saat sisa 1 menit)
-        function showSessionWarning() {
-            if (isWarningActive) return;
-            
-            isWarningActive = true;
-            const warningModal = document.getElementById('sessionWarning');
-            const countdownElement = document.getElementById('countdown');
-            
-            // Show modal
-            warningModal.style.display = 'flex';
-            
-            // Start countdown from 60 seconds
-            let countdown = WARNING_TIME * 60;
-            countdownElement.textContent = countdown;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    logoutDueToInactivity();
-                }
-                
-                // Update animation based on remaining time
-                if (countdown <= 10) {
-                    countdownElement.style.animation = 'pulse 0.5s infinite';
-                    countdownElement.style.color = 'var(--danger-color)';
-                }
-            }, 1000);
-            
-            // Store interval ID to clear if user takes action
-            window.warningCountdownInterval = countdownInterval;
         }
 
         // Logout due to inactivity
         function logoutDueToInactivity() {
-            // Clear any existing intervals
-            if (window.warningCountdownInterval) {
-                clearInterval(window.warningCountdownInterval);
-            }
+            // Clear popup timers
+            clearInterval(popupTimer);
+            clearInterval(popupCountdownInterval);
             
             // Clear login status
             localStorage.removeItem('isLoggedIn');
             
-            // Stop running text
-            document.getElementById('runningTextContainer').style.display = 'none';
+            // Hide gear icon
             document.getElementById('settingsToggle').style.display = 'none';
             
-            // Show logout notification
-            showLogoutNotification();
+            // Close popup if visible
+            closePopup();
             
             // Hide dashboard and show login
-            setTimeout(() => {
-                document.getElementById('dashboardContainer').style.display = 'none';
-                document.getElementById('loginContainer').style.display = 'block';
-                document.getElementById('sessionTimer').style.display = 'none';
-                
-                // Reset form dan fokus
-                document.getElementById('loginForm').reset();
-                document.getElementById('password').focus();
-                
-                // Reset animations
-                document.getElementById('loginContainer').style.animation = 'fadeIn 0.6s ease-out';
-            }, 2000);
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            
+            // Reset form dan fokus
+            document.getElementById('loginForm').reset();
+            document.getElementById('password').focus();
+            
+            // Reset animations
+            document.getElementById('loginContainer').style.animation = 'fadeIn 0.6s ease-out';
         }
-
-        // Show logout notification
-        function showLogoutNotification() {
-            showNotification('Logged out due to inactivity', 'warning');
-        }
-
-        // Stay logged in button
-        document.getElementById('stayLoggedBtn').addEventListener('click', function() {
-            // Clear warning countdown
-            if (window.warningCountdownInterval) {
-                clearInterval(window.warningCountdownInterval);
-            }
-            
-            // Hide warning modal
-            document.getElementById('sessionWarning').style.display = 'none';
-            
-            // Reset session timer
-            resetSessionTimer();
-        });
-
-        // Logout now button (from warning modal)
-        document.getElementById('logoutNowBtn').addEventListener('click', function() {
-            // Clear timers
-            clearTimeout(warningTimer);
-            clearTimeout(logoutTimer);
-            
-            // Clear warning countdown
-            if (window.warningCountdownInterval) {
-                clearInterval(window.warningCountdownInterval);
-            }
-            
-            // Perform logout
-            performLogout();
-        });
 
         // Perform logout
         function performLogout() {
@@ -2037,12 +1866,17 @@
             
             // Clear timers
             clearTimeout(sessionTimer);
-            clearTimeout(warningTimer);
             clearTimeout(logoutTimer);
             
-            // Stop running text
-            document.getElementById('runningTextContainer').style.display = 'none';
+            // Clear popup timers
+            clearInterval(popupTimer);
+            clearInterval(popupCountdownInterval);
+            
+            // Hide gear icon
             document.getElementById('settingsToggle').style.display = 'none';
+            
+            // Close popup if visible
+            closePopup();
             
             // Close settings menu
             document.getElementById('settingsMenu').classList.remove('active');
@@ -2054,7 +1888,6 @@
                 // Hide dashboard and show login
                 document.getElementById('dashboardContainer').style.display = 'none';
                 document.getElementById('loginContainer').style.display = 'block';
-                document.getElementById('sessionTimer').style.display = 'none';
                 
                 // Reset form dan fokus
                 document.getElementById('loginForm').reset();
@@ -2085,7 +1918,8 @@
         // Hint untuk password (untuk pengembangan)
         console.log('Password untuk login: 8070');
         console.log('Session timeout: ' + SESSION_TIMEOUT + ' menit');
-        console.log('Warning muncul saat sisa: ' + WARNING_TIME + ' menit');
+        console.log('Popup muncul setiap: ' + POPUP_INTERVAL + ' menit');
+        console.log('Popup durasi: ' + POPUP_DURATION + ' detik');
         console.log('Running text dengan ' + reminders.length + ' reminder');
         console.log('Reminders disimpan di localStorage sebagai "dashboardReminders"');
     </script>
