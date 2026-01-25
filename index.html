@@ -11,6 +11,10 @@
             --primary-light: #a30000;
             --secondary-color: #3498db;
             --secondary-light: #5dade2;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --success-color: #27ae60;
+            --info-color: #2980b9;
             --light-color: #f8f9fa;
             --dark-color: #2c3e50;
             --gray-color: #95a5a6;
@@ -38,6 +42,428 @@
             overflow-x: hidden;
         }
 
+        /* Running Text Reminder - MOVED TO BOTTOM */
+        .running-text-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            z-index: 999;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .running-text-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            padding: 5px 0;
+        }
+
+        .running-text-content:hover {
+            animation-play-state: paused;
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
+            padding: 5px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .reminder-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .reminder-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .reminder-text {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .urgent { color: #ff6b6b; }
+        .important { color: #feca57; }
+        .info { color: #48dbfb; }
+        .success { color: #1dd1a1; }
+        .warning { color: #ff9ff3; }
+
+        /* Settings Dropdown Menu (Gear Icon) */
+        .settings-dropdown {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .settings-toggle {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            font-size: 1.5rem;
+        }
+
+        .settings-toggle:hover {
+            transform: scale(1.1) rotate(30deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .settings-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 200px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 1002;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .settings-menu.active {
+            display: flex;
+        }
+
+        .settings-item {
+            padding: 12px 15px;
+            background: var(--light-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark-color);
+            text-align: left;
+        }
+
+        .settings-item:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .settings-item.logout {
+            color: var(--danger-color);
+        }
+
+        .settings-item.logout:hover {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        /* Reminder Editor Modal */
+        .reminder-editor-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .editor-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .editor-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .close-editor {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-editor:hover {
+            color: var(--danger-color);
+            transform: rotate(90deg);
+        }
+
+        .reminder-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .reminder-editor-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            transition: var(--transition);
+        }
+
+        .reminder-editor-item:hover {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .reminder-inputs {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .reminder-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .reminder-input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .reminder-type-select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: white;
+            min-width: 120px;
+            cursor: pointer;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-color);
+        }
+
+        .editor-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, var(--success-color) 0%, #2ecc71 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        .cancel-btn {
+            background: var(--light-color);
+            color: var(--dark-color);
+            border: 2px solid #e0e0e0;
+        }
+
+        .cancel-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+        }
+
+        .add-reminder-btn {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .add-reminder-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .delete-reminder-btn {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .delete-reminder-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            transform: scale(1.1);
+        }
+
+        /* Session Warning Modal - SHOWS AT 1 MINUTE LEFT */
+        .session-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .warning-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+            border-top: 5px solid var(--warning-color);
+        }
+
+        .warning-icon {
+            font-size: 4rem;
+            color: var(--warning-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .warning-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .warning-message {
+            color: var(--gray-color);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .countdown {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--danger-color);
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .warning-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .warning-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 150px;
+        }
+
+        .stay-logged-btn {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .stay-logged-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .logout-btn-warning {
+            background: var(--light-color);
+            color: var(--dark-color);
+            border: 2px solid #e0e0e0;
+        }
+
+        .logout-btn-warning:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+        }
+
+        /* Login Container */
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -164,7 +590,7 @@
         }
 
         .login-error {
-            color: #e74c3c;
+            color: var(--danger-color);
             font-size: 0.9rem;
             margin-top: 5px;
             display: none;
@@ -172,6 +598,7 @@
             animation: shake 0.5s ease-in-out;
         }
 
+        /* Dashboard Container */
         .dashboard-container {
             display: none;
             width: 100%;
@@ -179,6 +606,40 @@
             margin: 0 auto;
             padding: 20px;
             animation: slideUp 0.6s ease-out;
+        }
+
+        /* Session Timer Display */
+        .session-timer {
+            position: fixed;
+            bottom: 70px; /* Adjusted for bottom running text */
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .session-timer:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timer-icon {
+            color: var(--secondary-color);
+        }
+
+        .timer-text {
+            color: var(--dark-color);
         }
 
         header {
@@ -201,31 +662,6 @@
             right: 0;
             height: 4px;
             background: linear-gradient(to right, var(--secondary-color), #f1c40f);
-        }
-
-        .logout-btn {
-            position: absolute;
-            right: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: var(--transition);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-50%) scale(1.05);
         }
 
         h1 {
@@ -354,7 +790,7 @@
             color: var(--primary-color);
         }
 
-        /* Color variations for icons */
+        /* Daily Report Colors - ORIGINAL COLORS */
         .daily-1 { color: #e74c3c; }
         .daily-2 { color: #3498db; }
         .daily-3 { color: #2ecc71; }
@@ -371,11 +807,13 @@
         .daily-14 { color: #3498db; }
         .daily-15 { color: #9b59b6; }
 
+        /* Weekly Report Colors */
         .weekly-1 { color: #e67e22; }
         .weekly-2 { color: #16a085; }
         .weekly-3 { color: #c0392b; }
         .weekly-4 { color: #8e44ad; }
 
+        /* Monthly Report Colors */
         .monthly-1 { color: #3498db; }
         .monthly-2 { color: #2ecc71; }
         .monthly-3 { color: #f1c40f; }
@@ -385,6 +823,7 @@
         .monthly-7 { color: #d35400; }
         .monthly-8 { color: #27ae60; }
 
+        /* Project Report Colors */
         .project-1 { color: #9b59b6; }
         .project-2 { color: #1abc9c; }
         .project-3 { color: #d35400; }
@@ -392,6 +831,7 @@
         .project-5 { color: #e74c3c; }
         .project-6 { color: #2980b9; }
 
+        /* App Report Colors */
         .app-1 { color: #3498db; }
         .app-2 { color: #2ecc71; }
         .app-3 { color: #e74c3c; }
@@ -405,9 +845,14 @@
         .app-11 { color: #2ecc71; }
 
         /* Animations */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideUp {
@@ -423,8 +868,14 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes countdownPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         /* Responsive Design */
@@ -444,16 +895,6 @@
                 font-size: 0.9rem;
             }
 
-            .logout-btn {
-                position: relative;
-                right: 0;
-                top: 0;
-                transform: none;
-                margin-top: 15px;
-                display: inline-flex;
-                justify-content: center;
-            }
-
             header {
                 padding: 25px 20px;
                 text-align: center;
@@ -469,6 +910,64 @@
 
             .login-title {
                 font-size: 1.8rem;
+            }
+
+            .session-timer {
+                bottom: 60px;
+                right: 10px;
+                left: 10px;
+                justify-content: center;
+            }
+
+            .warning-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .warning-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .running-text-container {
+                padding: 8px 0;
+            }
+
+            .reminder-item {
+                margin-right: 30px;
+                padding: 4px 12px;
+            }
+
+            .reminder-text {
+                font-size: 0.8rem;
+            }
+
+            .settings-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .settings-menu {
+                min-width: 180px;
+            }
+
+            .editor-content {
+                padding: 20px;
+            }
+
+            .reminder-editor-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .reminder-inputs {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .reminder-type-select {
+                width: 100%;
             }
         }
 
@@ -487,10 +986,104 @@
             .login-logo {
                 font-size: 2.8rem;
             }
+
+            .running-text-container {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Running Text Reminder - MOVED TO BOTTOM -->
+    <div class="running-text-container" id="runningTextContainer">
+        <div class="running-text-content" id="runningTextContent">
+            <!-- Reminders will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Settings Dropdown Menu (Gear Icon) -->
+    <div class="settings-dropdown" id="settingsDropdown">
+        <button class="settings-toggle" id="settingsToggle">
+            <i class="fas fa-cog"></i>
+        </button>
+        <div class="settings-menu" id="settingsMenu">
+            <button class="settings-item" id="editRemindersBtn">
+                <i class="fas fa-edit"></i> Edit Reminders
+            </button>
+            <button class="settings-item" id="pauseRunningTextBtn">
+                <i class="fas fa-pause"></i> Pause Reminders
+            </button>
+            <button class="settings-item" id="resumeRunningTextBtn">
+                <i class="fas fa-play"></i> Resume Reminders
+            </button>
+            <button class="settings-item" id="hideRunningTextBtn">
+                <i class="fas fa-eye-slash"></i> Hide Reminders
+            </button>
+            <button class="settings-item" id="showRunningTextBtn">
+                <i class="fas fa-eye"></i> Show Reminders
+            </button>
+            <div style="height: 1px; background: #e0e0e0; margin: 5px 0;"></div>
+            <button class="settings-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Reminder Editor Modal -->
+    <div class="reminder-editor-modal" id="reminderEditorModal">
+        <div class="editor-content">
+            <div class="editor-header">
+                <h2 class="editor-title">Edit Running Text Reminders</h2>
+                <button class="close-editor" id="closeEditor">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="reminder-list" id="reminderEditorList">
+                <!-- Reminder items will be dynamically added here -->
+            </div>
+            
+            <div class="editor-actions">
+                <button class="editor-btn add-reminder-btn" id="addReminderBtn">
+                    <i class="fas fa-plus"></i> Add New Reminder
+                </button>
+                <div>
+                    <button class="editor-btn cancel-btn" id="cancelEditBtn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="editor-btn save-btn" id="saveRemindersBtn">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Warning Modal - SHOWS AT 1 MINUTE LEFT -->
+    <div class="session-warning" id="sessionWarning">
+        <div class="warning-content">
+            <div class="warning-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h2 class="warning-title">Session Timeout Warning</h2>
+            <p class="warning-message">
+                Your session will expire due to inactivity. You will be automatically logged out in:
+            </p>
+            <div class="countdown" id="countdown">60</div>
+            <p class="warning-message">
+                Click "Stay Logged In" to continue your session.
+            </p>
+            <div class="warning-actions">
+                <button class="warning-btn stay-logged-btn" id="stayLoggedBtn">
+                    <i class="fas fa-check-circle"></i> Stay Logged In
+                </button>
+                <button class="warning-btn logout-btn-warning" id="logoutNowBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout Now
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Login Form -->
     <div class="login-container" id="loginContainer">
         <div class="login-logo">
@@ -515,8 +1108,17 @@
         </form>
         
         <div style="margin-top: 30px; font-size: 0.85rem; color: var(--gray-color);">
-            <p><i class="fas fa-info-circle"></i>update : <strong>v1.0126</strong></p>
+            <p><i class="fas fa-info-circle"></i> Use password: <strong>hokben2026</strong></p>
+            <p style="margin-top: 10px; font-size: 0.75rem;">
+                <i class="fas fa-shield-alt"></i> Session will timeout after 15 minutes of inactivity
+            </p>
         </div>
+    </div>
+
+    <!-- Session Timer Display -->
+    <div class="session-timer" id="sessionTimer">
+        <i class="fas fa-clock timer-icon"></i>
+        <span class="timer-text">Session expires in: <span id="timerDisplay">15:00</span></span>
     </div>
 
     <!-- Dashboard -->
@@ -524,9 +1126,6 @@
         <header>
             <h1>Report Dashboard 2026</h1>
             <p class="welcome-text">Access all your reports and analytics in one place</p>
-            <button class="logout-btn" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
         </header>
 
         <div class="tabs">
@@ -721,20 +1320,97 @@
     </div>
 
     <script>
-        // Password yang valid (satu password untuk semua user)
-        const VALID_PASSWORD = "8070";
+        // Password yang valid
+        const VALID_PASSWORD = "hokben2026";
         
+        // Session timeout settings (dalam menit)
+        const SESSION_TIMEOUT = 15;
+        const WARNING_TIME = 1; // Warning muncul saat sisa 1 menit
+        
+        let sessionTimer;
+        let warningTimer;
+        let logoutTimer;
+        let lastActivityTime;
+        let isWarningActive = false;
+        
+        // Running text settings
+        let isRunningTextPaused = false;
+        let runningTextSpeed = 30; // seconds for full cycle
+        let currentReminders = [];
+
+        // Reminder data - EDITABLE
+        let reminders = JSON.parse(localStorage.getItem('dashboardReminders')) || [
+            { 
+                text: "⚠️ Deadline Laporan Bulanan: 5 hari lagi!", 
+                icon: "fas fa-calendar-exclamation",
+                type: "urgent"
+            },
+            { 
+                text: "📊 Jangan lupa update sales report setiap jam 12:00", 
+                icon: "fas fa-chart-line",
+                type: "important"
+            },
+            { 
+                text: "✅ QA Index harus di-submit sebelum Jumat jam 15:00", 
+                icon: "fas fa-clipboard-check",
+                type: "info"
+            },
+            { 
+                text: "🔔 Modal TMS harus diverifikasi setiap hari", 
+                icon: "fas fa-money-check-alt",
+                type: "warning"
+            },
+            { 
+                text: "📋 Monitoring DOI Area 2 perlu diperbarui harian", 
+                icon: "fas fa-boxes",
+                type: "info"
+            },
+            { 
+                text: "🚨 Pest Control report due setiap Senin", 
+                icon: "fas fa-bug",
+                type: "urgent"
+            }
+        ];
+
+        // Icon mapping for reminder types
+        const reminderIcons = {
+            "urgent": "fas fa-exclamation-circle",
+            "important": "fas fa-exclamation-triangle",
+            "info": "fas fa-info-circle",
+            "warning": "fas fa-bell",
+            "success": "fas fa-check-circle"
+        };
+
         // Cek jika user sudah login sebelumnya
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             
             if (isLoggedIn === 'true') {
                 showDashboard();
+                resetSessionTimer();
+                startRunningText();
             }
             
-            // Tab functionality
-            const tabBtns = document.querySelectorAll('.tab-btn');
+            // Setup tab functionality
+            setupTabs();
+            
+            // Auto focus pada input password
+            document.getElementById('password').focus();
+            
+            // Setup event listeners untuk mendeteksi aktivitas
+            setupActivityListeners();
+            
+            // Setup settings dropdown
+            setupSettingsDropdown();
+            
+            // Setup reminder editor
+            setupReminderEditor();
+        });
 
+        // Setup tab functionality
+        function setupTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Remove active class from all buttons and content
@@ -747,12 +1423,380 @@
                     // Show corresponding content
                     const tabId = this.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
+                    
+                    // Reset timer karena ada aktivitas
+                    resetSessionTimer();
                 });
             });
+        }
+
+        // Setup activity listeners
+        function setupActivityListeners() {
+            const activityEvents = ['mousemove', 'keypress', 'click', 'scroll', 'touchstart'];
             
-            // Auto focus pada input password
-            document.getElementById('password').focus();
-        });
+            activityEvents.forEach(event => {
+                document.addEventListener(event, function() {
+                    if (localStorage.getItem('isLoggedIn') === 'true') {
+                        resetSessionTimer();
+                    }
+                });
+            });
+        }
+
+        // Setup settings dropdown
+        function setupSettingsDropdown() {
+            const settingsToggle = document.getElementById('settingsToggle');
+            const settingsMenu = document.getElementById('settingsMenu');
+            
+            // Toggle menu
+            settingsToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                settingsMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function() {
+                settingsMenu.classList.remove('active');
+            });
+            
+            // Prevent menu from closing when clicking inside
+            settingsMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Setup menu item actions
+            document.getElementById('editRemindersBtn').addEventListener('click', openReminderEditor);
+            document.getElementById('pauseRunningTextBtn').addEventListener('click', pauseRunningText);
+            document.getElementById('resumeRunningTextBtn').addEventListener('click', resumeRunningText);
+            document.getElementById('hideRunningTextBtn').addEventListener('click', hideRunningText);
+            document.getElementById('showRunningTextBtn').addEventListener('click', showRunningText);
+            document.getElementById('logoutBtn').addEventListener('click', performLogout);
+        }
+
+        // Setup reminder editor
+        function setupReminderEditor() {
+            // Close editor
+            document.getElementById('closeEditor').addEventListener('click', closeReminderEditor);
+            document.getElementById('cancelEditBtn').addEventListener('click', closeReminderEditor);
+            
+            // Save reminders
+            document.getElementById('saveRemindersBtn').addEventListener('click', saveReminders);
+            
+            // Add new reminder
+            document.getElementById('addReminderBtn').addEventListener('click', addNewReminder);
+            
+            // Close modal when clicking outside
+            document.getElementById('reminderEditorModal').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeReminderEditor();
+                }
+            });
+        }
+
+        // Open reminder editor
+        function openReminderEditor() {
+            const modal = document.getElementById('reminderEditorModal');
+            const list = document.getElementById('reminderEditorList');
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
+            
+            // Clear existing list
+            list.innerHTML = '';
+            
+            // Add each reminder to editor
+            reminders.forEach((reminder, index) => {
+                const item = createReminderEditorItem(reminder, index);
+                list.appendChild(item);
+            });
+            
+            // Show modal
+            modal.style.display = 'flex';
+        }
+
+        // Create reminder editor item
+        function createReminderEditorItem(reminder, index) {
+            const item = document.createElement('div');
+            item.className = 'reminder-editor-item';
+            item.dataset.index = index;
+            
+            item.innerHTML = `
+                <div class="reminder-inputs">
+                    <input type="text" class="reminder-input reminder-text-input" 
+                           value="${reminder.text}" placeholder="Reminder text">
+                    
+                    <select class="reminder-type-select reminder-type-input">
+                        <option value="urgent" ${reminder.type === 'urgent' ? 'selected' : ''}>⚠️ Urgent</option>
+                        <option value="important" ${reminder.type === 'important' ? 'selected' : ''}>📊 Important</option>
+                        <option value="info" ${reminder.type === 'info' ? 'selected' : ''}>✅ Info</option>
+                        <option value="warning" ${reminder.type === 'warning' ? 'selected' : ''}>🔔 Warning</option>
+                        <option value="success" ${reminder.type === 'success' ? 'selected' : ''}>💡 Success</option>
+                    </select>
+                </div>
+                
+                <button class="delete-reminder-btn" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            
+            // Add delete event listener
+            const deleteBtn = item.querySelector('.delete-reminder-btn');
+            deleteBtn.addEventListener('click', function() {
+                deleteReminder(index);
+            });
+            
+            return item;
+        }
+
+        // Add new reminder
+        function addNewReminder() {
+            const newReminder = {
+                text: "New reminder - click to edit",
+                icon: "fas fa-info-circle",
+                type: "info"
+            };
+            
+            reminders.push(newReminder);
+            
+            // Update editor list
+            const list = document.getElementById('reminderEditorList');
+            const item = createReminderEditorItem(newReminder, reminders.length - 1);
+            list.appendChild(item);
+            
+            // Scroll to new item
+            item.scrollIntoView({ behavior: 'smooth' });
+            
+            // Focus on new input
+            const input = item.querySelector('.reminder-text-input');
+            input.focus();
+            input.select();
+        }
+
+        // Delete reminder
+        function deleteReminder(index) {
+            if (reminders.length <= 1) {
+                showNotification("Cannot delete the last reminder", "warning");
+                return;
+            }
+            
+            if (confirm("Are you sure you want to delete this reminder?")) {
+                reminders.splice(index, 1);
+                
+                // Update editor list
+                const list = document.getElementById('reminderEditorList');
+                list.innerHTML = '';
+                
+                reminders.forEach((reminder, newIndex) => {
+                    const item = createReminderEditorItem(reminder, newIndex);
+                    list.appendChild(item);
+                });
+                
+                showNotification("Reminder deleted", "success");
+            }
+        }
+
+        // Save reminders
+        function saveReminders() {
+            const items = document.querySelectorAll('.reminder-editor-item');
+            
+            // Update reminders from editor
+            const updatedReminders = [];
+            
+            items.forEach(item => {
+                const textInput = item.querySelector('.reminder-text-input');
+                const typeInput = item.querySelector('.reminder-type-select');
+                
+                if (textInput.value.trim() !== "") {
+                    updatedReminders.push({
+                        text: textInput.value.trim(),
+                        icon: reminderIcons[typeInput.value],
+                        type: typeInput.value
+                    });
+                }
+            });
+            
+            // Validate
+            if (updatedReminders.length === 0) {
+                showNotification("Please add at least one reminder", "warning");
+                return;
+            }
+            
+            // Save to local storage
+            reminders = updatedReminders;
+            localStorage.setItem('dashboardReminders', JSON.stringify(reminders));
+            
+            // Update running text
+            updateRunningText();
+            
+            // Close editor
+            closeReminderEditor();
+            
+            showNotification("Reminders saved successfully", "success");
+        }
+
+        // Close reminder editor
+        function closeReminderEditor() {
+            document.getElementById('reminderEditorModal').style.display = 'none';
+        }
+
+        // Update running text with current reminders
+        function updateRunningText() {
+            const container = document.getElementById('runningTextContainer');
+            const content = document.getElementById('runningTextContent');
+            
+            // Clear existing content
+            content.innerHTML = '';
+            
+            // Create duplicate reminders for seamless loop
+            const duplicateReminders = [...reminders, ...reminders];
+            
+            // Add reminders to running text
+            duplicateReminders.forEach((reminder, index) => {
+                const reminderElement = document.createElement('div');
+                reminderElement.className = 'reminder-item';
+                reminderElement.innerHTML = `
+                    <i class="${reminder.icon} reminder-icon ${reminder.type}"></i>
+                    <span class="reminder-text">${reminder.text}</span>
+                `;
+                content.appendChild(reminderElement);
+            });
+            
+            // Set animation speed
+            content.style.animationDuration = `${runningTextSpeed}s`;
+            
+            // Store current reminders
+            currentReminders = duplicateReminders;
+        }
+
+        // Start running text
+        function startRunningText() {
+            const container = document.getElementById('runningTextContainer');
+            const settingsToggle = document.getElementById('settingsToggle');
+            
+            // Show container and settings toggle
+            container.style.display = 'block';
+            settingsToggle.style.display = 'flex';
+            
+            updateRunningText();
+        }
+
+        // Pause running text
+        function pauseRunningText() {
+            const content = document.getElementById('runningTextContent');
+            content.style.animationPlayState = 'paused';
+            isRunningTextPaused = true;
+            
+            // Update button text
+            document.getElementById('pauseRunningTextBtn').style.display = 'none';
+            document.getElementById('resumeRunningTextBtn').style.display = 'flex';
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
+            
+            showNotification('Running text paused', 'info');
+        }
+
+        // Resume running text
+        function resumeRunningText() {
+            const content = document.getElementById('runningTextContent');
+            content.style.animationPlayState = 'running';
+            isRunningTextPaused = false;
+            
+            // Update button text
+            document.getElementById('resumeRunningTextBtn').style.display = 'none';
+            document.getElementById('pauseRunningTextBtn').style.display = 'flex';
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
+            
+            showNotification('Running text resumed', 'success');
+        }
+
+        // Hide running text
+        function hideRunningText() {
+            const container = document.getElementById('runningTextContainer');
+            container.style.display = 'none';
+            
+            // Update button text
+            document.getElementById('hideRunningTextBtn').style.display = 'none';
+            document.getElementById('showRunningTextBtn').style.display = 'flex';
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
+            
+            showNotification('Running text hidden', 'warning');
+        }
+
+        // Show running text
+        function showRunningText() {
+            const container = document.getElementById('runningTextContainer');
+            container.style.display = 'block';
+            
+            // Update button text
+            document.getElementById('showRunningTextBtn').style.display = 'none';
+            document.getElementById('hideRunningTextBtn').style.display = 'flex';
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
+            
+            showNotification('Running text shown', 'success');
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${getNotificationColor(type)};
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 10px;
+                    box-shadow: var(--shadow);
+                    z-index: 1000;
+                    animation: slideUp 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    max-width: 300px;
+                ">
+                    <i class="fas fa-${getNotificationIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Get notification color by type
+        function getNotificationColor(type) {
+            const colors = {
+                'success': '#27ae60',
+                'error': '#e74c3c',
+                'warning': '#f39c12',
+                'info': '#3498db'
+            };
+            return colors[type] || '#3498db';
+        }
+
+        // Get notification icon by type
+        function getNotificationIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'exclamation-circle',
+                'warning': 'exclamation-triangle',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
 
         // Login form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -774,34 +1818,234 @@
                 
                 setTimeout(() => {
                     showDashboard();
+                    resetSessionTimer();
+                    startRunningText();
                 }, 400);
                 
             } else {
-                errorElement.style.display = 'block';
-                // Shake animation for error
-                document.getElementById('loginForm').style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    document.getElementById('loginForm').style.animation = '';
-                }, 500);
-                
-                // Highlight password field
-                document.getElementById('password').style.borderColor = '#e74c3c';
-                document.getElementById('password').style.boxShadow = '0 0 0 4px rgba(231, 76, 60, 0.15)';
-                setTimeout(() => {
-                    document.getElementById('password').style.borderColor = '';
-                    document.getElementById('password').style.boxShadow = '';
-                }, 2000);
-                
-                // Clear password field
-                document.getElementById('password').value = '';
-                document.getElementById('password').focus();
+                showLoginError(errorElement);
             }
         });
 
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', function() {
+        // Show login error
+        function showLoginError(errorElement) {
+            errorElement.style.display = 'block';
+            // Shake animation for error
+            document.getElementById('loginForm').style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                document.getElementById('loginForm').style.animation = '';
+            }, 500);
+            
+            // Highlight password field
+            const passwordInput = document.getElementById('password');
+            passwordInput.style.borderColor = '#e74c3c';
+            passwordInput.style.boxShadow = '0 0 0 4px rgba(231, 76, 60, 0.15)';
+            setTimeout(() => {
+                passwordInput.style.borderColor = '';
+                passwordInput.style.boxShadow = '';
+            }, 2000);
+            
+            // Clear password field
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+
+        // Reset session timer
+        function resetSessionTimer() {
+            // Clear existing timers
+            clearTimeout(sessionTimer);
+            clearTimeout(warningTimer);
+            clearTimeout(logoutTimer);
+            
+            // Reset warning state
+            isWarningActive = false;
+            
+            // Hide warning modal
+            document.getElementById('sessionWarning').style.display = 'none';
+            
+            // Update last activity time
+            lastActivityTime = Date.now();
+            
+            // Start new session timer
+            const warningTimeMs = (SESSION_TIMEOUT - WARNING_TIME) * 60 * 1000;
+            const logoutTimeMs = SESSION_TIMEOUT * 60 * 1000;
+            
+            // Set warning timer (muncul saat sisa 1 menit)
+            warningTimer = setTimeout(showSessionWarning, warningTimeMs);
+            
+            // Set logout timer
+            logoutTimer = setTimeout(logoutDueToInactivity, logoutTimeMs);
+            
+            // Update timer display
+            updateTimerDisplay();
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const timerDisplay = document.getElementById('timerDisplay');
+            const sessionTimerElement = document.getElementById('sessionTimer');
+            
+            if (!timerDisplay) return;
+            
+            // Show timer
+            sessionTimerElement.style.display = 'flex';
+            
+            // Update every second
+            const timerInterval = setInterval(() => {
+                if (localStorage.getItem('isLoggedIn') !== 'true') {
+                    clearInterval(timerInterval);
+                    sessionTimerElement.style.display = 'none';
+                    return;
+                }
+                
+                const now = Date.now();
+                const elapsed = now - lastActivityTime;
+                const remaining = (SESSION_TIMEOUT * 60 * 1000) - elapsed;
+                
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    sessionTimerElement.style.display = 'none';
+                    return;
+                }
+                
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Show timer when warning time approaches (1 menit)
+                if (remaining <= WARNING_TIME * 60 * 1000) {
+                    timerDisplay.style.color = 'var(--danger-color)';
+                    timerDisplay.style.animation = 'countdownPulse 1s infinite';
+                    sessionTimerElement.style.display = 'flex';
+                } else {
+                    timerDisplay.style.color = 'var(--dark-color)';
+                    timerDisplay.style.animation = '';
+                    // Hide timer if more than 1 minute left
+                    if (remaining > (WARNING_TIME + 1) * 60 * 1000) {
+                        sessionTimerElement.style.display = 'none';
+                    }
+                }
+            }, 1000);
+        }
+
+        // Show session warning (muncul saat sisa 1 menit)
+        function showSessionWarning() {
+            if (isWarningActive) return;
+            
+            isWarningActive = true;
+            const warningModal = document.getElementById('sessionWarning');
+            const countdownElement = document.getElementById('countdown');
+            
+            // Show modal
+            warningModal.style.display = 'flex';
+            
+            // Start countdown from 60 seconds
+            let countdown = WARNING_TIME * 60;
+            countdownElement.textContent = countdown;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    logoutDueToInactivity();
+                }
+                
+                // Update animation based on remaining time
+                if (countdown <= 10) {
+                    countdownElement.style.animation = 'pulse 0.5s infinite';
+                    countdownElement.style.color = 'var(--danger-color)';
+                }
+            }, 1000);
+            
+            // Store interval ID to clear if user takes action
+            window.warningCountdownInterval = countdownInterval;
+        }
+
+        // Logout due to inactivity
+        function logoutDueToInactivity() {
+            // Clear any existing intervals
+            if (window.warningCountdownInterval) {
+                clearInterval(window.warningCountdownInterval);
+            }
+            
             // Clear login status
             localStorage.removeItem('isLoggedIn');
+            
+            // Stop running text
+            document.getElementById('runningTextContainer').style.display = 'none';
+            document.getElementById('settingsToggle').style.display = 'none';
+            
+            // Show logout notification
+            showLogoutNotification();
+            
+            // Hide dashboard and show login
+            setTimeout(() => {
+                document.getElementById('dashboardContainer').style.display = 'none';
+                document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('sessionTimer').style.display = 'none';
+                
+                // Reset form dan fokus
+                document.getElementById('loginForm').reset();
+                document.getElementById('password').focus();
+                
+                // Reset animations
+                document.getElementById('loginContainer').style.animation = 'fadeIn 0.6s ease-out';
+            }, 2000);
+        }
+
+        // Show logout notification
+        function showLogoutNotification() {
+            showNotification('Logged out due to inactivity', 'warning');
+        }
+
+        // Stay logged in button
+        document.getElementById('stayLoggedBtn').addEventListener('click', function() {
+            // Clear warning countdown
+            if (window.warningCountdownInterval) {
+                clearInterval(window.warningCountdownInterval);
+            }
+            
+            // Hide warning modal
+            document.getElementById('sessionWarning').style.display = 'none';
+            
+            // Reset session timer
+            resetSessionTimer();
+        });
+
+        // Logout now button (from warning modal)
+        document.getElementById('logoutNowBtn').addEventListener('click', function() {
+            // Clear timers
+            clearTimeout(warningTimer);
+            clearTimeout(logoutTimer);
+            
+            // Clear warning countdown
+            if (window.warningCountdownInterval) {
+                clearInterval(window.warningCountdownInterval);
+            }
+            
+            // Perform logout
+            performLogout();
+        });
+
+        // Perform logout
+        function performLogout() {
+            // Clear login status
+            localStorage.removeItem('isLoggedIn');
+            
+            // Clear timers
+            clearTimeout(sessionTimer);
+            clearTimeout(warningTimer);
+            clearTimeout(logoutTimer);
+            
+            // Stop running text
+            document.getElementById('runningTextContainer').style.display = 'none';
+            document.getElementById('settingsToggle').style.display = 'none';
+            
+            // Close settings menu
+            document.getElementById('settingsMenu').classList.remove('active');
             
             // Add logout animation
             document.getElementById('dashboardContainer').style.animation = 'slideUp 0.4s reverse forwards';
@@ -810,6 +2054,7 @@
                 // Hide dashboard and show login
                 document.getElementById('dashboardContainer').style.display = 'none';
                 document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('sessionTimer').style.display = 'none';
                 
                 // Reset form dan fokus
                 document.getElementById('loginForm').reset();
@@ -817,9 +2062,8 @@
                 
                 // Reset animations
                 document.getElementById('loginContainer').style.animation = 'fadeIn 0.6s ease-out';
-                document.getElementById('dashboardContainer').style.animation = '';
             }, 400);
-        });
+        }
 
         // Function to show dashboard
         function showDashboard() {
@@ -840,6 +2084,10 @@
         
         // Hint untuk password (untuk pengembangan)
         console.log('Password untuk login: hokben2026');
+        console.log('Session timeout: ' + SESSION_TIMEOUT + ' menit');
+        console.log('Warning muncul saat sisa: ' + WARNING_TIME + ' menit');
+        console.log('Running text dengan ' + reminders.length + ' reminder');
+        console.log('Reminders disimpan di localStorage sebagai "dashboardReminders"');
     </script>
 </body>
 </html>
