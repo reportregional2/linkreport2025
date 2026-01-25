@@ -1108,18 +1108,18 @@
         </form>
         
         <div style="margin-top: 30px; font-size: 0.85rem; color: var(--gray-color);">
-            <p><i class="fas fa-info-circle"></i> Use password: <strong>hokben2026</strong></p>
+            <p><i class="fas fa-info-circle"></i> Update Version: <strong>v 2.126</strong></p>
             <p style="margin-top: 10px; font-size: 0.75rem;">
                 <i class="fas fa-shield-alt"></i> Session will timeout after 15 minutes of inactivity
             </p>
         </div>
     </div>
 
-    <!-- Session Timer Display -->
+    <!-- Session Timer Display 
     <div class="session-timer" id="sessionTimer">
         <i class="fas fa-clock timer-icon"></i>
         <span class="timer-text">Session expires in: <span id="timerDisplay">15:00</span></span>
-    </div>
+    </div>-->
 
     <!-- Dashboard -->
     <div class="dashboard-container" id="dashboardContainer">
@@ -1321,7 +1321,7 @@
 
     <script>
         // Password yang valid
-        const VALID_PASSWORD = "hokben2026";
+        const VALID_PASSWORD = "8070";
         
         // Session timeout settings (dalam menit)
         const SESSION_TIMEOUT = 15;
@@ -1341,17 +1341,17 @@
         // Reminder data - EDITABLE
         let reminders = JSON.parse(localStorage.getItem('dashboardReminders')) || [
             { 
-                text: "⚠️ Deadline Laporan Bulanan: 5 hari lagi!", 
+                text: "⚠️ DOI /LPB harian diisi setiap hari max jam 9 pagi!", 
                 icon: "fas fa-calendar-exclamation",
                 type: "urgent"
             },
             { 
-                text: "📊 Jangan lupa update sales report setiap jam 12:00", 
+                text: "📊 Jangan lupa update sales report setiap jam 9:00 pagi", 
                 icon: "fas fa-chart-line",
                 type: "important"
             },
             { 
-                text: "✅ QA Index harus di-submit sebelum Jumat jam 15:00", 
+                text: "✅ QA Index harus di-submit di setiap hari", 
                 icon: "fas fa-clipboard-check",
                 type: "info"
             },
@@ -1366,7 +1366,7 @@
                 type: "info"
             },
             { 
-                text: "🚨 Pest Control report due setiap Senin", 
+                text: "🚨 Pest Control report due setiap hari", 
                 icon: "fas fa-bug",
                 type: "urgent"
             }
@@ -2083,7 +2083,7 @@
         });
         
         // Hint untuk password (untuk pengembangan)
-        console.log('Password untuk login: hokben2026');
+        console.log('Password untuk login: 8070');
         console.log('Session timeout: ' + SESSION_TIMEOUT + ' menit');
         console.log('Warning muncul saat sisa: ' + WARNING_TIME + ' menit');
         console.log('Running text dengan ' + reminders.length + ' reminder');
