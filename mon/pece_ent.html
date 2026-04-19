@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Crew Enthusiasm Calendar - HB Ruko Pecenongan</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fef7e8;
+            font-family: 'Inter', sans-serif;
+            padding: 30px 24px 50px;
+            color: #2c2418;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header area */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            gap: 20px;
+            border-bottom: 2px solid #ffc17a;
+            padding-bottom: 18px;
+        }
+        .title-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #c2461b, #e67e22);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .title-section p {
+            color: #b45f2b;
+            font-weight: 500;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .badge-month {
+            background: #fff0e0;
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b64926;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .stats-panel {
+            background: white;
+            border-radius: 28px;
+            padding: 12px 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(2px);
+            border: 1px solid #ffe2bf;
+        }
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .stat-icon {
+            font-size: 1.9rem;
+        }
+        .stat-info h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a47e5c;
+        }
+        .stat-info .value {
+            font-weight: 800;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: #c75c2e;
+        }
+
+        /* controls: filter crew & legend */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 28px 0 24px;
+            gap: 15px;
+        }
+        .crew-filter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid #ffe1bc;
+        }
+        .crew-filter label {
+            font-weight: 600;
+            color: #794f2c;
+        }
+        .crew-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .crew-btn {
+            background: #f5ede4;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #5a3e28;
+            font-family: inherit;
+        }
+        .crew-btn.active {
+            background: #e67e22;
+            color: white;
+            box-shadow: 0 2px 8px rgba(230,126,34,0.3);
+        }
+        .crew-btn:hover:not(.active) {
+            background: #ffddb0;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #ffdbb5;
+        }
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .level-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .level-high { background: #2b9348; box-shadow: 0 0 0 1px #c8e6d9; }
+        .level-mid { background: #f4a261; }
+        .level-low { background: #e76f51; }
+        .level-none { background: #cfb797; }
+
+        /* table kalender utama */
+        .calendar-wrapper {
+            overflow-x: auto;
+            border-radius: 28px;
+            background: white;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            border: 1px solid #ffddb0;
+        }
+        .enthusiasm-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 800px;
+        }
+        .enthusiasm-table th {
+            background: #fce9d4;
+            padding: 16px 10px;
+            font-weight: 700;
+            color: #9b4a1a;
+            font-size: 0.85rem;
+            border-bottom: 2px solid #ffd09c;
+            text-align: center;
+        }
+        .enthusiasm-table td {
+            padding: 12px 6px;
+            text-align: center;
+            border-bottom: 1px solid #f8e5d4;
+            vertical-align: middle;
+            transition: background 0.1s;
+        }
+        .crew-name-cell {
+            font-weight: 700;
+            background-color: #fffaf4;
+            position: sticky;
+            left: 0;
+            background: #fff9f2;
+            border-right: 2px solid #ffd8b0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .crew-name-cell i {
+            margin-right: 8px;
+            color: #d17e3b;
+            width: 22px;
+        }
+        .enth-cell {
+            cursor: pointer;
+            transition: transform 0.05s linear;
+        }
+        .enth-cell:hover {
+            transform: scale(0.96);
+            background: #fff2e2;
+        }
+        /* enthusiasm level styling */
+        .enth-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #f7f1ea;
+            padding: 6px 10px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            min-width: 75px;
+            transition: all 0.1s;
+        }
+        .level-high-bg {
+            background: #d9f0e1;
+            color: #1f6e3c;
+            border-left: 3px solid #2b9348;
+        }
+        .level-mid-bg {
+            background: #ffe1bd;
+            color: #b4521a;
+            border-left: 3px solid #f4a261;
+        }
+        .level-low-bg {
+            background: #ffe0d6;
+            color: #bc4e2c;
+            border-left: 3px solid #e76f51;
+        }
+        .level-none-bg {
+            background: #ede3d6;
+            color: #8b694a;
+            border-left: 3px solid #cfb797;
+        }
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #b28253;
+            background: #fff4e9;
+            padding: 12px;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
+        }
+        button, .crew-btn {
+            user-select: none;
+        }
+        i.fa, i.far, i.fas {
+            pointer-events: none;
+        }
+        @media (max-width: 700px) {
+            body { padding: 20px 16px; }
+            .stats-panel { padding: 8px 18px; gap: 16px; }
+            .stat-info .value { font-size: 1.3rem; }
+            .title-section h1 { font-size: 1.5rem; }
+            .enth-badge { min-width: 65px; padding: 4px 8px; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title-section">
+            <h1><i class="fas fa-calendar-alt" style="color:#e67e22;"></i> Crew Enthusiasm Calendar</h1>
+            <p>HokBen Ruko Pecenongan • <span class="badge-month"><i class="far fa-calendar-check"></i> April 2026</span> 
+                <i class="fas fa-utensils" style="margin-left: 6px;"></i> Semangat tim adalah resep utama!
+            </p>
+        </div>
+        <div class="stats-panel" id="statsPanel">
+            <!-- dynamic stats diisi js -->
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="crew-filter">
+            <label><i class="fas fa-users"></i> Filter Crew:</label>
+            <div class="crew-buttons" id="crewFilterButtons">
+                <button data-crew="all" class="crew-btn active">Semua Tim</button>
+            </div>
+        </div>
+        <div class="legend">
+            <span><i class="fas fa-fire" style="color:#2b9348;"></i> High (85-100)</span>
+            <span><i class="fas fa-smile" style="color:#f4a261;"></i> Mid (60-84)</span>
+            <span><i class="fas fa-tired" style="color:#e76f51;"></i> Low (0-59)</span>
+            <span><i class="fas fa-question-circle" style="color:#cfb797;"></i> Absen/Off</span>
+        </div>
+    </div>
+
+    <div class="calendar-wrapper">
+        <table class="enthusiasm-table" id="enthusiasmTable">
+            <thead id="tableHead">
+                <tr>
+                    <th>Crew / Tanggal</th>
+                    <!-- header tanggal akan di generate js -->
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- crew rows akan di generate via js -->
+            </tbody>
+        </table>
+    </div>
+    <div class="footer-note">
+        <i class="fas fa-info-circle"></i> Klik pada nilai semangat untuk ubah level (High/Mid/Low/Off) — update realtime, mencerminkan apresiasi harian!
+    </div>
+</div>
+
+<script>
+    // ========== DATA CREW (LENGKAP DENGAN ICON YANG SESUAI) ==========
+    const crewList = [
+        { id: 1, name: "Dimas", role: "Store Manager", icon: "fa-user-tie" },
+        { id: 2, name: "Septian", role: "Supervisor", icon: "fa-male" },
+        { id: 3, name: "Dedy", role: "Supervisor", icon: "fa-male" },
+        { id: 4, name: "Addie", role: "Crew Leader", icon: "fa-crown" },
+        { id: 5, name: "Raffi", role: "TMBS 1", icon: "fa-chef-hat" },
+        { id: 6, name: "Dani", role: "TMBS 2", icon: "fa-chef" },
+        { id: 7, name: "Noval", role: "TMBS 3", icon: "fa-boxes" },
+        { id: 8, name: "Nami", role: "TMBS 4", icon: "fa-cash-register" },
+        { id: 9, name: "Eka", role: "TMBS 5", icon: "fa-coins" },
+        { id: 10, name: "Mario", role: "TMBS 6", icon: "fa-box" },
+        { id: 11, name: "Fikri", role: "TMBS 7", icon: "fa-shipping-fast" },
+        { id: 12, name: "Fitrah", role: "TMBS 8", icon: "fa-kitchen-set" },
+        { id: 13, name: "Avinas", role: "TMBS 9", icon: "fa-blender" },
+        { id: 14, name: "Habibi", role: "TMBS 10", icon: "fa-door-open" },
+        { id: 15, name: "Wildan", role: "TMBS 11", icon: "fa-concierge-bell" },
+        { id: 16, name: "Nur", role: "TMBS 12", icon: "fa-clipboard-list" },
+        { id: 17, name: "Rafael", role: "TMBS 13", icon: "fa-pen-alt" }
+        { id: 18, name: "Anwar", role: "TMBS 13", icon: "fa-pen-alt" }
+    ];
+
+    // tanggal untuk April 2026 (1-30)
+    const daysInApril = 30;
+    const currentMonthYear = "April 2026";
+    const daysArray = Array.from({ length: daysInApril }, (_, i) => i + 1);
+
+    // enthusiasm data: enthusiasmData[crewId][day] = number (1-100) or null
+    let enthusiasmData = {};
+
+    // generate random enthusiasm value
+    function generateRandomEnthusiasm() {
+        const rand = Math.random();
+        if (rand < 0.12) return null;      // 12% off/absen
+        if (rand < 0.35) return Math.floor(Math.random() * 45) + 15;  // low 15-59
+        if (rand < 0.7) return Math.floor(Math.random() * 25) + 60;   // mid 60-84
+        return Math.floor(Math.random() * 16) + 85;                   // high 85-100
+    }
+
+    // inisialisasi semua data enthusiasm
+    function initEnthusiasmData() {
+        crewList.forEach(crew => {
+            enthusiasmData[crew.id] = {};
+            for (let day = 1; day <= daysInApril; day++) {
+                let value = generateRandomEnthusiasm();
+                // beberapa pola menarik untuk motivasi
+                if (day === 15) { // hari spesial
+                    value = (Math.random() > 0.2) ? 92 : (Math.random() > 0.5 ? 70 : null);
+                }
+                if (day === 5 && crew.id === 2) value = 96; // Dinda semangat di awal bulan
+                if (day === 28 && crew.id === 1) value = 88; // Rukman semangat
+                if (day === 20 && crew.id === 8) value = 45; // Shindie butuh support
+                enthusiasmData[crew.id][day] = value;
+            }
+        });
+    }
+    initEnthusiasmData();
+
+    // fungsi untuk mendapatkan kategori berdasarkan nilai
+    function getCategoryFromValue(value) {
+        if (value === null) return 'none';
+        if (value >= 85) return 'high';
+        if (value >= 60) return 'mid';
+        return 'low';
+    }
+
+    // fungsi untuk menampilkan badge HTML
+    function renderEnthusiasmCell(crewId, day) {
+        const value = enthusiasmData[crewId][day];
+        const category = getCategoryFromValue(value);
+        let displayText = '';
+        let iconHtml = '';
+        let extraClass = '';
+        
+        if (category === 'high') {
+            displayText = value !== null ? `${value}%` : 'High';
+            iconHtml = '<i class="fas fa-bolt" style="font-size:0.75rem;"></i>';
+            extraClass = 'level-high-bg';
+        } else if (category === 'mid') {
+            displayText = value !== null ? `${value}%` : 'Mid';
+            iconHtml = '<i class="fas fa-smile-wink"></i>';
+            extraClass = 'level-mid-bg';
+        } else if (category === 'low') {
+            displayText = value !== null ? `${value}%` : 'Low';
+            iconHtml = '<i class="fas fa-frown"></i>';
+            extraClass = 'level-low-bg';
+        } else {
+            displayText = 'Off';
+            iconHtml = '<i class="fas fa-ban"></i>';
+            extraClass = 'level-none-bg';
+        }
+        
+        let tooltipMsg = "";
+        if(value !== null && value >= 85) tooltipMsg = "🔥 Luar biasa! Beri apresiasi!";
+        else if(value !== null && value >= 60) tooltipMsg = "👍 Semangat stabil, terus tingkatkan!";
+        else if(value !== null && value < 60) tooltipMsg = "💪 Butuh recharging & support!";
+        else tooltipMsg = "📅 Tidak bertugas / izin";
+
+        return `<div class="enth-badge ${extraClass}" title="${tooltipMsg}">${iconHtml} <span>${displayText}</span></div>`;
+    }
+
+    // render seluruh tabel berdasarkan filter
+    let currentFilter = "all";
+
+    function renderCalendar() {
+        const theadRow = document.getElementById('tableHead');
+        const tbody = document.getElementById('tableBody');
+        
+        // buat header tanggal
+        let headerHtml = `<th>Crew / Tanggal</th>`;
+        daysArray.forEach(day => {
+            headerHtml += `<th>${day}<br><span style="font-weight:normal; font-size:0.7rem;">April</span></th>`;
+        });
+        theadRow.innerHTML = `<tr>${headerHtml}</tr>`;
+
+        // filter crew berdasarkan currentFilter
+        let filteredCrews = crewList;
+        if (currentFilter !== "all") {
+            const filterId = parseInt(currentFilter);
+            filteredCrews = crewList.filter(c => c.id === filterId);
+        }
+
+        let rowsHtml = '';
+        for (let crew of filteredCrews) {
+            let row = `<tr>`;
+            // kolom nama crew dengan icon dan role
+            row += `<td class="crew-name-cell"><i class="fas ${crew.icon}"></i> ${crew.name}<br><span style="font-size:0.7rem; color:#c46d3a;">${crew.role}</span></td>`;
+            for (let day of daysArray) {
+                const cellContent = renderEnthusiasmCell(crew.id, day);
+                row += `<td class="enth-cell" data-crew="${crew.id}" data-day="${day}" style="cursor:pointer;">${cellContent}</td>`;
+            }
+            row += `</tr>`;
+            rowsHtml += row;
+        }
+        tbody.innerHTML = rowsHtml;
+
+        attachCellClickEvents();
+        updateStats();
+    }
+
+    // event handler untuk klik
+    function attachCellClickEvents() {
+        const cells = document.querySelectorAll('#enthusiasmTable .enth-cell');
+        cells.forEach(cell => {
+            cell.removeEventListener('click', cellClickHandler);
+            cell.addEventListener('click', cellClickHandler);
+        });
+    }
+
+    function cellClickHandler(e) {
+        let targetCell = e.currentTarget;
+        const crewId = parseInt(targetCell.getAttribute('data-crew'));
+        const day = parseInt(targetCell.getAttribute('data-day'));
+        let currentValue = enthusiasmData[crewId][day];
+        const currentCat = getCategoryFromValue(currentValue);
+        
+        let newValue;
+        if (currentCat === 'high') newValue = 72;      // mid
+        else if (currentCat === 'mid') newValue = 45;  // low
+        else if (currentCat === 'low') newValue = null; // off
+        else newValue = 94;                            // high
+        
+        enthusiasmData[crewId][day] = newValue;
+        renderCalendar();
+    }
+
+    // update statistik
+    function updateStats() {
+        let totalScore = 0;
+        let countValid = 0;
+        let countHigh = 0, countMid = 0, countLow = 0, countOff = 0;
+        let totalEntries = 0;
+        
+        for (let crew of crewList) {
+            for (let day = 1; day <= daysInApril; day++) {
+                const val = enthusiasmData[crew.id][day];
+                totalEntries++;
+                if (val === null) {
+                    countOff++;
+                } else {
+                    countValid++;
+                    totalScore += val;
+                    if (val >= 85) countHigh++;
+                    else if (val >= 60) countMid++;
+                    else countLow++;
+                }
+            }
+        }
+        
+        const avg = countValid > 0 ? (totalScore / countValid).toFixed(1) : 0;
+        const highPercent = ((countHigh / totalEntries) * 100).toFixed(1);
+        const midPercent = ((countMid / totalEntries) * 100).toFixed(1);
+        const lowPercent = ((countLow / totalEntries) * 100).toFixed(1);
+        const offPercent = ((countOff / totalEntries) * 100).toFixed(1);
+        
+        document.getElementById('statsPanel').innerHTML = `
+            <div class="stat"><div class="stat-icon">📊</div><div class="stat-info"><h4>Rata-rata semangat</h4><div class="value">${avg}%</div></div></div>
+            <div class="stat"><div class="stat-icon">🔥</div><div class="stat-info"><h4>High</h4><div class="value">${highPercent}%</div></div></div>
+            <div class="stat"><div class="stat-icon">😊</div><div class="stat-info"><h4>Mid</h4><div class="value">${midPercent}%</div></div></div>
+            <div class="stat"><div class="stat-icon">😔</div><div class="stat-info"><h4>Low</h4><div class="value">${lowPercent}%</div></div></div>
+            <div class="stat"><div class="stat-icon">⛔</div><div class="stat-info"><h4>Off</h4><div class="value">${offPercent}%</div></div></div>
+        `;
+    }
+
+    // filter buttons
+    function buildFilterButtons() {
+        const container = document.getElementById('crewFilterButtons');
+        let btnsHtml = `<button data-crew="all" class="crew-btn active">Semua Tim (${crewList.length})</button>`;
+        crewList.forEach(crew => {
+            btnsHtml += `<button data-crew="${crew.id}" class="crew-btn">${crew.name}</button>`;
+        });
+        container.innerHTML = btnsHtml;
+        
+        document.querySelectorAll('.crew-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.crew-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-crew');
+                renderCalendar();
+            });
+        });
+    }
+
+    // inisialisasi
+    function init() {
+        buildFilterButtons();
+        renderCalendar();
+    }
+    init();
+</script>
+</body>
+</html>
