@@ -439,7 +439,7 @@
     <div class="header">
         <div class="title-section">
             <h1><i class="fas fa-calendar-alt" style="color:#e67e22;"></i> Crew Enthusiasm Calendar</h1>
-            <p>HokBen Gambir • <span><i class="far fa-calendar-check"></i> April 2026</span> 
+            <p>HokBen Rawasari • <span><i class="far fa-calendar-check"></i> April 2026</span> 
                 <i class="fas fa-heartbeat" style="margin-left: 6px;"></i> Semangat & MOD Tracker
             </p>
         </div>
@@ -580,32 +580,24 @@
     function ensureDataForCurrentMonth() { let changed=false; crewList.forEach(crew=>{ if(!enthusiasmData[crew.id]){ enthusiasmData[crew.id]={}; changed=true;} for(let d=1;d<=daysInMonth;d++){ if(enthusiasmData[crew.id][d]===undefined){ let editable=isDateEditable(currentYear,currentMonth,d); if(editable){ let rand=Math.random(); if(rand<0.1) enthusiasmData[crew.id][d]=null; else if(rand<0.35) enthusiasmData[crew.id][d]=Math.floor(Math.random()*45)+15; else if(rand<0.7) enthusiasmData[crew.id][d]=Math.floor(Math.random()*25)+60; else enthusiasmData[crew.id][d]=Math.floor(Math.random()*16)+85; } else { enthusiasmData[crew.id][d]=null; } changed=true; } } }); if(changed) saveEnthusiasm(); }
     
     const defaultCrewList = [
-        { id: 1, name: "Ari", role: "Store Manager", icon: "fa-user-tie" },
-        { id: 2, name: "Dewi", role: "Supervisor", icon: "fa-female" },
-        { id: 3, name: "Ikhsan", role: "Supervisor", icon: "fa-male" },
-        { id: 4, name: "Tri", role: "Supervisor", icon: "fa-female" },
-        { id: 5, name: "Nisa", role: "Crew Leader", icon: "fa-bookmark" },
-        { id: 6, name: "Fatqur", role: "Crew Leader", icon: "fa-bookmark" },
-        { id: 7, name: "Nurman", role: "TMBS 1", icon: "fa-user" },
-        { id: 8, name: "Nasrulloh", role: "TMBS 2", icon: "fa-user" },
-        { id: 9, name: "Surana", role: "TMBS 3", icon: "fa-user" },
-        { id: 10, name: "Abdy", role: "TMBS 3", icon: "fa-user" },
-        { id: 11, name: "Aldi", role: "TMBS 3", icon: "fa-user" },
-        { id: 12, name: "Reni", role: "TMBS 3", icon: "fa-user" },
-        { id: 13, name: "Syahrul", role: "TMBS 3", icon: "fa-user" },
-        { id: 14, name: "Febri", role: "TMBS 3", icon: "fa-user" },
-        { id: 15, name: "Juwita", role: "TMBS 3", icon: "fa-user" },
-        { id: 16, name: "Jerry", role: "TMBS 3", icon: "fa-user" },
-        { id: 17, name: "Ferdy", role: "TMBS 3", icon: "fa-user" },
-        { id: 18, name: "Zaky", role: "TMBS 3", icon: "fa-user" },
-        { id: 19, name: "Feri", role: "TMBS 3", icon: "fa-user" },
-        { id: 20, name: "Andini", role: "TMBS 3", icon: "fa-user" },
-        { id: 21, name: "Elza", role: "TMBS 3", icon: "fa-user" },
-        { id: 22, name: "Fahran", role: "TMBS 3", icon: "fa-user" },
-        { id: 23, name: "Erlangga", role: "TMBS 3", icon: "fa-user" },
-        { id: 24, name: "Amalia", role: "TMBS 3", icon: "fa-user" },
-        { id: 25, name: "Bimo", role: "TMBS 3", icon: "fa-user" },
-        { id: 26, name: "Hendra", role: "TMBS 4", icon: "fa-user" }
+        { id: 1, name: "Riyadi", role: "Store Manager", icon: "fa-user-tie" }, 
+	{ id: 2, name: "Ismail", role: "Supervisor", icon: "fa-male" }, 
+	{ id: 3, name: "Dian", role: "Supervisor", icon: "fa-female" },
+	{ id: 4, name: "Aldian", role: "Supervisor", icon: "fa-male" 
+	{ id: 5, name: "Qomar", role: "Supervisor", icon: "fa-male" },
+        { id: 5a, name: "A", role: "Crew Leader", icon: "fa-bookmark" }, 
+	{ id: 5b, name: "B", role: "TMBS 1", icon: "fa-user" }, 
+	{ id: 6, name: "C", role: "TMBS 2", icon: "fa-user" },
+        { id: 7, name: "D", role: "TMBS 3", icon: "fa-user" }, 
+	{ id: 8, name: "E", role: "TMBS 4", icon: "fa-user" }, 
+	{ id: 9, name: "F", role: "TMBS 5", icon: "fa-user" },
+        { id: 10, name: "G", role: "TMBS 6", icon: "fa-user" }, 
+	{ id: 11, name: "H", role: "TMBS 7", icon: "fa-user" }, 
+	{ id: 12, name: "I", role: "TMBS 8", icon: "fa-user" },
+        { id: 13, name: "J", role: "TMBS 9", icon: "fa-user" }, 
+	{ id: 14, name: "K", role: "TMBS 10", icon: "fa-user" }, 
+	{ id: 15, name: "L", role: "TMBS 11", icon: "fa-user" }, 
+	{ id: 16, name: "M", role: "TMBS 12", icon: "fa-user" }
     ];
 
     function getCategory(value, isFuture) { if(isFuture) return 'future'; if(value===null) return 'none'; if(value>=85) return 'high'; if(value>=60) return 'mid'; return 'low'; }
