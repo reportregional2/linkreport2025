@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Crew Enthusiasm Calendar </title>
+    <title>Crew Enthusiasm Calendar - MOD & Best Employee</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js untuk grafik -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
@@ -92,7 +92,7 @@
             box-shadow: 0 4px 12px rgba(230,126,34,0.4);
         }
 
-        /* Dashboard Stats dengan efek glassmorphism */
+        /* Stats & Dashboard Grid */
         .stats-panel {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -158,11 +158,6 @@
             color: #2b9348;
             animation: bounce 1s ease;
         }
-        .trend-down {
-            color: #e76f51;
-        }
-
-        /* Progress bar untuk average */
         .avg-progress {
             width: 100%;
             height: 8px;
@@ -176,6 +171,149 @@
             border-radius: 10px;
             transition: width 1s ease;
             background: linear-gradient(90deg, #e76f51, #f4a261, #2b9348);
+        }
+
+        /* BEST EMPLOYEE DASHBOARD */
+        .best-employee-dashboard {
+            background: linear-gradient(125deg, #ffffff 0%, #fffaf0 100%);
+            border-radius: 32px;
+            padding: 24px 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(230,126,34,0.25);
+            transition: 0.3s;
+        }
+        .best-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f4a261;
+            padding-left: 18px;
+        }
+        .best-header i {
+            font-size: 2rem;
+            color: #f4a261;
+            animation: glow 2s infinite;
+        }
+        .best-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #e67e22, #c0392b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .best-employees-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+        .best-card {
+            flex: 1;
+            min-width: 200px;
+            background: #fffaf2;
+            border-radius: 28px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #e67e22;
+        }
+        .best-card.gold { background: linear-gradient(145deg, #fff6e6, #fff0df); border-bottom: 5px solid #f1c40f; transform: scale(1.02); }
+        .best-card.silver { border-bottom-color: #bdc3c7; }
+        .best-card.bronze { border-bottom-color: #cd7f32; }
+        .best-rank { font-size: 2rem; font-weight: 800; display: inline-block; background: #e67e22; color: white; width: 48px; height: 48px; line-height: 48px; border-radius: 60px; margin-bottom: 12px; }
+        .best-rank.gold-rank { background: #f1c40f; color: #5e3a1a; }
+        .best-rank.silver-rank { background: #bdc3c7; color: #2c3e50; }
+        .best-rank.bronze-rank { background: #cd7f32; color: white; }
+        .best-card h3 { font-size: 1.3rem; margin: 10px 0 4px; }
+        .best-score { font-size: 1.8rem; font-weight: 800; color: #e67e22; margin: 8px 0; }
+        .best-role { font-size: 0.75rem; background: #ffe0bf; display: inline-block; padding: 3px 12px; border-radius: 30px; font-weight: 600; }
+        .best-stats { font-size: 0.7rem; margin-top: 10px; color: #a47242; }
+        .medal-icon { font-size: 1.3rem; margin-left: 6px; }
+        
+        /* ===== NEW: MANAGER ON DUTY (MOD) SECTION ===== */
+        .mod-dashboard {
+            background: #fff8ef;
+            border-radius: 32px;
+            padding: 18px 24px;
+            margin-bottom: 30px;
+            border: 1px solid #ffe0b5;
+            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .mod-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .mod-badge {
+            background: #e67e22;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mod-current {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .mod-current strong {
+            color: #c75c2e;
+            font-size: 1.2rem;
+        }
+        .mod-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 6px 15px;
+            border-radius: 60px;
+        }
+        .mod-selector select {
+            padding: 8px 12px;
+            border-radius: 40px;
+            border: 1px solid #ffc17a;
+            background: #fffaf4;
+            font-family: inherit;
+            font-weight: 500;
+        }
+        .mod-selector button {
+            background: #e67e22;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .mod-selector button:hover {
+            background: #c2461b;
+            transform: scale(0.97);
+        }
+        .mod-history {
+            font-size: 0.75rem;
+            color: #b28253;
         }
 
         /* management buttons */
@@ -209,7 +347,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* modal */
+        /* modal, table, etc */
         .modal {
             display: none;
             position: fixed;
@@ -236,7 +374,13 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-
+        .crew-list-manager .crew-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #ffe0bf;
+        }
         .controls {
             display: flex;
             flex-wrap: wrap;
@@ -255,169 +399,38 @@
             padding: 8px 20px;
             border-radius: 60px;
         }
-        .crew-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            max-height: 100px;
-            overflow-y: auto;
-        }
-        .crew-btn {
-            background: #f5ede4;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .crew-btn.active {
-            background: #e67e22;
-            color: white;
-            transform: scale(1.05);
-        }
-        .legend {
-            display: flex;
-            gap: 20px;
-            background: white;
-            padding: 8px 20px;
-            border-radius: 60px;
-            font-size: 0.8rem;
-        }
-
-        .calendar-wrapper {
-            overflow-x: auto;
-            border-radius: 28px;
-            background: white;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
-            animation: fadeInUp 0.6s ease;
-        }
-        .enthusiasm-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            min-width: 800px;
-        }
-        .enthusiasm-table th {
-            background: linear-gradient(135deg, #fce9d4, #ffe6d0);
-            padding: 12px 8px;
-            border-bottom: 2px solid #ffd09c;
-        }
-        .enthusiasm-table td {
-            padding: 10px 6px;
-            text-align: center;
-            border-bottom: 1px solid #f8e5d4;
-        }
-        .crew-name-cell {
-            font-weight: 700;
-            background: #fff9f2;
-            position: sticky;
-            left: 0;
-            text-align: left;
-        }
-        .enth-cell {
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .enth-cell.disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-            background-color: #f9f9f9;
-        }
-        .enth-cell:not(.disabled):hover {
-            transform: scale(0.95);
-            background: #fff2e2;
-        }
-        .enth-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 10px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            min-width: 70px;
-            transition: all 0.2s;
-        }
+        .crew-buttons { display: flex; gap: 10px; flex-wrap: wrap; max-height: 100px; overflow-y: auto; }
+        .crew-btn { background: #f5ede4; border: none; padding: 6px 16px; border-radius: 40px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .crew-btn.active { background: #e67e22; color: white; transform: scale(1.05); }
+        .legend { display: flex; gap: 20px; background: white; padding: 8px 20px; border-radius: 60px; font-size: 0.8rem; }
+        .calendar-wrapper { overflow-x: auto; border-radius: 28px; background: white; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15); animation: fadeInUp 0.6s ease; }
+        .enthusiasm-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 800px; }
+        .enthusiasm-table th { background: linear-gradient(135deg, #fce9d4, #ffe6d0); padding: 12px 8px; border-bottom: 2px solid #ffd09c; }
+        .enthusiasm-table td { padding: 10px 6px; text-align: center; border-bottom: 1px solid #f8e5d4; }
+        .crew-name-cell { font-weight: 700; background: #fff9f2; position: sticky; left: 0; text-align: left; }
+        .enth-cell { cursor: pointer; transition: all 0.2s ease; }
+        .enth-cell.disabled { cursor: not-allowed; opacity: 0.5; background-color: #f9f9f9; }
+        .enth-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 40px; font-weight: 600; font-size: 0.75rem; min-width: 70px; }
         .level-high-bg { background: #d9f0e1; color: #1f6e3c; border-left: 3px solid #2b9348; }
         .level-mid-bg { background: #ffe1bd; color: #b4521a; border-left: 3px solid #f4a261; }
         .level-low-bg { background: #ffe0d6; color: #bc4e2c; border-left: 3px solid #e76f51; }
         .level-none-bg { background: #ede3d6; color: #8b694a; border-left: 3px solid #cfb797; }
         .level-future-bg { background: #f0f0f0; color: #aaa; border: 1px dashed #ccc; }
-
-        .footer-note {
-            margin-top: 28px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #b28253;
-        }
-        .current-date-indicator {
-            background: #e67e22;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-left: 10px;
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes glow {
-            0% { text-shadow: 0 0 0px #e67e22; }
-            50% { text-shadow: 0 0 10px #e67e22; }
-            100% { text-shadow: 0 0 0px #e67e22; }
-        }
-
-        /* Chart container */
-        .chart-container {
-            background: white;
-            border-radius: 28px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        canvas {
-            max-height: 300px;
-        }
+        .footer-note { margin-top: 28px; text-align: center; font-size: 0.8rem; color: #b28253; }
+        .current-date-indicator { background: #e67e22; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; margin-left: 10px; }
+        .chart-container { background: white; border-radius: 28px; padding: 20px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        canvas { max-height: 300px; }
+        @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+        @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes glow { 0% { text-shadow: 0 0 0px #e67e22; } 50% { text-shadow: 0 0 12px #f4a261; } 100% { text-shadow: 0 0 0px #e67e22; } }
         @media (max-width: 700px) {
             body { padding: 20px 16px; }
-            .stats-panel { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .stat-value { font-size: 1.5rem; }
+            .stats-panel { grid-template-columns: repeat(2,1fr); gap:12px; }
+            .best-employees-grid { flex-direction: column; }
+            .mod-dashboard { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -426,8 +439,8 @@
     <div class="header">
         <div class="title-section">
             <h1><i class="fas fa-calendar-alt" style="color:#e67e22;"></i> Crew Enthusiasm Calendar</h1>
-            <p>HokBen Ruko Pecenongan • <span class="badge-month"><i class="far fa-calendar-check"></i> April 2026</span> 
-                <i class="fas fa-heartbeat" style="margin-left: 6px;"></i> Semangat untuk memberikan layanan terbaik
+            <p>HokBen Ruko Pecenongan • <span><i class="far fa-calendar-check"></i> April 2026</span> 
+                <i class="fas fa-heartbeat" style="margin-left: 6px;"></i> Semangat & MOD Tracker
             </p>
         </div>
         <div class="month-picker">
@@ -442,10 +455,38 @@
         <button class="mgmt-btn danger" id="resetDataBtn"><i class="fas fa-trash-alt"></i> Reset Data Masa Lalu</button>
     </div>
 
-    <!-- Dashboard Stats dengan efek menarik -->
+    <!-- DASHBOARD STATS -->
     <div class="stats-panel" id="statsPanel"></div>
 
-    <!-- Chart JS untuk visualisasi -->
+    <!-- MOD (Manager on Duty) SECTION BARU -->
+    <div class="mod-dashboard" id="modDashboard">
+        <div class="mod-info">
+            <div class="mod-badge"><i class="fas fa-user-tie"></i> MANAGER ON DUTY</div>
+            <div class="mod-current">
+                <i class="fas fa-calendar-day"></i> <span id="modDateLabel">Hari ini</span> : 
+                <strong id="modNameDisplay">-</strong>
+                <span id="modRoleDisplay" style="font-size:0.7rem; background:#ffe0bf; padding:2px 8px; border-radius:20px;"></span>
+            </div>
+        </div>
+        <div class="mod-selector">
+            <select id="modCrewSelect"></select>
+            <button id="assignModBtn"><i class="fas fa-check-circle"></i> Tugaskan MOD</button>
+        </div>
+        <div class="mod-history" id="modHistoryHint">
+            <i class="fas fa-info-circle"></i> Klik tanggal di table untuk mengganti MOD per hari (hanya tanggal yg sudah terjadi)
+        </div>
+    </div>
+
+    <!-- BEST EMPLOYEE DASHBOARD -->
+    <div class="best-employee-dashboard">
+        <div class="best-header">
+            <i class="fas fa-crown"></i>
+            <h2>🏆 The Best Employee of The Month 🏆</h2>
+        </div>
+        <div id="bestEmployeesContainer" class="best-employees-grid"></div>
+    </div>
+
+    <!-- Grafik -->
     <div class="chart-container">
         <canvas id="enthusiasmChart"></canvas>
     </div>
@@ -472,43 +513,72 @@
     </div>
     <div class="footer-note">
         <i class="fas fa-info-circle"></i> 
-        <strong>✅ Tanggal yang sudah lewat atau hari ini bisa diedit</strong> • 
+        <strong>✅ Tanggal sudah lewat / hari ini bisa diedit semangat & MOD</strong> • 
         ⏳ <strong>Tanggal masa depan tidak bisa diklik</strong> • 
-        <i class="fas fa-chart-simple"></i> Data tersimpan otomatis
+        <i class="fas fa-chart-simple"></i> Best employee berdasarkan rata2 semangat.
     </div>
 </div>
 
-<!-- Modal Tambah/Edit Crew -->
-<div id="crewModal" class="modal">
-    <div class="modal-content">
-        <h3 id="modalTitle"><i class="fas fa-user-plus"></i> Tambah Crew Baru</h3>
-        <label><i class="fas fa-user"></i> Nama Crew</label>
-        <input type="text" id="crewName" placeholder="Contoh: Budi Santoso">
-        <label><i class="fas fa-briefcase"></i> Role / Posisi</label>
-        <input type="text" id="crewRole" placeholder="Contoh: Cook, Cashier, Server">
-        <label><i class="fas fa-icons"></i> Icon Font Awesome</label>
-        <input type="text" id="crewIcon" placeholder="fa-user, fa-chef-hat, dll" value="fa-user">
-        <button id="saveCrewBtn" class="mgmt-btn primary" style="width:100%"><i class="fas fa-save"></i> Simpan</button>
-        <button id="closeModalBtn" style="margin-top:10px; background:none; border:1px solid #ccc; border-radius:40px; padding:8px; width:100%"><i class="fas fa-times"></i> Batal</button>
-    </div>
-</div>
-
-<!-- Modal Kelola Crew -->
-<div id="manageModal" class="modal">
-    <div class="modal-content">
-        <h3><i class="fas fa-users-cog"></i> Kelola Crew</h3>
-        <div id="crewListContainer" class="crew-list-manager"></div>
-        <button id="closeManageBtn" style="margin-top:20px; background:none; border:1px solid #ccc; border-radius:40px; padding:8px; width:100%"><i class="fas fa-times"></i> Tutup</button>
-    </div>
-</div>
+<!-- Modals (Tambah/Edit Crew, Kelola) -->
+<div id="crewModal" class="modal"><div class="modal-content"><h3 id="modalTitle"><i class="fas fa-user-plus"></i> Tambah Crew Baru</h3>
+<label><i class="fas fa-user"></i> Nama Crew</label><input type="text" id="crewName" placeholder="Contoh: Budi Santoso">
+<label><i class="fas fa-briefcase"></i> Role / Posisi</label><input type="text" id="crewRole" placeholder="Contoh: Cook, Cashier, Server">
+<label><i class="fas fa-icons"></i> Icon Font Awesome</label><input type="text" id="crewIcon" placeholder="fa-user, fa-chef-hat" value="fa-user">
+<button id="saveCrewBtn" class="mgmt-btn primary" style="width:100%"><i class="fas fa-save"></i> Simpan</button>
+<button id="closeModalBtn" style="margin-top:10px; background:none; border:1px solid #ccc; border-radius:40px; padding:8px; width:100%"><i class="fas fa-times"></i> Batal</button>
+</div></div>
+<div id="manageModal" class="modal"><div class="modal-content"><h3><i class="fas fa-users-cog"></i> Kelola Crew</h3><div id="crewListContainer" class="crew-list-manager"></div><button id="closeManageBtn" style="margin-top:20px; background:none; border:1px solid #ccc; border-radius:40px; padding:8px; width:100%"><i class="fas fa-times"></i> Tutup</button></div></div>
 
 <script>
-    // ========== STORAGE KEYS ==========
+    // STORAGE KEYS
     const STORAGE_CREW = 'resto_enthusiasm_crew';
     const STORAGE_DATA = 'resto_enthusiasm_data';
     const STORAGE_MONTH = 'resto_enthusiasm_month';
+    const STORAGE_MOD = 'resto_mod_schedule'; // { "YYYY-MM-DD": crewId }
 
-    // ========== DEFAULT CREW ==========
+    let crewList = [], enthusiasmData = {}, modSchedule = {};
+    let currentYear = 2026, currentMonth = 3, daysInMonth = 30, todayDate = new Date(), currentFilter = "all", enthusiasmChart = null;
+
+    function getDaysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
+    function isDateEditable(year, month, day) {
+        let target = new Date(year, month, day);
+        let today = new Date(); today.setHours(0,0,0,0);
+        target.setHours(0,0,0,0);
+        return target <= today;
+    }
+    function formatDateKey(year, month, day) { return `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; }
+
+    // Load MOD
+    function loadModSchedule() {
+        const saved = localStorage.getItem(STORAGE_MOD);
+        if(saved) modSchedule = JSON.parse(saved);
+        else modSchedule = {};
+    }
+    function saveModSchedule() { localStorage.setItem(STORAGE_MOD, JSON.stringify(modSchedule)); }
+    function getModForDate(year, month, day) {
+        const key = formatDateKey(year, month, day);
+        let modId = modSchedule[key];
+        if(modId) return crewList.find(c => c.id == modId);
+        return null;
+    }
+    function setModForDate(year, month, day, crewId) {
+        const key = formatDateKey(year, month, day);
+        if(isDateEditable(year, month, day)) {
+            if(crewId === null) delete modSchedule[key];
+            else modSchedule[key] = crewId;
+            saveModSchedule();
+            renderCalendar(); // refresh
+            updateModDashboard();
+        }
+    }
+
+    function loadCrew() { const saved = localStorage.getItem(STORAGE_CREW); crewList = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultCrewList)); }
+    function saveCrew() { localStorage.setItem(STORAGE_CREW, JSON.stringify(crewList)); }
+    function loadEnthusiasm() { const saved = localStorage.getItem(STORAGE_DATA); enthusiasmData = saved ? JSON.parse(saved) : {}; if(Object.keys(enthusiasmData).length===0) initDefaultEnthusiasm(); }
+    function initDefaultEnthusiasm() { crewList.forEach(crew => { enthusiasmData[crew.id] = {}; for(let d=1;d<=30;d++) { let rand=Math.random(); if(rand<0.1) enthusiasmData[crew.id][d]=null; else if(rand<0.35) enthusiasmData[crew.id][d]=Math.floor(Math.random()*45)+15; else if(rand<0.7) enthusiasmData[crew.id][d]=Math.floor(Math.random()*25)+60; else enthusiasmData[crew.id][d]=Math.floor(Math.random()*16)+85; } }); saveEnthusiasm(); }
+    function saveEnthusiasm() { localStorage.setItem(STORAGE_DATA, JSON.stringify(enthusiasmData)); }
+    function ensureDataForCurrentMonth() { let changed=false; crewList.forEach(crew=>{ if(!enthusiasmData[crew.id]){ enthusiasmData[crew.id]={}; changed=true;} for(let d=1;d<=daysInMonth;d++){ if(enthusiasmData[crew.id][d]===undefined){ let editable=isDateEditable(currentYear,currentMonth,d); if(editable){ let rand=Math.random(); if(rand<0.1) enthusiasmData[crew.id][d]=null; else if(rand<0.35) enthusiasmData[crew.id][d]=Math.floor(Math.random()*45)+15; else if(rand<0.7) enthusiasmData[crew.id][d]=Math.floor(Math.random()*25)+60; else enthusiasmData[crew.id][d]=Math.floor(Math.random()*16)+85; } else { enthusiasmData[crew.id][d]=null; } changed=true; } } }); if(changed) saveEnthusiasm(); }
+    
     const defaultCrewList = [
         { id: 1, name: "Dimas", role: "Store Manager", icon: "fa-user-tie" },
         { id: 2, name: "Septian", role: "Supervisor", icon: "fa-female" },
@@ -528,508 +598,156 @@
         { id: 16, name: "Fiqri", role: "TMBS 4", icon: "fa-user" }
     ];
 
-    let crewList = [];
-    let enthusiasmData = {};
-    let currentYear = 2026;
-    let currentMonth = 3;
-    let daysInMonth = 30;
-    let todayDate = new Date();
-    let currentFilter = "all";
-    let enthusiasmChart = null;
-
-    function getDaysInMonth(year, month) {
-        return new Date(year, month + 1, 0).getDate();
+    function getCategory(value, isFuture) { if(isFuture) return 'future'; if(value===null) return 'none'; if(value>=85) return 'high'; if(value>=60) return 'mid'; return 'low'; }
+    function renderEnthusiasmCell(crewId, day) { let editable=isDateEditable(currentYear,currentMonth,day); let val=enthusiasmData[crewId]?.[day]; let isFuture=!editable; let cat=getCategory(val,isFuture); let text='',icon=''; if(cat==='future'){ text='Belum tiba'; icon='⏳'; } else if(cat==='high'){ text=val+'%'; icon='⚡'; } else if(cat==='mid'){ text=val+'%'; icon='😊'; } else if(cat==='low'){ text=val+'%'; icon='😔'; } else { text='Off'; icon='⛔'; } let bgClass=cat==='future'?'level-future-bg':(cat==='high'?'level-high-bg':(cat==='mid'?'level-mid-bg':(cat==='low'?'level-low-bg':'level-none-bg'))); return `<div class="enth-badge ${bgClass}">${icon} ${text}</div>`; }
+    
+    function renderMODIndicator(day) {
+        let mod = getModForDate(currentYear, currentMonth, day);
+        if(mod) return `<span style="display:inline-block; background:#e67e22; color:white; border-radius:20px; padding:2px 6px; font-size:0.6rem; margin-top:4px;"><i class="fas fa-user-tie"></i> MOD: ${mod.name}</span>`;
+        return `<span style="font-size:0.65rem; color:#b28253;">- MOD -</span>`;
     }
-
-    function isDateEditable(year, month, day) {
-        const targetDate = new Date(year, month, day);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        targetDate.setHours(0, 0, 0, 0);
-        return targetDate <= today;
-    }
-
-    function loadCrew() {
-        const saved = localStorage.getItem(STORAGE_CREW);
-        if (saved) {
-            crewList = JSON.parse(saved);
-        } else {
-            crewList = JSON.parse(JSON.stringify(defaultCrewList));
-        }
-    }
-
-    function saveCrew() {
-        localStorage.setItem(STORAGE_CREW, JSON.stringify(crewList));
-    }
-
-    function loadEnthusiasm() {
-        const saved = localStorage.getItem(STORAGE_DATA);
-        if (saved) {
-            enthusiasmData = JSON.parse(saved);
-        } else {
-            enthusiasmData = {};
-            initDefaultEnthusiasm();
-        }
-    }
-
-    function initDefaultEnthusiasm() {
-        crewList.forEach(crew => {
-            enthusiasmData[crew.id] = {};
-            for (let day = 1; day <= 30; day++) {
-                const rand = Math.random();
-                if (rand < 0.1) enthusiasmData[crew.id][day] = null;
-                else if (rand < 0.35) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 45) + 15;
-                else if (rand < 0.7) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 25) + 60;
-                else enthusiasmData[crew.id][day] = Math.floor(Math.random() * 16) + 85;
-            }
-        });
-        saveEnthusiasm();
-    }
-
-    function saveEnthusiasm() {
-        localStorage.setItem(STORAGE_DATA, JSON.stringify(enthusiasmData));
-    }
-
-    function ensureDataForCurrentMonth() {
-        let changed = false;
-        crewList.forEach(crew => {
-            if (!enthusiasmData[crew.id]) {
-                enthusiasmData[crew.id] = {};
-                changed = true;
-            }
-            for (let day = 1; day <= daysInMonth; day++) {
-                if (enthusiasmData[crew.id][day] === undefined) {
-                    if (isDateEditable(currentYear, currentMonth, day)) {
-                        const rand = Math.random();
-                        if (rand < 0.1) enthusiasmData[crew.id][day] = null;
-                        else if (rand < 0.35) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 45) + 15;
-                        else if (rand < 0.7) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 25) + 60;
-                        else enthusiasmData[crew.id][day] = Math.floor(Math.random() * 16) + 85;
-                    } else {
-                        enthusiasmData[crew.id][day] = null;
-                    }
-                    changed = true;
-                }
-            }
-        });
-        if (changed) saveEnthusiasm();
-    }
-
-    function getCategory(value, isFuture) {
-        if (isFuture) return 'future';
-        if (value === null) return 'none';
-        if (value >= 85) return 'high';
-        if (value >= 60) return 'mid';
-        return 'low';
-    }
-
-    function renderEnthusiasmCell(crewId, day) {
-        const isEditable = isDateEditable(currentYear, currentMonth, day);
-        const val = enthusiasmData[crewId]?.[day];
-        const isFuture = !isEditable;
-        const cat = getCategory(val, isFuture);
-        
-        let text = '', icon = '';
-        if (cat === 'future') { text = 'Belum tiba'; icon = '⏳'; }
-        else if (cat === 'high') { text = val + '%'; icon = '⚡'; }
-        else if (cat === 'mid') { text = val + '%'; icon = '😊'; }
-        else if (cat === 'low') { text = val + '%'; icon = '😔'; }
-        else { text = 'Off'; icon = '⛔'; }
-        
-        let bgClass = cat === 'future' ? 'level-future-bg' : 
-                     (cat === 'high' ? 'level-high-bg' : 
-                     (cat === 'mid' ? 'level-mid-bg' : 
-                     (cat === 'low' ? 'level-low-bg' : 'level-none-bg')));
-        
-        return `<div class="enth-badge ${bgClass}">${icon} ${text}</div>`;
-    }
-
+    
     function renderCalendar() {
-        const thead = document.getElementById('tableHead');
-        const tbody = document.getElementById('tableBody');
-        
-        let headerHtml = '<th>Crew / Tanggal</th>';
-        for (let d = 1; d <= daysInMonth; d++) {
-            const isToday = (currentYear === todayDate.getFullYear() && 
-                            currentMonth === todayDate.getMonth() && 
-                            d === todayDate.getDate());
-            headerHtml += `<th>${d}${isToday ? '<span class="current-date-indicator">Hari ini</span>' : ''}</th>`;
+        const thead=document.getElementById('tableHead'), tbody=document.getElementById('tableBody');
+        let headerHtml='<th>Crew / Tanggal</th>';
+        for(let d=1;d<=daysInMonth;d++){ let isToday=(currentYear===todayDate.getFullYear()&&currentMonth===todayDate.getMonth()&&d===todayDate.getDate()); headerHtml+=`<th>${d}${isToday?'<span class="current-date-indicator">Hari ini</span>':''}<br><small>${renderMODIndicator(d)}</small></th>`; }
+        thead.innerHTML=`<tr>${headerHtml}</tr>`;
+        let filtered=crewList; if(currentFilter!=="all") filtered=crewList.filter(c=>c.id==currentFilter);
+        let rows='';
+        for(let crew of filtered){
+            rows+=`<tr><td class="crew-name-cell"><i class="fas ${crew.icon}"></i> ${crew.name}<br><span style="font-size:0.7rem;">${crew.role}</span></td>`;
+            for(let d=1;d<=daysInMonth;d++){ let editable=isDateEditable(currentYear,currentMonth,d); let disabledClass=!editable?'disabled':''; rows+=`<td class="enth-cell ${disabledClass}" data-crew="${crew.id}" data-day="${d}" data-editable="${editable}">${renderEnthusiasmCell(crew.id,d)}</td>`; }
+            rows+=`</tr>`;
         }
-        thead.innerHTML = `<tr>${headerHtml}</tr>`;
-
-        let filtered = crewList;
-        if (currentFilter !== "all") filtered = crewList.filter(c => c.id == currentFilter);
-
-        let rows = '';
-        for (let crew of filtered) {
-            rows += `<tr>`;
-            rows += `<td class="crew-name-cell"><i class="fas ${crew.icon}"></i> ${crew.name}<br><span style="font-size:0.7rem;">${crew.role}</span></td>`;
-            for (let d = 1; d <= daysInMonth; d++) {
-                const isEditable = isDateEditable(currentYear, currentMonth, d);
-                const disabledClass = !isEditable ? 'disabled' : '';
-                rows += `<td class="enth-cell ${disabledClass}" data-crew="${crew.id}" data-day="${d}" data-editable="${isEditable}">${renderEnthusiasmCell(crew.id, d)}</td>`;
-            }
-            rows += `</tr>`;
-        }
-        tbody.innerHTML = rows;
+        tbody.innerHTML=rows;
         attachClickEvents();
+        attachMODClickOnHeader();
         updateStats();
         updateChart();
-        updateDateInfo();
+        renderBestEmployeeDashboard();
+        updateModDashboard();
     }
-
+    
     function attachClickEvents() {
-        document.querySelectorAll('.enth-cell').forEach(cell => {
-            const isEditable = cell.dataset.editable === 'true';
-            if (!isEditable) {
-                cell.style.cursor = 'not-allowed';
-                cell.onclick = () => {
-                    alert('⏳ Tanggal ini belum terjadi! Anda hanya bisa mengisi semangat untuk tanggal yang sudah lewat atau hari ini.');
-                };
-            } else {
-                cell.style.cursor = 'pointer';
-                cell.onclick = () => {
-                    const crewId = parseInt(cell.dataset.crew);
-                    const day = parseInt(cell.dataset.day);
-                    let val = enthusiasmData[crewId]?.[day];
-                    const cat = (val === null) ? 'none' : (val >= 85 ? 'high' : (val >= 60 ? 'mid' : 'low'));
-                    
-                    if (cat === 'high') enthusiasmData[crewId][day] = 70;
-                    else if (cat === 'mid') enthusiasmData[crewId][day] = 40;
-                    else if (cat === 'low') enthusiasmData[crewId][day] = null;
-                    else enthusiasmData[crewId][day] = 92;
-                    
-                    saveEnthusiasm();
-                    renderCalendar();
-                };
-            }
-        });
-    }
-
-    function updateStats() {
-        let total = 0, count = 0, high = 0, mid = 0, low = 0, off = 0;
-        let totalEditableEntries = 0;
-        
-        for (let crew of crewList) {
-            for (let d = 1; d <= daysInMonth; d++) {
-                const isEditable = isDateEditable(currentYear, currentMonth, d);
-                if (!isEditable) continue;
-                
-                totalEditableEntries++;
-                let v = enthusiasmData[crew.id]?.[d];
-                if (v === null) off++;
-                else if (v !== undefined) {
-                    total += v;
-                    count++;
-                    if (v >= 85) high++;
-                    else if (v >= 60) mid++;
-                    else low++;
-                }
-            }
-        }
-        
-        let avg = count ? (total / count).toFixed(1) : 0;
-        let avgPercent = (avg / 100) * 100;
-        let highPercent = totalEditableEntries ? ((high / totalEditableEntries) * 100).toFixed(1) : 0;
-        let midPercent = totalEditableEntries ? ((mid / totalEditableEntries) * 100).toFixed(1) : 0;
-        let lowPercent = totalEditableEntries ? ((low / totalEditableEntries) * 100).toFixed(1) : 0;
-        let offPercent = totalEditableEntries ? ((off / totalEditableEntries) * 100).toFixed(1) : 0;
-        
-        // Get trend icon
-        let trendIcon = avg >= 75 ? '<i class="fas fa-arrow-up trend-up"></i>' : (avg >= 50 ? '<i class="fas fa-minus-circle" style="color:#f4a261;"></i>' : '<i class="fas fa-arrow-down trend-down"></i>');
-        let trendText = avg >= 75 ? 'Excellent!' : (avg >= 50 ? 'Good' : 'Need Improvement');
-        
-        const statsHTML = `
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-chart-line" style="color:#e67e22;"></i></div>
-                <h4>Rata-rata Semangat</h4>
-                <div class="stat-value" style="animation: glow 2s ease infinite;">${avg}% ${trendIcon}</div>
-                <div class="stat-sub">${trendText}</div>
-                <div class="avg-progress">
-                    <div class="avg-progress-bar" style="width: ${avgPercent}%;"></div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-fire" style="color:#2b9348;"></i></div>
-                <h4>High Energy</h4>
-                <div class="stat-value">${highPercent}%</div>
-                <div class="stat-sub">${Math.round((highPercent/100) * totalEditableEntries)} dari ${totalEditableEntries} entri</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-smile" style="color:#f4a261;"></i></div>
-                <h4>Mid Energy</h4>
-                <div class="stat-value">${midPercent}%</div>
-                <div class="stat-sub">Perlu motivasi tambahan</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-tired" style="color:#e76f51;"></i></div>
-                <h4>Low Energy</h4>
-                <div class="stat-value">${lowPercent}%</div>
-                <div class="stat-sub">Butuh recharging!</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-clock" style="color:#cfb797;"></i></div>
-                <h4>Off / Absen</h4>
-                <div class="stat-value">${offPercent}%</div>
-                <div class="stat-sub">Total entri: ${totalEditableEntries}</div>
-            </div>
-        `;
-        
-        document.getElementById('statsPanel').innerHTML = statsHTML;
-    }
-
-    function updateChart() {
-        const canvas = document.getElementById('enthusiasmChart');
-        if (!canvas) return;
-        
-        // Aggregate data per day
-        const dailyAvg = [];
-        for (let d = 1; d <= daysInMonth; d++) {
-            if (!isDateEditable(currentYear, currentMonth, d)) {
-                dailyAvg.push(null);
-                continue;
-            }
-            let sum = 0, cnt = 0;
-            for (let crew of crewList) {
-                let val = enthusiasmData[crew.id]?.[d];
-                if (val !== null && val !== undefined) {
-                    sum += val;
-                    cnt++;
-                }
-            }
-            dailyAvg.push(cnt > 0 ? (sum / cnt).toFixed(1) : null);
-        }
-        
-        const ctx = canvas.getContext('2d');
-        if (enthusiasmChart) {
-            enthusiasmChart.destroy();
-        }
-        
-        enthusiasmChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: dailyAvg.map((_, idx) => `${idx + 1}`),
-                datasets: [{
-                    label: 'Rata-rata Semangat Harian (%)',
-                    data: dailyAvg,
-                    borderColor: '#e67e22',
-                    backgroundColor: 'rgba(230, 126, 34, 0.1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: dailyAvg.map(v => v >= 75 ? '#2b9348' : (v >= 60 ? '#f4a261' : '#e76f51')),
-                    pointBorderColor: '#fff',
-                    pointRadius: 5,
-                    pointHoverRadius: 8,
-                    pointBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: { family: 'Inter', size: 12 }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => {
-                                const val = context.raw;
-                                if (val === null) return 'Belum terjadi';
-                                return `Semangat: ${val}%`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        min: 0,
-                        max: 100,
-                        title: {
-                            display: true,
-                            text: 'Enthusiasm Level (%)',
-                            color: '#c75c2e'
-                        },
-                        grid: {
-                            color: '#ffe0bf'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tanggal',
-                            color: '#c75c2e'
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    function updateDateInfo() {
-        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        const info = `${monthNames[currentMonth]} ${currentYear} • ${daysInMonth} hari`;
-        document.getElementById('dateInfo').innerHTML = `<i class="fas fa-calendar-day"></i> ${info}`;
-    }
-
-    function rebuildFilterButtons() {
-        const container = document.getElementById('crewFilterButtons');
-        let html = `<button data-crew="all" class="crew-btn ${currentFilter === 'all' ? 'active' : ''}"><i class="fas fa-users"></i> Semua (${crewList.length})</button>`;
-        crewList.forEach(c => {
-            html += `<button data-crew="${c.id}" class="crew-btn ${currentFilter == c.id ? 'active' : ''}"><i class="fas ${c.icon}"></i> ${c.name}</button>`;
-        });
-        container.innerHTML = html;
-        document.querySelectorAll('.crew-btn').forEach(btn => {
-            btn.onclick = () => {
-                currentFilter = btn.dataset.crew;
-                rebuildFilterButtons();
+        document.querySelectorAll('.enth-cell').forEach(cell=>{
+            let isEditable=cell.dataset.editable==='true';
+            if(!isEditable) cell.onclick=()=>alert('⏳ Tanggal ini belum terjadi!');
+            else cell.onclick=()=>{
+                let crewId=parseInt(cell.dataset.crew), day=parseInt(cell.dataset.day);
+                let val=enthusiasmData[crewId]?.[day];
+                let cat=(val===null)?'none':(val>=85?'high':(val>=60?'mid':'low'));
+                if(cat==='high') enthusiasmData[crewId][day]=70;
+                else if(cat==='mid') enthusiasmData[crewId][day]=40;
+                else if(cat==='low') enthusiasmData[crewId][day]=null;
+                else enthusiasmData[crewId][day]=92;
+                saveEnthusiasm();
                 renderCalendar();
             };
         });
     }
-
-    // Modal handlers (sama seperti sebelumnya, disederhanakan untuk panjang kode)
-    const crewModal = document.getElementById('crewModal');
-    const manageModal = document.getElementById('manageModal');
     
-    document.getElementById('addCrewBtn').onclick = () => {
-        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Tambah Crew Baru';
-        document.getElementById('crewName').value = '';
-        document.getElementById('crewRole').value = '';
-        document.getElementById('crewIcon').value = 'fa-user';
-        crewModal.classList.add('active');
-        delete crewModal.dataset.editId;
-    };
-    
-    document.getElementById('saveCrewBtn').onclick = () => {
-        const name = document.getElementById('crewName').value.trim();
-        const role = document.getElementById('crewRole').value.trim();
-        const icon = document.getElementById('crewIcon').value.trim() || 'fa-user';
-        if (!name) return alert('Nama crew wajib diisi');
-        
-        if (crewModal.dataset.editId) {
-            const id = parseInt(crewModal.dataset.editId);
-            const crew = crewList.find(c => c.id === id);
-            if (crew) {
-                crew.name = name;
-                crew.role = role;
-                crew.icon = icon;
-                saveCrew();
-            }
-        } else {
-            const newId = Math.max(...crewList.map(c=>c.id), 0) + 1;
-            crewList.push({ id: newId, name, role, icon });
-            enthusiasmData[newId] = {};
-            saveCrew();
-            saveEnthusiasm();
-        }
-        crewModal.classList.remove('active');
-        rebuildFilterButtons();
-        renderCalendar();
-    };
-    
-    document.getElementById('closeModalBtn').onclick = () => crewModal.classList.remove('active');
-    document.getElementById('closeManageBtn').onclick = () => manageModal.classList.remove('active');
-    
-    document.getElementById('editCrewBtn').onclick = () => {
-        const container = document.getElementById('crewListContainer');
-        container.innerHTML = '';
-        crewList.forEach(crew => {
-            const div = document.createElement('div');
-            div.className = 'crew-item';
-            div.innerHTML = `
-                <span><i class="fas ${crew.icon}"></i> <strong>${crew.name}</strong> (${crew.role})</span>
-                <div>
-                    <button class="edit-crew" data-id="${crew.id}"><i class="fas fa-edit"></i></button>
-                    <button class="delete-crew" data-id="${crew.id}"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-        
-        document.querySelectorAll('.edit-crew').forEach(btn => {
-            btn.onclick = () => {
-                const id = parseInt(btn.dataset.id);
-                const crew = crewList.find(c=>c.id===id);
-                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Crew';
-                document.getElementById('crewName').value = crew.name;
-                document.getElementById('crewRole').value = crew.role;
-                document.getElementById('crewIcon').value = crew.icon;
-                crewModal.classList.add('active');
-                crewModal.dataset.editId = id;
-                manageModal.classList.remove('active');
-            };
-        });
-        
-        document.querySelectorAll('.delete-crew').forEach(btn => {
-            btn.onclick = () => {
-                if(confirm('Hapus crew ini? Data semangat akan hilang.')) {
-                    const id = parseInt(btn.dataset.id);
-                    crewList = crewList.filter(c=>c.id !== id);
-                    delete enthusiasmData[id];
-                    saveCrew(); 
-                    saveEnthusiasm();
-                    if(currentFilter == id) currentFilter = "all";
-                    rebuildFilterButtons();
+    function attachMODClickOnHeader() {
+        // setiap th (indeks mulai 1) berisi tanggal & tombol MOD via klik
+        let thCells = document.querySelectorAll('.enthusiasm-table th');
+        for(let i=1; i<thCells.length; i++) {
+            let day = i;
+            let th = thCells[i];
+            th.style.cursor = 'pointer';
+            th.title = 'Klik untuk atur MOD (Manager on Duty) tanggal ini';
+            th.onclick = (e) => {
+                e.stopPropagation();
+                let isEditable = isDateEditable(currentYear, currentMonth, day);
+                if(!isEditable) { alert('Tidak bisa mengatur MOD untuk tanggal yang belum terjadi.'); return; }
+                let currentMod = getModForDate(currentYear, currentMonth, day);
+                let options = '<option value="">-- Tidak Ada MOD --</option>';
+                crewList.forEach(c => { options += `<option value="${c.id}" ${currentMod && currentMod.id===c.id ? 'selected' : ''}>${c.name} (${c.role})</option>`; });
+                let selectHtml = `<div style="background:white; padding:15px; border-radius:24px;"><h4><i class="fas fa-user-tie"></i> Atur MOD untuk tanggal ${day}</h4><select id="tempModSelect">${options}</select><br><br><button id="confirmModBtn" style="background:#e67e22; color:white; border:none; padding:8px 20px; border-radius:30px;">Simpan</button><button id="cancelModBtn" style="margin-left:10px;">Batal</button></div>`;
+                let modalDiv = document.createElement('div'); modalDiv.className = 'modal active'; modalDiv.style.display = 'flex'; modalDiv.style.alignItems='center'; modalDiv.style.justifyContent='center';
+                let contentDiv = document.createElement('div'); contentDiv.style.background='white'; contentDiv.style.borderRadius='28px'; contentDiv.style.padding='20px'; contentDiv.style.minWidth='280px';
+                contentDiv.innerHTML = selectHtml;
+                modalDiv.appendChild(contentDiv); document.body.appendChild(modalDiv);
+                document.getElementById('confirmModBtn').onclick = () => {
+                    let selectedId = document.getElementById('tempModSelect').value;
+                    if(selectedId) setModForDate(currentYear, currentMonth, day, parseInt(selectedId));
+                    else setModForDate(currentYear, currentMonth, day, null);
+                    modalDiv.remove();
                     renderCalendar();
-                    document.getElementById('editCrewBtn').click();
-                }
+                };
+                document.getElementById('cancelModBtn').onclick = () => modalDiv.remove();
             };
-        });
-        manageModal.classList.add('active');
-    };
-    
-    document.getElementById('resetDataBtn').onclick = () => {
-        if(confirm('RESET semua data semangat untuk tanggal yang sudah terjadi? Data future tidak terpengaruh.')) {
-            for (let crew of crewList) {
-                for (let day = 1; day <= daysInMonth; day++) {
-                    if (isDateEditable(currentYear, currentMonth, day)) {
-                        const rand = Math.random();
-                        if (rand < 0.1) enthusiasmData[crew.id][day] = null;
-                        else if (rand < 0.35) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 45) + 15;
-                        else if (rand < 0.7) enthusiasmData[crew.id][day] = Math.floor(Math.random() * 25) + 60;
-                        else enthusiasmData[crew.id][day] = Math.floor(Math.random() * 16) + 85;
-                    }
-                }
-            }
-            saveEnthusiasm();
-            renderCalendar();
-            alert('Data semangat untuk tanggal yang sudah terjadi telah di-reset!');
         }
-    };
+    }
+
+    function updateModDashboard() {
+        const todayKey = formatDateKey(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+        let currentMod = getModForDate(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+        let modName = currentMod ? currentMod.name : 'Belum ditentukan';
+        let modRole = currentMod ? currentMod.role : '';
+        document.getElementById('modNameDisplay').innerHTML = modName + (currentMod ? ` <i class="fas fa-check-circle" style="color:#2b9348;"></i>` : '');
+        document.getElementById('modRoleDisplay').innerText = modRole;
+        document.getElementById('modDateLabel').innerHTML = `Hari ini, ${todayDate.getDate()}`;
+        // isi select
+        let select = document.getElementById('modCrewSelect');
+        if(select) {
+            select.innerHTML = '<option value="">-- Pilih Crew --</option>' + crewList.map(c=>`<option value="${c.id}">${c.name} (${c.role})</option>`).join('');
+        }
+    }
     
-    function applyMonth() {
-        const val = document.getElementById('monthPicker').value;
-        const [year, month] = val.split('-');
-        currentYear = parseInt(year);
-        currentMonth = parseInt(month) - 1;
-        daysInMonth = getDaysInMonth(currentYear, currentMonth);
-        ensureDataForCurrentMonth();
+    document.getElementById('assignModBtn')?.addEventListener('click', () => {
+        let crewId = document.getElementById('modCrewSelect').value;
+        if(!crewId) { alert('Pilih crew terlebih dahulu'); return; }
+        setModForDate(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate(), parseInt(crewId));
         renderCalendar();
-        localStorage.setItem(STORAGE_MONTH, val);
-    }
+    });
     
-    document.getElementById('applyMonthBtn').onclick = applyMonth;
-    
-    function loadMonthFromStorage() {
-        const savedMonth = localStorage.getItem(STORAGE_MONTH);
-        if (savedMonth) {
-            document.getElementById('monthPicker').value = savedMonth;
-            applyMonth();
-        } else {
-            applyMonth();
+    function computeCrewAverageScore() {
+        let scores = [];
+        for(let crew of crewList) {
+            let total=0, count=0;
+            for(let d=1; d<=daysInMonth; d++) { if(isDateEditable(currentYear, currentMonth, d)) { let val = enthusiasmData[crew.id]?.[d]; if(val !== null && val !== undefined) { total += val; count++; } } }
+            let avg = count>0 ? total/count : 0;
+            scores.push({ crew, avg, count });
         }
+        return scores;
+    }
+    function renderBestEmployeeDashboard() {
+        const scores = computeCrewAverageScore().filter(s => s.count > 0).sort((a,b) => b.avg - a.avg);
+        const top3 = scores.slice(0,3);
+        const container = document.getElementById('bestEmployeesContainer');
+        if(!container) return;
+        if(top3.length===0) { container.innerHTML = `<div class="best-card" style="text-align:center;">Belum ada data semangat untuk bulan ini.</div>`; return; }
+        let medals = ['gold', 'silver', 'bronze'], rankColors = ['gold-rank', 'silver-rank', 'bronze-rank'];
+        let html = '';
+        top3.forEach((item, idx) => {
+            html += `<div class="best-card ${medals[idx]}"><div class="best-rank ${rankColors[idx]}">${idx+1}</div><h3><i class="fas ${item.crew.icon}"></i> ${item.crew.name} ${idx===0?'<i class="fas fa-crown medal-icon"></i>':''}</h3><div class="best-score">${item.avg.toFixed(1)}%</div><span class="best-role">${item.crew.role}</span><div class="best-stats">⭐ Rata-rata dari ${item.count} hari aktif</div></div>`;
+        });
+        container.innerHTML = html;
     }
     
-    // INIT
-    loadCrew();
-    loadEnthusiasm();
-    loadMonthFromStorage();
-    rebuildFilterButtons();
-    renderCalendar();
+    function updateStats() { /* mirip versi sebelumnya, ringkas */
+        let total=0,count=0,high=0,mid=0,low=0,off=0,totalEditableEntries=0;
+        for(let crew of crewList) for(let d=1;d<=daysInMonth;d++) if(isDateEditable(currentYear,currentMonth,d)) { totalEditableEntries++; let v=enthusiasmData[crew.id]?.[d]; if(v===null) off++; else if(v!==undefined) { total+=v; count++; if(v>=85) high++; else if(v>=60) mid++; else low++; } }
+        let avg=count?(total/count).toFixed(1):0; let avgPercent=(avg/100)*100; let highPercent=totalEditableEntries?((high/totalEditableEntries)*100).toFixed(1):0; let midPercent=totalEditableEntries?((mid/totalEditableEntries)*100).toFixed(1):0; let lowPercent=totalEditableEntries?((low/totalEditableEntries)*100).toFixed(1):0; let offPercent=totalEditableEntries?((off/totalEditableEntries)*100).toFixed(1):0;
+        document.getElementById('statsPanel').innerHTML=`<div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><h4>Rata Semangat</h4><div class="stat-value">${avg}%</div><div class="avg-progress"><div class="avg-progress-bar" style="width:${avgPercent}%;"></div></div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-fire"></i></div><h4>High Energy</h4><div class="stat-value">${highPercent}%</div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-smile"></i></div><h4>Mid Energy</h4><div class="stat-value">${midPercent}%</div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-tired"></i></div><h4>Low Energy</h4><div class="stat-value">${lowPercent}%</div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><h4>Off / Absen</h4><div class="stat-value">${offPercent}%</div></div>`;
+    }
+    function updateChart() { /* sama seperti versi awal */ 
+        let canvas=document.getElementById('enthusiasmChart'); if(!canvas) return; let dailyAvg=[]; for(let d=1;d<=daysInMonth;d++){ if(!isDateEditable(currentYear,currentMonth,d)){ dailyAvg.push(null); continue; } let sum=0,cnt=0; for(let crew of crewList){ let val=enthusiasmData[crew.id]?.[d]; if(val!==null && val!==undefined){ sum+=val; cnt++; } } dailyAvg.push(cnt>0?(sum/cnt).toFixed(1):null); } if(enthusiasmChart) enthusiasmChart.destroy(); enthusiasmChart=new Chart(canvas,{type:'line',data:{labels:dailyAvg.map((_,i)=>i+1),datasets:[{label:'Rata-rata Semangat Harian (%)',data:dailyAvg,borderColor:'#e67e22',backgroundColor:'rgba(230,126,34,0.1)',borderWidth:3,fill:true,tension:0.4,pointBackgroundColor:dailyAvg.map(v=>v? (v>=75?'#2b9348':(v>=60?'#f4a261':'#e76f51')):'#ccc')}]},options:{responsive:true,scales:{y:{min:0,max:100}}}}); }
+    
+    function rebuildFilterButtons() { let container=document.getElementById('crewFilterButtons'); let html=`<button data-crew="all" class="crew-btn ${currentFilter==='all'?'active':''}"><i class="fas fa-users"></i> Semua (${crewList.length})</button>`; crewList.forEach(c=>{ html+=`<button data-crew="${c.id}" class="crew-btn ${currentFilter==c.id?'active':''}"><i class="fas ${c.icon}"></i> ${c.name}</button>`; }); container.innerHTML=html; document.querySelectorAll('.crew-btn').forEach(btn=>{ btn.onclick=()=>{ currentFilter=btn.dataset.crew; rebuildFilterButtons(); renderCalendar(); }; }); }
+    function applyMonth() { let val=document.getElementById('monthPicker').value; let [year,month]=val.split('-'); currentYear=parseInt(year); currentMonth=parseInt(month)-1; daysInMonth=getDaysInMonth(currentYear,currentMonth); ensureDataForCurrentMonth(); renderCalendar(); localStorage.setItem(STORAGE_MONTH,val); }
+    
+    // Modal handlers (sama)
+    const crewModal=document.getElementById('crewModal'), manageModal=document.getElementById('manageModal');
+    document.getElementById('addCrewBtn').onclick=()=>{ document.getElementById('modalTitle').innerHTML='<i class="fas fa-user-plus"></i> Tambah Crew Baru'; document.getElementById('crewName').value=''; document.getElementById('crewRole').value=''; document.getElementById('crewIcon').value='fa-user'; crewModal.classList.add('active'); delete crewModal.dataset.editId; };
+    document.getElementById('saveCrewBtn').onclick=()=>{ let name=document.getElementById('crewName').value.trim(), role=document.getElementById('crewRole').value.trim(), icon=document.getElementById('crewIcon').value.trim()||'fa-user'; if(!name) return alert('Nama crew wajib diisi'); if(crewModal.dataset.editId){ let id=parseInt(crewModal.dataset.editId); let crew=crewList.find(c=>c.id===id); if(crew){ crew.name=name; crew.role=role; crew.icon=icon; saveCrew(); } } else { let newId=Math.max(...crewList.map(c=>c.id),0)+1; crewList.push({id:newId,name,role,icon}); enthusiasmData[newId]={}; saveCrew(); saveEnthusiasm(); } crewModal.classList.remove('active'); rebuildFilterButtons(); renderCalendar(); };
+    document.getElementById('closeModalBtn').onclick=()=>crewModal.classList.remove('active');
+    document.getElementById('closeManageBtn').onclick=()=>manageModal.classList.remove('active');
+    document.getElementById('editCrewBtn').onclick=()=>{ let container=document.getElementById('crewListContainer'); container.innerHTML=''; crewList.forEach(crew=>{ let div=document.createElement('div'); div.className='crew-item'; div.innerHTML=`<span><i class="fas ${crew.icon}"></i> <strong>${crew.name}</strong> (${crew.role})</span><div><button class="edit-crew" data-id="${crew.id}"><i class="fas fa-edit"></i></button><button class="delete-crew" data-id="${crew.id}"><i class="fas fa-trash"></i></button></div>`; container.appendChild(div); }); document.querySelectorAll('.edit-crew').forEach(btn=>{ btn.onclick=()=>{ let id=parseInt(btn.dataset.id); let crew=crewList.find(c=>c.id===id); document.getElementById('modalTitle').innerHTML='<i class="fas fa-edit"></i> Edit Crew'; document.getElementById('crewName').value=crew.name; document.getElementById('crewRole').value=crew.role; document.getElementById('crewIcon').value=crew.icon; crewModal.classList.add('active'); crewModal.dataset.editId=id; manageModal.classList.remove('active'); }; }); document.querySelectorAll('.delete-crew').forEach(btn=>{ btn.onclick=()=>{ if(confirm('Hapus crew ini?')){ let id=parseInt(btn.dataset.id); crewList=crewList.filter(c=>c.id!==id); delete enthusiasmData[id]; saveCrew(); saveEnthusiasm(); if(currentFilter==id) currentFilter="all"; rebuildFilterButtons(); renderCalendar(); document.getElementById('editCrewBtn').click(); } }; }); manageModal.classList.add('active'); };
+    document.getElementById('resetDataBtn').onclick=()=>{ if(confirm('RESET semua data semangat untuk tanggal yang sudah terjadi?')){ for(let crew of crewList){ for(let day=1;day<=daysInMonth;day++){ if(isDateEditable(currentYear,currentMonth,day)){ let rand=Math.random(); if(rand<0.1) enthusiasmData[crew.id][day]=null; else if(rand<0.35) enthusiasmData[crew.id][day]=Math.floor(Math.random()*45)+15; else if(rand<0.7) enthusiasmData[crew.id][day]=Math.floor(Math.random()*25)+60; else enthusiasmData[crew.id][day]=Math.floor(Math.random()*16)+85; } } } saveEnthusiasm(); renderCalendar(); alert('Reset berhasil'); } };
+    document.getElementById('applyMonthBtn').onclick=applyMonth;
+    function loadMonthFromStorage(){ let saved=localStorage.getItem(STORAGE_MONTH); if(saved){ document.getElementById('monthPicker').value=saved; applyMonth(); } else applyMonth(); }
+    
+    loadCrew(); loadEnthusiasm(); loadModSchedule(); loadMonthFromStorage(); rebuildFilterButtons(); renderCalendar();
 </script>
 </body>
 </html>
