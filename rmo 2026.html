@@ -1,121 +1,415 @@
-<!--
------------------
-https://github.com/ardacarofficial/links-website is open source project.
------------------
--->
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMO 2026-Area 2</title>
-	<link rel="shortcut icon" href="img/favicon.ico">
-    <meta name="description" content="List all your links on one website.">
-    <meta property="og:title" content="links-website" />
-    <meta property="og:description" content="List all your links on one website." />
-    <meta property="og:image" content="img/logo2.png" />
-    <meta property="og:author" content="John Doe" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <header>
-    <!-- Logo, Title and Description Codes Start -->
-     <div class="header_img flex_column_center">
-        <img src="img/logo.png" alt="Logo" />
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>RMO</title>
+  <!-- Google Fonts & Font Awesome 6 (Gratis) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fe 0%, #eef2fc 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Container utama dengan sentuhan modern & glassmorphism premium */
+    .dashboard {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 2.5rem;
+      padding: 2rem 2rem 2.2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    /* Header minimalis modern - tanpa fitur pilihan */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+      padding-bottom: 1rem;
+    }
+
+    .title-section h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(125deg, #1F2B48, #2C3E66, #1E3A5F);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-section h1 i {
+      background: linear-gradient(145deg, #4a6fa5, #1f3a5f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-size: 1.8rem;
+    }
+
+    .subtitle {
+      color: #4a627a;
+      font-weight: 500;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      letter-spacing: 0.2px;
+      opacity: 0.8;
+    }
+
+    .year-badge {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 0.45rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #1f2b48;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255,255,245,0.8);
+    }
+
+    /* GRID MODERN: rapi, responsif, interaksi tinggi */
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.6rem;
+      margin-top: 1.2rem;
+    }
+
+    /* Kartu bulan — desain bersih, hanya icon + nama bulan */
+    .month-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1.8rem 1rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.08);
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Efek glassmorphism tambahan saat hover */
+    .month-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,245,0.4), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+      border-radius: 2rem;
+    }
+
+    .month-card:hover::after {
+      opacity: 1;
+    }
+
+    .month-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 28px 36px -16px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 245, 0.9);
+    }
+
+    /* Active effect sentuhan (untuk umpan balik klik) tidak merusak UX */
+    .month-card:active {
+      transform: scale(0.98);
+      transition: 0.05s linear;
+    }
+
+    /* Area icon - ukuran besar dan warna berbeda tiap bulan */
+    .month-icon {
+      font-size: 3.2rem;
+      margin-bottom: 1rem;
+      transition: transform 0.2s ease, filter 0.2s;
+      display: inline-block;
+    }
+
+    .month-card:hover .month-icon {
+      transform: scale(1.07) translateY(-3px);
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+    }
+
+    /* Nama bulan tebal & modern, tidak ada deskripsi */
+    .month-name {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.3px;
+      color: #1a2c44;
+      margin-top: 0.5rem;
+      background: none;
+      transition: all 0.2s;
+    }
+
+    /* Footer minimalis */
+    .footer-note {
+      text-align: center;
+      margin-top: 2.8rem;
+      font-size: 0.72rem;
+      color: #6d85aa;
+      font-weight: 500;
+      border-top: 1px solid rgba(255,255,255,0.6);
+      padding-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* Responsif mobile */
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem;
+      }
+      .dashboard {
+        padding: 1.2rem;
+      }
+      .months-grid {
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .month-name {
+        font-size: 1.1rem;
+      }
+      .month-icon {
+        font-size: 2.4rem;
+      }
+      .title-section h1 {
+        font-size: 1.45rem;
+      }
+      .year-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 1rem;
+      }
+    }
+
+    /* Animasi fade-in yang elegan */
+    @keyframes gentleRise {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .month-card {
+      animation: gentleRise 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+    }
+
+    /* Efek Stagger biar modern */
+    .month-card:nth-child(1) { animation-delay: 0.02s; }
+    .month-card:nth-child(2) { animation-delay: 0.05s; }
+    .month-card:nth-child(3) { animation-delay: 0.08s; }
+    .month-card:nth-child(4) { animation-delay: 0.11s; }
+    .month-card:nth-child(5) { animation-delay: 0.14s; }
+    .month-card:nth-child(6) { animation-delay: 0.17s; }
+    .month-card:nth-child(7) { animation-delay: 0.20s; }
+    .month-card:nth-child(8) { animation-delay: 0.23s; }
+    .month-card:nth-child(9) { animation-delay: 0.26s; }
+    .month-card:nth-child(10) { animation-delay: 0.29s; }
+    .month-card:nth-child(11) { animation-delay: 0.32s; }
+    .month-card:nth-child(12) { animation-delay: 0.35s; }
+
+    /* Hapus outline tap pada safari */
+    .month-card:focus-visible {
+      outline: 2px solid #3b5c9e;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div class="title-section">
+      <h1>
+        <i class="fas fa-calendar-week"></i> 
+        Dashboard RMO 2026
+      </h1>
+      <div class="subtitle">
+        <i class="fas fa-palette"></i> Klik untuk buka tautan
       </div>
-      <div class="header_text flex_column_center">
-        <h1 class="header_h_item">Area 2</h1>
-      </div>
-    <!-- Logo, Title and Description Codes End -->  
+    </div>
+    <div class="year-badge">
+      <i class="fas fa-globe"></i> 2026
+      <i class="fas fa-arrow-right-long" style="font-size: 0.7rem;"></i>
+    </div>
+  </div>
 
- 
+  <!-- GRID 12 BULAN : hanya icon (dengan warna berbeda) + nama bulan -->
+  <div class="months-grid" id="monthsGrid"></div>
+  
+  <div class="footer-note">
+    <i class="fas fa-link"></i> © 2026 RK . All rights reserved
+    <i class="fas fa-meteor" style="opacity:0.7"></i>
+  </div>
+</div>
 
-    <!-- Social Media Icons Codes End -->
+<script>
+  // Data setiap bulan: nama, url tujuan (contoh link menarik sesuai tema bulan), 
+  // serta warna icon yang BERBEDA untuk setiap bulan (gradasi solid modern)
+  const monthsData = [
+    { 
+      name: "Januari", 
+      url: "https://docs.google.com/spreadsheets/d/1MMtZlnDJSrLmVpdUI8GZRrW2V3Nt8z3a/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true", 
+      iconClass: "fas fa-snowflake",
+      iconColor: "#4d9de0"   // biru es dingin
+    },
+    { 
+      name: "Februari", 
+      url: "https://docs.google.com/spreadsheets/d/1zivLL2Nt2rqv9-gsFjZavMIgR36eFKeW/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true", 
+      iconClass: "fas fa-heart",
+      iconColor: "#e84393"   // pink Valentine
+    },
+    { 
+      name: "Maret", 
+      url: "https://docs.google.com/spreadsheets/d/1GicQrROQRfflmRL5DmYHCTcpCH_26s4B/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true", 
+      iconClass: "fas fa-seedling",
+      iconColor: "#6ab04c"   // hijau segar musim semi
+    },
+    { 
+      name: "April", 
+      url: "https://ekabogainti-my.sharepoint.com/:x:/g/personal/arinto_purnomo_hokben_co_id/IQBXjLkXrHRNTaXEtpxg0L3TAZLWqcHvr22b5x8wtu2s7BQ?e=VmiKdY", 
+      iconClass: "fas fa-cloud-rain",
+      iconColor: "#45aaf2"   // biru hujan
+    },
+    { 
+      name: "Mei", 
+      url: "https://ekabogainti-my.sharepoint.com/:x:/g/personal/arinto_purnomo_hokben_co_id/IQB--l3t7YiOSY477TbCu3eMAXAhoCUCra2rywYvNtFoF1o?e=BTd36v", 
+      iconClass: "fas fa-leaf",
+      iconColor: "#2ecc71"   // hijau daun tropis
+    },
+    { 
+      name: "Juni", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-sun",
+      iconColor: "#f1c40f"   // kuning mentari terik
+    },
+    { 
+      name: "Juli", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-umbrella-beach",
+      iconColor: "#f39c12"   // oranye pantai
+    },
+    { 
+      name: "Agustus", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-tree",
+      iconColor: "#27ae60"   // hijau hutan
+    },
+    { 
+      name: "September", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-wind",
+      iconColor: "#3498db"   // biru angin sepoi
+    },
+    { 
+      name: "Oktober", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-candy-cane",
+      iconColor: "#e67e22"   // jingga halloween
+    },
+    { 
+      name: "November", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-cloud-moon",
+      iconColor: "#9b59b6"   // ungu senja kabut
+    },
+    { 
+      name: "Desember", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-gift",
+      iconColor: "#e74c3c"   // merah hadiah natal
+    }
+  ];
 
-    <!-- Menu Codes Start -->
-      <nav>
-        <ul class="header_nav_menu_list flex_no_wrap_row_center">
-          <li data-target="#main_section_container_1" id="header_nav_menu_item_1" class="header_nav_menu_item" href="">RMO 2026 Area 2</li>
-          
-          
-        </ul>
-      </nav>
-    <!-- Menu Codes End -->
-    </header>
-    <main>
-      <!-- Menu Container 1 Codes Start -->
-      <section id="main_section_container_1" class="flex_column_center">
-        <!-- Menu Text Item -->
-        <div class="main_text_item">
-          <p>Di isi Max tgl 2 awal bulan<p>
-        </div>
-        <!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1MMtZlnDJSrLmVpdUI8GZRrW2V3Nt8z3a/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JANUARI</button>
-          </a>
-          <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1zivLL2Nt2rqv9-gsFjZavMIgR36eFKeW/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">FEBRUARI</button>
-          </a>
-		  <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1GicQrROQRfflmRL5DmYHCTcpCH_26s4B/edit?usp=sharing&ouid=105850800277277443809&rtpof=true&sd=true" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">MARET</button>
-          </a>
-        </div>
-        <!-- Menu Small Item -->
-        <div class="main_small_button_list">
-          <a class="main_small_a_item" href="https://ekabogainti-my.sharepoint.com/:x:/g/personal/arinto_purnomo_hokben_co_id/IQBXjLkXrHRNTaXEtpxg0L3TAZLWqcHvr22b5x8wtu2s7BQ?e=VmiKdY" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">APRIL</button>
-          </a>
-           <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">MEI</button>
-          </a>
-		   <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/19zeMRE0LPEA3xX0_XFLezAhN90aYWt3j_c9LSfdr2J4/edit?gid=655098603#gid=655098603" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JUNI</button>
-          </a>
-        </div>
-		<!-- Menu Small Item -->
-        <div class="main_small_button_list">
-           <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">JULI</button>
-          </a>
-           <a class="main_small_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">AGUSTUS</button>
-          </a>
-		      <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1nrosw8tOv1OxswrrGgRbLaWASLxa27h3hIsWFbkPKgU/edit?usp=sharing" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">SEPTEMBER</button>
-          </a>
-        </div>
-		<!-- Menu Small Item -->
-        <div class="main_small_button_list">
-           <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1BmlX91mUNaFgZrhc_-3k5inTgPvH_84p0SgeJsLO3nM/edit?usp=sharing" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">OKTOBER</button>
-          </a>
-          <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1ym77WEFlUABh2A82p-idmSZrqviZV_CWwLHsQ02qfuM/edit?usp=sharing" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">NOVEMBER</button>
-          </a>
-		      <a class="main_small_a_item" href="https://docs.google.com/spreadsheets/d/1_eAgsKefONUjVeudNJ5vgDSM3qXr6zUKilsGtgi0_xI/edit?usp=sharing" target="_blank" rel="nofollow">
-            <button class="main_small_button_item">DESEMBER</button>
-          </a>
-        </div>
-        <!-- Menu Item -->
-        <a class="main_a_item" href="commingsoon.html" target="_blank" rel="nofollow">
-          <button class="main_button_item">Rekap Area 2</button>
-        </a>
-      </section>	   
-      <!-- Menu Container 1 Codes End -->
+  /**
+   * Fungsi untuk render grid bulan tanpa keterangan, hanya icon + nama
+   * Setiap icon diberi style warna inline yang berbeda-beda sesuai data.
+   * Setiap kartu adalah link yang membuka URL di tab baru (_blank)
+   */
+  function renderMonthsGrid() {
+    const gridContainer = document.getElementById('monthsGrid');
+    if (!gridContainer) return;
+    gridContainer.innerHTML = '';
 
-    </main>
-    <footer>
-      <!-- Footer Codes Start -->
-      <div class="footer_div_item flex_row_center">
-        <a class="footer_a_item" href="#link">Link Report v 1.0</a>&nbsp;| Copyright By Area 02
-      </div>
-    </footer>
-      <!-- Footer Codes End -->
-    <script src="js/main.js"></script>
-  </body>
+    monthsData.forEach((month) => {
+      // Buat elemen <a> sebagai kartu, karena interaksi klik langsung membuka link
+      const cardLink = document.createElement('a');
+      cardLink.className = 'month-card';
+      // Set target _blank untuk membuka di tab baru, juga rel keamanan
+      cardLink.href = month.url;
+      cardLink.target = '_blank';
+      cardLink.rel = 'noopener noreferrer';
+
+      // Inner struktur: hanya icon (dengan warna dinamis) + nama bulan
+      // Icon dibungkus div agar styling terpusat
+      cardLink.innerHTML = `
+        <div class="month-icon">
+          <i class="${month.iconClass}" style="color: ${month.iconColor}; transition: all 0.2s ease;"></i>
+        </div>
+        <div class="month-name">${month.name}</div>
+      `;
+
+      // Tambahkan efek hover tambahan untuk memperkuat warna icon saat hover (opsional, membuat warna lebih hidup)
+      // Kita bisa menambahkan event mouseover untuk mencerahkan warna? Tidak wajib, tapi untuk pengalaman lebih baik.
+      // Tetapi karena sudah ada efek transisi, kita bisa menambahkan sedikit efek shadow pada icon.
+      const iconElem = cardLink.querySelector('.month-icon i');
+      if (iconElem) {
+        cardLink.addEventListener('mouseenter', () => {
+          iconElem.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))';
+          iconElem.style.transform = 'scale(1.02)';
+        });
+        cardLink.addEventListener('mouseleave', () => {
+          iconElem.style.filter = '';
+          iconElem.style.transform = '';
+        });
+      }
+
+      gridContainer.appendChild(cardLink);
+    });
+  }
+
+  // Inisialisasi dashboard segera setelah DOM siap
+  document.addEventListener('DOMContentLoaded', () => {
+    renderMonthsGrid();
+    // Tambahan sentuhan: gaya modern untuk setiap kartu sudah mencakup pointer
+    // Tidak ada fitur bulan terpilih, tidak ada reset.
+  });
+</script>
+</body>
 </html>
