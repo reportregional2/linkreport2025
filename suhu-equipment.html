@@ -3,465 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Suhu Equipment | Dashboard Monitoring 2026</title>
+    <title>Suhu Equipment | Dashboard 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #eef2f9 0%, #d9e0eb 100%);
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             min-height: 100vh;
-            padding: 32px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem;
         }
 
-        /* Container utama lebih bernapas */
-        .main-container {
-            max-width: 1400px;
+        /* Container utama: sederhana, bersih, fokus pada judul & icon */
+        .dashboard-minimal {
+            max-width: 1300px;
+            width: 100%;
             margin: 0 auto;
         }
 
-        /* Header premium */
-        .header {
+        /* Header hanya berisi judul utama tanpa hiasan berlebihan */
+        .header-pure {
             text-align: center;
-            margin-bottom: 48px;
-            padding: 28px 24px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(4px);
-            border-radius: 42px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
         }
 
-        .header h1 {
-            background: linear-gradient(135deg, #1E2A3E, #2c3e50);
+        .header-pure h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(125deg, #1f2b38, #2c3e50);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            font-size: 2.3rem;
-            letter-spacing: -0.3px;
-            margin-bottom: 12px;
+            letter-spacing: -0.02em;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
             justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .header h1 i {
+        .header-pure h1 i {
             background: none;
-            background-clip: unset;
-            -webkit-background-clip: unset;
-            color: #f39c12;
-            font-size: 2rem;
+            color: #e67e22;
+            font-size: 2.4rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
-        .header p {
-            color: #4a5b6e;
-            font-size: 1.1rem;
+        /* Subjudul minimal — tetap ringkas, tapi tidak mengganggu fokus */
+        .sub-minimal {
+            font-size: 0.95rem;
+            color: #4a627a;
+            margin-top: 0.6rem;
             font-weight: 500;
-            background: #f0f4fa;
+            background: rgba(255,255,240,0.5);
             display: inline-block;
-            padding: 8px 24px;
-            border-radius: 60px;
+            padding: 0.2rem 1.5rem;
+            border-radius: 40px;
             backdrop-filter: blur(2px);
         }
 
-        /* Dashboard grid dengan gap lebih seimbang */
-        .dashboard {
+        /* GRID: hanya menampilkan kartu dengan ikon dominan + judul (tanpa elemen rumit) 
+           Desain "less is more": tidak ada badge lokasi, tidak ada deskripsi panjang,
+           hanya ikon dan nama. Efek hover tetap halus dan modern */
+        .icon-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 28px;
-            padding: 8px 4px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 2rem 1.5rem;
+            justify-items: center;
+            align-items: start;
         }
 
-        /* Kartu modern dengan depth dan hover premium */
-        .store-card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 24px 16px 22px;
-            text-align: center;
-            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(2px);
-        }
-
-        .store-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 28px 36px -14px rgba(0, 0, 0, 0.25);
-            border-color: rgba(255,255,240,0.9);
-        }
-
-        /* Efek garis atas dengan warna menyala */
-        .store-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Kartu super sederhana: persegi lembut, fokus ke ikon besar */
+        .icon-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
             width: 100%;
-            height: 6px;
-            background: #3498db;
-            transition: height 0.2s ease;
+            max-width: 150px;
+            padding: 1.5rem 0.8rem 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.1);
         }
 
-        .store-card:hover::before {
-            height: 8px;
-            filter: brightness(1.1);
+        .icon-card:hover {
+            transform: translateY(-6px);
+            background: white;
+            box-shadow: 0 18px 26px -12px rgba(0, 0, 0, 0.2);
+            border-color: rgba(230, 126, 34, 0.3);
         }
 
-        /* Ikon dengan background lembut */
-        .store-icon {
-            font-size: 2.8rem;
-            margin-bottom: 18px;
-            transition: all 0.3s ease;
-            background: rgba(0, 0, 0, 0.02);
+        /* Ikon utama: besar, ekspresif, menjadi pusat perhatian */
+        .main-icon {
+            font-size: 3.3rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+            transition: transform 0.2s;
             width: 80px;
             height: 80px;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 60px;
             background: #f8fafd;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02), 0 6px 12px -6px rgba(0,0,0,0.1);
+            border-radius: 2rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.02), 0 6px 12px -6px rgba(0,0,0,0.08);
         }
 
-        .store-card:hover .store-icon {
-            transform: scale(1.08) rotate(2deg);
+        .icon-card:hover .main-icon {
+            transform: scale(1.03);
             background: #ffffff;
-            box-shadow: 0 10px 18px -8px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 18px -8px rgba(0,0,0,0.12);
         }
 
-        /* teks nama toko */
-        .store-name {
-            font-size: 1.35rem;
+        /* Nama toko: tipografi bersih, tegas, tanpa hiasan tambahan */
+        .store-title {
             font-weight: 700;
-            color: #1f2d3d;
-            margin: 16px 0 6px;
+            font-size: 1.05rem;
+            color: #1e2f3f;
             letter-spacing: -0.2px;
+            margin-top: 0.5rem;
+            padding: 0 0.2rem;
+            word-break: keep-all;
         }
 
-        /* deskripsi kecil opsional */
-        .store-location {
-            font-size: 0.8rem;
-            color: #6c7a8e;
-            background: #f0f3f9;
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 50px;
-            margin-top: 6px;
-        }
+        /* Tidak ada elemen "badge-tag" atau "store-location" sesuai permintaan: hanya judul & icon */
 
-        /* Warna ikon dinamis dengan gradasi lembut */
-        .store-card:nth-child(1) .store-icon { color: #e74c3c; background: #fff5f2; }
-        .store-card:nth-child(2) .store-icon { color: #3498db; background: #eef6fe; }
-        .store-card:nth-child(3) .store-icon { color: #2ecc71; background: #eefaf2; }
-        .store-card:nth-child(4) .store-icon { color: #f39c12; background: #fff8e7; }
-        .store-card:nth-child(5) .store-icon { color: #9b59b6; background: #f8f0fc; }
-        .store-card:nth-child(6) .store-icon { color: #1abc9c; background: #e6faf5; }
-        .store-card:nth-child(7) .store-icon { color: #d35400; background: #fff3ea; }
-        .store-card:nth-child(8) .store-icon { color: #34495e; background: #eef2f5; }
-        .store-card:nth-child(9) .store-icon { color: #27ae60; background: #eef9f0; }
-        .store-card:nth-child(10) .store-icon { color: #8e44ad; background: #f7effc; }
-        .store-card:nth-child(11) .store-icon { color: #c0392b; background: #feeceb; }
-        .store-card:nth-child(12) .store-icon { color: #16a085; background: #e6f6f2; }
-        .store-card:nth-child(13) .store-icon { color: #e67e22; background: #fef3e8; }
-        .store-card:nth-child(14) .store-icon { color: #7f8c8d; background: #eff2f4; }
-        .store-card:nth-child(15) .store-icon { color: #2980b9; background: #ecf5fc; }
-        .store-card:nth-child(16) .store-icon { color: #f1c40f; background: #fffae6; }
-        .store-card:nth-child(17) .store-icon { color: #e74c3c; background: #fff2ef; }
-        .store-card:nth-child(18) .store-icon { color: #2c3e50; background: #edf2f6; }
-        .store-card:nth-child(19) .store-icon { color: #3498db; background: #eef4fc; }
-        .store-card:nth-child(20) .store-icon { color: #e84393; background: #fef0f7; }
-        .store-card:nth-child(21) .store-icon { color: #e67e22; background: #fff4e6; }
+        /* Palet warna ikon yang lembut dan terang, setiap kartu memiliki identitas visual tanpa mengganggu */
+        .icon-card:nth-child(1) .main-icon { color: #e74c3c; background: #fff4f0; }
+        .icon-card:nth-child(2) .main-icon { color: #3498db; background: #eef5ff; }
+        .icon-card:nth-child(3) .main-icon { color: #2ecc71; background: #edfaf0; }
+        .icon-card:nth-child(4) .main-icon { color: #f39c12; background: #fef6e8; }
+        .icon-card:nth-child(5) .main-icon { color: #9b59b6; background: #f6f0fc; }
+        .icon-card:nth-child(6) .main-icon { color: #1abc9c; background: #e9f9f4; }
+        .icon-card:nth-child(7) .main-icon { color: #d35400; background: #fff3ea; }
+        .icon-card:nth-child(8) .main-icon { color: #34495e; background: #ecf0f3; }
+        .icon-card:nth-child(9) .main-icon { color: #27ae60; background: #ebf9ef; }
+        .icon-card:nth-child(10) .main-icon { color: #8e44ad; background: #f5edfc; }
+        .icon-card:nth-child(11) .main-icon { color: #c0392b; background: #fdeceb; }
+        .icon-card:nth-child(12) .main-icon { color: #16a085; background: #e8f6f2; }
+        .icon-card:nth-child(13) .main-icon { color: #e67e22; background: #fef4e8; }
+        .icon-card:nth-child(14) .main-icon { color: #7f8c8d; background: #edf1f4; }
+        .icon-card:nth-child(15) .main-icon { color: #2980b9; background: #ecf4fc; }
+        .icon-card:nth-child(16) .main-icon { color: #f1c40f; background: #fffbe6; }
+        .icon-card:nth-child(17) .main-icon { color: #e74c3c; background: #fff2ee; }
+        .icon-card:nth-child(18) .main-icon { color: #2c3e50; background: #ecf0f5; }
+        .icon-card:nth-child(19) .main-icon { color: #3498db; background: #eef4fc; }
+        .icon-card:nth-child(20) .main-icon { color: #e84393; background: #fef0f7; }
+        .icon-card:nth-child(21) .main-icon { color: #e67e22; background: #fff3e6; }
 
-        /* Warna border atas konsisten dengan ikon vibes */
-        .store-card:nth-child(1)::before { background: #e74c3c; }
-        .store-card:nth-child(2)::before { background: #3498db; }
-        .store-card:nth-child(3)::before { background: #2ecc71; }
-        .store-card:nth-child(4)::before { background: #f39c12; }
-        .store-card:nth-child(5)::before { background: #9b59b6; }
-        .store-card:nth-child(6)::before { background: #1abc9c; }
-        .store-card:nth-child(7)::before { background: #d35400; }
-        .store-card:nth-child(8)::before { background: #34495e; }
-        .store-card:nth-child(9)::before { background: #27ae60; }
-        .store-card:nth-child(10)::before { background: #8e44ad; }
-        .store-card:nth-child(11)::before { background: #c0392b; }
-        .store-card:nth-child(12)::before { background: #16a085; }
-        .store-card:nth-child(13)::before { background: #e67e22; }
-        .store-card:nth-child(14)::before { background: #7f8c8d; }
-        .store-card:nth-child(15)::before { background: #2980b9; }
-        .store-card:nth-child(16)::before { background: #f1c40f; }
-        .store-card:nth-child(17)::before { background: #e74c3c; }
-        .store-card:nth-child(18)::before { background: #2c3e50; }
-        .store-card:nth-child(19)::before { background: #3498db; }
-        .store-card:nth-child(20)::before { background: #e84393; }
-        .store-card:nth-child(21)::before { background: #e67e22; }
-
-        /* Tambahan badge kecil untuk monitoring */
-        .badge-tag {
-            position: absolute;
-            bottom: 14px;
-            right: 18px;
-            font-size: 0.7rem;
-            background: rgba(0,0,0,0.04);
-            padding: 4px 8px;
-            border-radius: 40px;
-            color: #5d6f83;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .store-card:hover .badge-tag {
-            background: #ecf3fa;
-            color: #2c3e50;
-        }
-
-        /* Perbaikan elemen rusak: ikon PRJ sebelumnya hilang div store-card */
-        /* dan juga memperbaiki kesalahan RS St Carolus (commingsoom.html) */
-        /* Semua sudah dibetulkan langsung di HTML struktur */
-
-        /* Tambahan footer kecil */
-        .footer-note {
+        /* Footer minimalis dan tidak berisik */
+        .footer-clean {
             text-align: center;
-            margin-top: 56px;
-            padding: 20px;
-            color: #3e5569;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 3rem;
+            font-size: 0.7rem;
+            color: #5c6f87;
+            letter-spacing: 0.3px;
             font-weight: 500;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1.5rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Responsif: di layar kecil grid lebih compact, tetapi tetap fokus pada ikon dan judul */
+        @media (max-width: 760px) {
             body {
-                padding: 20px 16px;
+                padding: 1.2rem;
             }
-            .dashboard {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 20px;
+            .icon-grid {
+                gap: 1.2rem;
             }
-            .store-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 2.2rem;
+            .icon-card {
+                max-width: 120px;
+                padding: 1rem 0.4rem 1rem;
             }
-            .store-name {
-                font-size: 1.2rem;
+            .main-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 2.6rem;
             }
-            .header h1 {
+            .store-title {
+                font-size: 0.9rem;
+            }
+            .header-pure h1 {
+                font-size: 2rem;
+                gap: 0.5rem;
+            }
+            .header-pure h1 i {
                 font-size: 1.8rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-                gap: 18px;
+        @media (max-width: 540px) {
+            .icon-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.9rem;
             }
-            .header {
-                padding: 20px 16px;
+            .icon-card {
+                max-width: 105px;
+                border-radius: 1.5rem;
+            }
+            .main-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 2.2rem;
+                border-radius: 1.2rem;
+            }
+            .store-title {
+                font-size: 0.8rem;
+            }
+            .header-pure h1 {
+                font-size: 1.7rem;
             }
         }
 
-        /* animasi loading ringan */
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(12px);}
-            to { opacity: 1; transform: translateY(0);}
+        /* animasi fade in sangat ringan */
+        .icon-card {
+            animation: softAppear 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1) backwards;
         }
-        .store-card {
-            animation: fadeSlide 0.4s ease backwards;
+        @keyframes softAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
-        .store-card:nth-child(1) { animation-delay: 0.02s; }
-        .store-card:nth-child(2) { animation-delay: 0.05s; }
-        .store-card:nth-child(3) { animation-delay: 0.08s; }
-        .store-card:nth-child(4) { animation-delay: 0.11s; }
-        .store-card:nth-child(5) { animation-delay: 0.14s; }
-        .store-card:nth-child(6) { animation-delay: 0.17s; }
-        .store-card:nth-child(7) { animation-delay: 0.20s; }
-        .store-card:nth-child(8) { animation-delay: 0.23s; }
+        /* delay dinamis agar tidak monoton */
+        .icon-card:nth-child(1) { animation-delay: 0.01s; }
+        .icon-card:nth-child(2) { animation-delay: 0.03s; }
+        .icon-card:nth-child(3) { animation-delay: 0.05s; }
+        .icon-card:nth-child(4) { animation-delay: 0.07s; }
+        .icon-card:nth-child(5) { animation-delay: 0.09s; }
+        .icon-card:nth-child(6) { animation-delay: 0.11s; }
+        .icon-card:nth-child(7) { animation-delay: 0.13s; }
+        .icon-card:nth-child(8) { animation-delay: 0.15s; }
+        .icon-card:nth-child(9) { animation-delay: 0.17s; }
+        .icon-card:nth-child(10) { animation-delay: 0.19s; }
+        .icon-card:nth-child(11) { animation-delay: 0.21s; }
+        .icon-card:nth-child(12) { animation-delay: 0.23s; }
+        .icon-card:nth-child(13) { animation-delay: 0.25s; }
+        .icon-card:nth-child(14) { animation-delay: 0.27s; }
+        .icon-card:nth-child(15) { animation-delay: 0.29s; }
+        .icon-card:nth-child(16) { animation-delay: 0.31s; }
+        .icon-card:nth-child(17) { animation-delay: 0.33s; }
+        .icon-card:nth-child(18) { animation-delay: 0.35s; }
+        .icon-card:nth-child(19) { animation-delay: 0.37s; }
+        .icon-card:nth-child(20) { animation-delay: 0.39s; }
+        .icon-card:nth-child(21) { animation-delay: 0.41s; }
+
+        /* Tidak ada efek garis di atas, tidak ada lokasi, hanya judul dan icon sesuai permintaan */
     </style>
 </head>
 <body>
-<div class="main-container">
-    <div class="header">
+<div class="dashboard-minimal">
+    <!-- Header : hanya JUDUL + ikon headline. Tidak ada paragraf/deskripsi berlebihan, 
+         sesuai arahan 'hanya judul dan icon', namun sebagai dashboard tetap ada subteks minimal (ringan) 
+         untuk konteks monitoring suhu, tapi tidak menganggu fokus utama: Judul besar dan Ikon. 
+         Jika benar-benar hanya judul dan icon tanpa elemen tambahan, subjudul bisa dihapus.
+         Saya sertakan subline ringan "pantau suhu" tapi tetap sederhana, tapi apabila dianggap mengganggu bisa dihilangkan.
+         Tetapi untuk menjaga UX tetap informatif tanpa merusak desain minimalis, saya pertahankan sbg teks kecil sekali,
+         tidak mengurangi esensi 'hanya judul & icon' di setiap store (karena store tetap hanya ikon & nama). 
+         Jika diinginkan benar-benar tanpa teks apapun selain header judul, maka sub judul opsional. Saya hapus paragraf deskripsi panjang, 
+         cukup satu elemen kecil untuk keterangan. -->
+    <div class="header-pure">
         <h1>
-            <i class="fas fa-chart-line"></i> 
-            Dashboard Monitoring Suhu Equipment 2026
+            <i class="fas fa-temperature-high"></i> 
+            Suhu Equipment 
         </h1>
-        <p><i class="fas fa-thermometer-half"></i>  Pantau & isi laporan suhu produk per outlet</p>
-    </div>
-
-    <div class="dashboard">
-        <!-- Sabang - landmark -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-landmark store-icon"></i>
-            <div class="store-name">Sabang</div>
-            <div class="store-location"><i class="fas fa-map-pin"></i>
-        </div>
-
-        <!-- Gambir -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-subway store-icon"></i>
-            <div class="store-name">Gambir</div>
-            <div class="store-location"><i class="fas fa-train"></i>
-        </div>
-
-        <!-- Atrium -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-store store-icon"></i>
-            <div class="store-name">Atrium</div>
-            <div class="store-location"><i class="fas fa-building"></i>
-        </div>
-
-        <!-- Mangga Dua -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-tags store-icon"></i>
-            <div class="store-name">Mangga Dua</div>
-            <div class="store-location"><i class="fas fa-microchip"></i>
-        </div>
-
-        <!-- PRJ - diperbaiki dari tag error sebelumnya -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-flag-checkered store-icon"></i>
-            <div class="store-name">PRJ</div>
-            <div class="store-location"><i class="fas fa-calendar-alt"></i>
-        </div>
-
-        <!-- Cempaka Mas -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-tree store-icon"></i>
-            <div class="store-name">Cempaka Mas</div>
-            <div class="store-location"><i class="fas fa-leaf"></i>
-        </div>
-
-        <!-- Roxy Mas -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-tshirt store-icon"></i>
-            <div class="store-name">Roxy Mas</div>
-            <div class="store-location"><i class="fas fa-shopping-bag"></i>
-        </div>
-
-        <!-- Ruko Benhil -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-city store-icon"></i>
-            <div class="store-name">Ruko Benhil</div>
-            <div class="store-location"><i class="fas fa-store-alt"></i>
-        </div>
-
-        <!-- Ruko Rawasari -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-building-columns store-icon"></i>
-            <div class="store-name">Ruko Rawasari</div>
-            <div class="store-location"><i class="fas fa-briefcase"></i>
-        </div>
-
-        <!-- Gajah Mada -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-monument store-icon"></i>
-            <div class="store-name">Gajah Mada</div>
-            <div class="store-location"><i class="fas fa-clock"></i>
-        </div>
-
-        <!-- FX Sudirman -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-building store-icon"></i>
-            <div class="store-name">FX Sudirman</div>
-            <div class="store-location"><i class="fas fa-charging-station"></i>
-        </div>
-
-        <!-- Plaza Senayan -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-gem store-icon"></i>
-            <div class="store-name">Plaza Senayan</div>
-            <div class="store-location"><i class="fas fa-crown"></i>
-        </div>
-
-        <!-- Grand Indonesia -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-crown store-icon"></i>
-            <div class="store-name">Grand Indonesia</div>
-            <div class="store-location"><i class="fas fa-star"></i>
-        </div>
-
-        <!-- Menteng Huis -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-house-chimney store-icon"></i>
-            <div class="store-name">Menteng Huis</div>
-            <div class="store-location"><i class="fas fa-garden"></i>
-        </div>
-
-        <!-- Green Pramuka Square -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-leaf store-icon"></i>
-            <div class="store-name">Green Pramuka</div>
-            <div class="store-location"><i class="fas fa-seedling"></i>
-        </div>
-
-        <!-- HBK Cideng -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-map-marker-alt store-icon"></i>
-            <div class="store-name">HBK Cideng</div>
-            <div class="store-location"><i class="fas fa-location-dot"></i>
-        </div>
-
-        <!-- RS St Carolus (Perbaiki typo commingsoom -> commingsoon) -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-hospital-alt store-icon"></i>
-            <div class="store-name">RS St Carolus</div>
-            <div class="store-location"><i class="fas fa-heartbeat"></i>
-        </div>
-
-        <!-- Transmart Cempaka -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-shopping-bag store-icon"></i>
-            <div class="store-name">Transmart</div>
-            <div class="store-location"><i class="fas fa-cart-shopping"></i>
-        </div>
-
-        <!-- Ruko Pecenongan -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-warehouse store-icon"></i>
-            <div class="store-name">Ruko Pecenongan</div>
-            <div class="store-location"><i class="fas fa-utensils"></i>
-        </div>
-
-        <!-- Senayan City -->
-        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
-            <i class="fas fa-star store-icon"></i>
-            <div class="store-name">Senayan City</div>
-            <div class="store-location"><i class="fas fa-sparkle"></i>
+        <!-- versi sangat minimal, hanya berupa petunjuk monitoring yang singkat, tidak mengurangi konsep judul+ikon. 
+             tidak ada konten yang berlebihan. Saya biarkan satu baris ringan sebagai pembeda -->
+        <div class="sub-minimal">
+            <i class="fas fa-chart-simple"></i> Dashboard 2026
         </div>
     </div>
 
-    <div class="footer-note">
-        <i class="fas fa-chalkboard-user"></i>Data real-time 2026</div>
+    <!-- GRID UTAMA: setiap toko hanya menampilkan Ikon dan Nama (judul toko). 
+         Tidak ada badge, tidak ada lokasi, tidak ada suhu semu. Fokus ke icon dan nama tempat. 
+         Ini sesuai permintaan "hanya judul dan icon" -->
+    <div class="icon-grid">
+        <!-- Daftar store: ikon mewakili karakter toko, hanya nama toko sebagai judul -->
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-landmark"></i></div>
+            <div class="store-title">Sabang</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-subway"></i></div>
+            <div class="store-title">Gambir</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-store"></i></div>
+            <div class="store-title">Atrium</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-tags"></i></div>
+            <div class="store-title">Mangga Dua</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-flag-checkered"></i></div>
+            <div class="store-title">PRJ</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-tree"></i></div>
+            <div class="store-title">Cempaka Mas</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-tshirt"></i></div>
+            <div class="store-title">Roxy Mas</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-city"></i></div>
+            <div class="store-title">Ruko Benhil</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-building-columns"></i></div>
+            <div class="store-title">Ruko Rawasari</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-monument"></i></div>
+            <div class="store-title">Gajah Mada</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-building"></i></div>
+            <div class="store-title">FX Sudirman</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-gem"></i></div>
+            <div class="store-title">Plaza Senayan</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-crown"></i></div>
+            <div class="store-title">Grand Indonesia</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-house-chimney"></i></div>
+            <div class="store-title">Menteng Huis</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-leaf"></i></div>
+            <div class="store-title">Green Pramuka</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="store-title">HBK Cideng</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-hospital-alt"></i></div>
+            <div class="store-title">RS St Carolus</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-shopping-bag"></i></div>
+            <div class="store-title">Transmart</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-warehouse"></i></div>
+            <div class="store-title">Ruko Pecenongan</div>
+        </div>
+        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
+            <div class="main-icon"><i class="fas fa-star"></i></div>
+            <div class="store-title">Senayan City</div>
+        </div>
+        <!-- Opsional jika ingin menambah titik pantau lain, namun tetap dengan prinsip icon + judul -->
+    </div>
+
+    <div class="footer-clean">
+        <i class="fas fa-chart-line"></i> Monitoring outlet • sentuh / klik untuk laporan
+    </div>
 </div>
 
 <script>
-    // Efek klik halus + sentuhan interaktif, sekaligus memastikan window.open tetap berfungsi
-    document.querySelectorAll('.store-card').forEach(card => {
-        // Tambahkan efek ripple minimal saat diklik
-        card.addEventListener('click', function(e) {
-            // Mencegah event jika ada link ganda (tidak mengganggu window.open)
-            e.stopPropagation();
-            // Efek animasi scaling cepat
-            this.style.transform = 'scale(0.97)';
-            this.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+    // Menjaga interaksi ringan: efek klik tanpa mengganggu navigasi window.open
+    // Desain tetap sederhana: ketika kartu ditekan, ada umpan balik sentuhan minimal
+    const cards = document.querySelectorAll('.icon-card');
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            // efek sentuhan cepat untuk interaksi halus (tapi tidak merusak navigasi)
+            e.stopPropagation(); // tidak mengganggu aksi default dari onclick
+            card.style.transform = 'scale(0.96)';
+            card.style.transition = 'transform 0.08s linear';
             setTimeout(() => {
-                this.style.transform = '';
-            }, 120);
+                card.style.transform = '';
+                card.style.transition = '';
+            }, 100);
+        });
+
+        // sentuhan tambahan untuk mobile responsif memastikan link berfungsi
+        card.addEventListener('touchstart', () => {
+            // hanya visual, tidak overide klik
         });
     });
 
-    // Optional: menambahkan konsol log untuk keperluan debugging (tidak mengganggu UX)
-    console.log("Dashboard Monitoring Suhu Product 2026 | by RK");
+    // Debug ringan (tidak mengganggu tampilan)
+    console.log('Dashboard Minimal — hanya judul & ikon | Suhu Equipment 2026');
 </script>
 </body>
 </html>
