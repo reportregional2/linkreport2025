@@ -2,139 +2,380 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Suhu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Dashboard Suhu | Monitoring Report</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
         }
 
         body {
-            background-color: #f5f7fa;
-            padding: 20px;
+            background: linear-gradient(145deg, #eef2f9 0%, #f8fafd 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
         }
 
+        /* Container utama lebih fleksibel */
+        .dashboard-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Header dengan animasi halus dan responsive typography */
         .dashboard-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 3rem;
+            position: relative;
         }
 
         .dashboard-header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #1e2a3e, #2c3e50);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            padding: 0 0.5rem;
         }
 
         .dashboard-header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
+            color: #5a6e7c;
+            font-size: clamp(0.95rem, 3vw, 1.15rem);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
-        .months-container {
+        /* Grid responsif: dari mobile (1 kolom) sampai desktop (3 kolom) */
+        .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 1rem 0 2rem;
         }
 
-        .month-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px 20px;
+        /* Kartu modern dengan efek glassmorphism ringan */
+        .category-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0,0,0,0.02);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
             text-decoration: none;
-            display: block;
-            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .month-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        /* Efek hover yang lebih halus & responsif */
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 45px -15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255,255,255,0.8);
         }
 
-        .month-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+        /* Icon container dengan animasi */
+        .card-icon {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
             transition: all 0.3s ease;
+            background: rgba(245, 248, 250, 0.7);
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
         }
 
-        .month-card:hover .month-icon {
-            transform: scale(1.1);
+        .category-card:hover .card-icon {
+            transform: scale(1.08);
         }
 
-        .month-name {
-            font-size: 1.5rem;
+        .card-icon i {
+            font-size: 3.2rem;
+        }
+
+        .category-title {
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            font-weight: 700;
+            margin: 0.75rem 0 0.4rem;
+            letter-spacing: -0.3px;
+        }
+
+        .category-desc {
+            font-size: 0.85rem;
+            color: #5e7a93;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            opacity: 0.8;
+        }
+
+        /* Badge interaktif tambahan */
+        .badge-new {
+            background: #eef2ff;
+            border-radius: 30px;
+            padding: 0.2rem 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: #2c5f8a;
+            margin-top: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* Warna berbeda untuk setiap bulan */
-        .januari .month-icon { color: #e74c3c; }
-        .februari .month-icon { color: #9b59b6; }
-        .maret .month-icon { color: #3498db; }
-        .april .month-icon { color: #1abc9c; }
-        .mei .month-icon { color: #f1c40f; }
-        .juni .month-icon { color: #e67e22; }
-        .juli .month-icon { color: #e74c3c; }
-        .agustus .month-icon { color: #2ecc71; }
-        .september .month-icon { color: #9b59b6; }
-        .oktober .month-icon { color: #34495e; }
-        .november .month-icon { color: #f39c12; }
-        .desember .month-icon { color: #16a085; }
+        /* Tema warna spesifik untuk tiap kategori (icon + hover background) */
+        /* Suhu Equipment - nuansa biru steel */
+        .card-equipment .card-icon i { color: #2c7da0; }
+        .card-equipment:hover { background: linear-gradient(135deg, #f0f9ff, #ffffff); border-bottom: 3px solid #2c7da0; }
+        .card-equipment .category-title { color: #1f5068; }
 
-        /* Latar belakang hover sesuai warna bulan */
-        .month-card.januari:hover { background-color: rgba(231, 76, 60, 0.1); }
-        .month-card.februari:hover { background-color: rgba(155, 89, 182, 0.1); }
-        .month-card.maret:hover { background-color: rgba(52, 152, 219, 0.1); }
-        .month-card.april:hover { background-color: rgba(26, 188, 156, 0.1); }
-        .month-card.mei:hover { background-color: rgba(241, 196, 15, 0.1); }
-        .month-card.juni:hover { background-color: rgba(230, 126, 34, 0.1); }
-        .month-card.juli:hover { background-color: rgba(231, 76, 60, 0.1); }
-        .month-card.agustus:hover { background-color: rgba(46, 204, 113, 0.1); }
-        .month-card.september:hover { background-color: rgba(155, 89, 182, 0.1); }
-        .month-card.oktober:hover { background-color: rgba(52, 73, 94, 0.1); }
-        .month-card.november:hover { background-color: rgba(243, 156, 18, 0.1); }
-        .month-card.desember:hover { background-color: rgba(22, 160, 133, 0.1); }
+        /* Suhu Ambience - ungu lavender */
+        .card-ambience .card-icon i { color: #8e6c88; }
+        .card-ambience:hover { background: linear-gradient(135deg, #faf5ff, #ffffff); border-bottom: 3px solid #9b6b9e; }
+        .card-ambience .category-title { color: #5e3a5e; }
+
+        /* Suhu Product - hijau tosca / segar */
+        .card-product .card-icon i { color: #2d6a4f; }
+        .card-product:hover { background: linear-gradient(135deg, #eef7f0, #ffffff); border-bottom: 3px solid #40916c; }
+        .card-product .category-title { color: #1e4a3b; }
+
+        /* Statistik ringkasan responsif */
+        .stats-summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 3rem;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c3e50;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .stat-item i {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        /* Footer kecil */
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            color: #7e8c9e;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Animasi loading sederhana untuk interaksi */
+        @keyframes gentlePulse {
+            0% { opacity: 0.9; transform: scale(1);}
+            100% { opacity: 1; transform: scale(1.02);}
+        }
+
+        /* Responsive touch improvements */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .categories-grid {
+                gap: 1rem;
+                grid-template-columns: 1fr;
+            }
+            .category-card {
+                padding: 1.5rem 1rem;
+                border-radius: 1.6rem;
+            }
+            .card-icon {
+                width: 70px;
+                height: 70px;
+            }
+            .card-icon i {
+                font-size: 2.5rem;
+            }
+            .stats-summary {
+                gap: 0.8rem;
+            }
+            .stat-item {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* tablet landscape */
+        @media (min-width: 641px) and (max-width: 900px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        /* desktop lebar */
+        @media (min-width: 1200px) {
+            .categories-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* efek focus untuk aksesibilitas keyboard */
+        .category-card:focus-visible {
+            outline: 3px solid #2c7da0;
+            transform: scale(1.01);
+        }
     </style>
 </head>
 <body>
+<div class="dashboard-wrapper">
     <div class="dashboard-header">
-        <h1>Dashboard Daily Report Suhu</h1>
-        <p>Pilih CATEGORY untuk melihat detail</p>
-
-    <div class="months-container">
-        <!-- Suhu Equipment-->
-        <a href="suhu-equipment.html" class="month-card januari" target="_blank" rel="nofollow">
-            <div class="month-icon">
-                <i class="fas fa-inbox"></i>
-            </div>
-            <div class="month-name">Suhu Equipment</div>
-        </a>
-
-        <!-- Suhu Ambience-->
-        <a href="suhu-ambience.html" class="month-card februari" target="_blank" rel="nofollow">
-            <div class="month-icon">
-                <i class="fas fa-tag"></i>
-            </div>
-            <div class="month-name">Suhu Ambience</div>
-        </a>
-
-        <!-- suhu product -->
-        <a href="suhu-product.html" class="month-card maret" target="_blank" rel="nofollow">
-            <div class="month-icon">
-                <i class="fas fa-plug"></i>
-            </div>
-            <div class="month-name">Suhu Product</div>
-        </a>
-
+        <h1>
+            <i class="fas fa-temperature-high" style="background: none; -webkit-background-clip: unset; color: #e67e22; margin-right: 8px;"></i> 
+            Dashboard Daily Report Suhu
+        </h1>
+        <p>
+            <i class="fas fa-chart-line"></i> Pilih kategori untuk melihat detail monitoring
+        </p>
     </div>
+
+    <!-- Grid menu utama responsif dengan aksesibilitas -->
+    <div class="categories-grid">
+        <!-- Suhu Equipment -->
+        <a href="suhu-equipment.html" class="category-card card-equipment" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+                <i class="fas fa-server"></i>
+            </div>
+            <div class="category-title">Suhu Equipment</div>
+            <div class="category-desc">
+                <i class="fas fa-microchip"></i> 
+                <span>Server · UPS · Panel</span>
+            </div>
+            <div class="badge-new">
+                <i class="fas fa-chart-simple"></i> Live monitoring
+            </div>
+        </a>
+
+        <!-- Suhu Ambience -->
+        <a href="suhu-ambience.html" class="category-card card-ambience" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+                <i class="fas fa-wind"></i>
+            </div>
+            <div class="category-title">Suhu Ambience</div>
+            <div class="category-desc">
+                <i class="fas fa-building"></i>
+                <span>Ruang · Lingkungan · HVAC</span>
+            </div>
+            <div class="badge-new">
+                <i class="fas fa-chart-line"></i> Tren harian
+            </div>
+        </a>
+
+        <!-- Suhu Product -->
+        <a href="suhu-product.html" class="category-card card-product" target="_blank" rel="noopener noreferrer">
+            <div class="card-icon">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <div class="category-title">Suhu Product</div>
+            <div class="category-desc">
+                <i class="fas fa-thermometer-half"></i>
+                <span>Barang · Storage · Cold Chain</span>
+            </div>
+            <div class="badge-new">
+                <i class="fas fa-clipboard-list"></i> Log approval
+            </div>
+        </a>
+    </div>
+
+    <!-- Informasi tambahan ringkasan / status monitoring (responsif) -->
+    <div class="stats-summary">
+        <div class="stat-item">
+            <i class="fas fa-calendar-week"></i>
+            <span>Update real-time: <strong>Hari Ini</strong></span>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>3 Kategori Aktif</span>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifikasi <strong>normal</strong></span>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <span><i class="far fa-clock"></i> Data tersegmentasi per kategori | Daily Report</span>
+        <span><i class="fas fa-mobile-alt"></i> Akses dari perangkat apapun</span>
+    </div>
+</div>
+
+<!-- optional script untuk dynamic greeting atau efek tracking ringan (tidak mengganggu responsif) -->
+<script>
+    (function() {
+        // Hanya sentuhan kecil: menambahkan efek visual saat kartu ditekan pada sentuhan (mobile)
+        const cards = document.querySelectorAll('.category-card');
+        if (cards.length) {
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transition = 'transform 0.1s ease';
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                card.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                    setTimeout(() => {
+                        this.style.transition = '';
+                    }, 150);
+                });
+                // tambahan sedikit efek untuk aksesibilitas
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        window.open(card.href, '_blank');
+                    }
+                });
+            });
+        }
+
+        // Opsional: console log bahwa dashboard responsif siap
+        console.log('✅ Dashboard Suhu Responsif aktif — pilih kategori untuk laporan detail');
+    })();
+</script>
 </body>
 </html>
