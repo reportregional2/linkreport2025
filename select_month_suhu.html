@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suhu Area 2</title>
+    <title>Suhu Product</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,201 +14,291 @@
         }
 
         body {
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             padding: 20px;
         }
 
-        .dashboard-header {
+        .header {
             text-align: center;
             margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .dashboard-header h1 {
-            color: #2c3e50;
+        .header h1 {
+            color: #333;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
 
-        .dashboard-header p {
-            color: #7f8c8d;
+        .header p {
+            color: #666;
             font-size: 1.1rem;
         }
 
-        .months-container {
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 20px;
         }
 
-        .month-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px 20px;
+        .store-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
-            text-decoration: none;
-            display: block;
-            color: inherit;
+            position: relative;
+            overflow: hidden;
         }
 
-        .month-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .month-icon {
-            font-size: 3.5rem;
+        .store-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #3498db;
+        }
+
+        .store-icon {
+            font-size: 2.5rem;
             margin-bottom: 15px;
             transition: all 0.3s ease;
         }
 
-        .month-card:hover .month-icon {
-            transform: scale(1.1);
+        .store-card:hover .store-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
-        .month-name {
-            font-size: 1.5rem;
+        .store-name {
+            font-size: 1.2rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: #333;
+            margin-bottom: 10px;
         }
 
-        /* Warna berbeda untuk setiap bulan */
-        .januari .month-icon { color: #e74c3c; }
-        .februari .month-icon { color: #9b59b6; }
-        .maret .month-icon { color: #3498db; }
-        .april .month-icon { color: #1abc9c; }
-        .mei .month-icon { color: #f1c40f; }
-        .juni .month-icon { color: #e67e22; }
-        .juli .month-icon { color: #e74c3c; }
-        .agustus .month-icon { color: #2ecc71; }
-        .september .month-icon { color: #9b59b6; }
-        .oktober .month-icon { color: #34495e; }
-        .november .month-icon { color: #f39c12; }
-        .desember .month-icon { color: #16a085; }
+        .store-location {
+            color: #666;
+            font-size: 0.9rem;
+        }
 
-        /* Latar belakang hover sesuai warna bulan */
-        .month-card.januari:hover { background-color: rgba(231, 76, 60, 0.1); }
-        .month-card.februari:hover { background-color: rgba(155, 89, 182, 0.1); }
-        .month-card.maret:hover { background-color: rgba(52, 152, 219, 0.1); }
-        .month-card.april:hover { background-color: rgba(26, 188, 156, 0.1); }
-        .month-card.mei:hover { background-color: rgba(241, 196, 15, 0.1); }
-        .month-card.juni:hover { background-color: rgba(230, 126, 34, 0.1); }
-        .month-card.juli:hover { background-color: rgba(231, 76, 60, 0.1); }
-        .month-card.agustus:hover { background-color: rgba(46, 204, 113, 0.1); }
-        .month-card.september:hover { background-color: rgba(155, 89, 182, 0.1); }
-        .month-card.oktober:hover { background-color: rgba(52, 73, 94, 0.1); }
-        .month-card.november:hover { background-color: rgba(243, 156, 18, 0.1); }
-        .month-card.desember:hover { background-color: rgba(22, 160, 133, 0.1); }
+        /* Warna berbeda untuk setiap ikon */
+        .store-card:nth-child(1) .store-icon { color: #e74c3c; }
+        .store-card:nth-child(2) .store-icon { color: #3498db; }
+        .store-card:nth-child(3) .store-icon { color: #2ecc71; }
+        .store-card:nth-child(4) .store-icon { color: #f39c12; }
+        .store-card:nth-child(5) .store-icon { color: #9b59b6; }
+        .store-card:nth-child(6) .store-icon { color: #1abc9c; }
+        .store-card:nth-child(7) .store-icon { color: #d35400; }
+        .store-card:nth-child(8) .store-icon { color: #34495e; }
+        .store-card:nth-child(9) .store-icon { color: #27ae60; }
+        .store-card:nth-child(10) .store-icon { color: #8e44ad; }
+        .store-card:nth-child(11) .store-icon { color: #c0392b; }
+        .store-card:nth-child(12) .store-icon { color: #16a085; }
+        .store-card:nth-child(13) .store-icon { color: #e67e22; }
+        .store-card:nth-child(14) .store-icon { color: #7f8c8d; }
+        .store-card:nth-child(15) .store-icon { color: #2980b9; }
+        .store-card:nth-child(16) .store-icon { color: #f1c40f; }
+        .store-card:nth-child(17) .store-icon { color: #e74c3c; }
+        .store-card:nth-child(18) .store-icon { color: #2c3e50; }
+        .store-card:nth-child(19) .store-icon { color: #3498db; }
+        .store-card:nth-child(20) .store-icon { color: #e84393; }
+                .store-card:nth-child(21) .store-icon { color: #e84393; }
+
+        /* Warna berbeda untuk garis atas */
+        .store-card:nth-child(1)::before { background: #e74c3c; }
+        .store-card:nth-child(2)::before { background: #3498db; }
+        .store-card:nth-child(3)::before { background: #2ecc71; }
+        .store-card:nth-child(4)::before { background: #f39c12; }
+        .store-card:nth-child(5)::before { background: #9b59b6; }
+        .store-card:nth-child(6)::before { background: #1abc9c; }
+        .store-card:nth-child(7)::before { background: #d35400; }
+        .store-card:nth-child(8)::before { background: #34495e; }
+        .store-card:nth-child(9)::before { background: #27ae60; }
+        .store-card:nth-child(10)::before { background: #8e44ad; }
+        .store-card:nth-child(11)::before { background: #c0392b; }
+        .store-card:nth-child(12)::before { background: #16a085; }
+        .store-card:nth-child(13)::before { background: #e67e22; }
+        .store-card:nth-child(14)::before { background: #7f8c8d; }
+        .store-card:nth-child(15)::before { background: #2980b9; }
+        .store-card:nth-child(16)::before { background: #f1c40f; }
+        .store-card:nth-child(17)::before { background: #e74c3c; }
+        .store-card:nth-child(18)::before { background: #2c3e50; }
+        .store-card:nth-child(19)::before { background: #3498db; }
+        .store-card:nth-child(20)::before { background: #e84393; }
+                .store-card:nth-child(21)::before { background: #e84393; }
+
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="dashboard-header">
-        <h1>Dashboard Monitoring Suhu Area 2</h1>
-        <p>Pilih bulan untuk mengisi monitoring</p>
+    <div class="header">
+        <h1>📊 Dashboard Monitoring Suhu Product 2026</h1>
+          <p>Pilih Store untuk mengisi Laporan</p>
     </div>
 
-    <div class="months-container">
-        <!-- Januari -->
-        <a href="commingsoon.html" class="month-card januari">
-            <div class="month-icon">
-                <i class="fas fa-snowflake"></i>
-            </div>
-            <div class="month-name">Januari</div>
-        </a>
+    <div class="dashboard">
+                <!-- AREA 2 - Ikon landmark bersejarah -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+             <i class="fas fa-trophy store-icon"></i>
+            <div class="store-name">Rekap Monitoring Sales Area 2</div>
+        </div>
 
-        <!-- Februari -->
-        <a href="commingsoon.html" class="month-card februari">
-            <div class="month-icon">
-                <i class="fas fa-heart"></i>
-            </div>
-            <div class="month-name">Februari</div>
-        </a>
+        <!-- Sabang - Ikon landmark bersejarah -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-landmark store-icon"></i>
+            <div class="store-name">Sabang</div>
+        </div>
 
-        <!-- Maret -->
-        <a href="commingsoon.html" class="month-card maret">
-            <div class="month-icon">
-                <i class="fas fa-wind"></i>
-            </div>
-            <div class="month-name">Maret</div>
-        </a>
+        <!-- Gambir - Ikon stasiun kereta -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-subway store-icon"></i>
+            <div class="store-name">Gambir</div>
+        </div>
 
-        <!-- April -->
-        <a href="commingsoon.html" class="month-card april">
-            <div class="month-icon">
-                <i class="fas fa-umbrella"></i>
-            </div>
-            <div class="month-name">April</div>
-        </a>
+        <!-- Atrium - Ikon mal modern -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-store store-icon"></i>
+            <div class="store-name">Atrium</div>
+        </div>
 
-        <!-- Mei -->
-        <a href="commingsoon.html" class="month-card mei">
-            <div class="month-icon">
-                <i class="fas fa-seedling"></i>
-            </div>
-            <div class="month-name">Mei</div>
-        </a>
+        <!-- Mangga Dua Mall - Ikon elektronik/bargain -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-tags store-icon"></i>
+            <div class="store-name">Mangga Dua</div>
+        </div>
 
-        <!-- Juni -->
-        <a href="commingsoon.html"
-class="month-card juni">
-            <div class="month-icon">
-                <i class="fas fa-sun"></i>
-            </div>
-            <div class="month-name">Juni</div>
-        </a>
+        <!-- PRJ - Ikon festival/pameran -->
+        <div class="commingsoon.html', '_blank')">
+            <i class="fas fa-flag-checkered store-icon"></i>
+            <div class="store-name">PRJ</div>
+        </div>
 
-        <!-- Juli -->
-        <a href="commingsoon.html" class="month-card juli">
-            <div class="month-icon">
-                <i class="fas fa-swimming-pool"></i>
-            </div>
-            <div class="month-name">Juli</div>
-        </a>
+        <!-- Cempaka Mas - Ikon mall dengan pohon -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-tree store-icon"></i>
+            <div class="store-name">Cempaka Mas</div>
+        </div>
 
-        <!-- Agustus -->
-        <a href="commingsoon.html" class="month-card agustus">
-            <div class="month-icon">
-                <i class="fas fa-campground"></i>
-            </div>
-            <div class="month-name">Agustus</div>
-        </a>
+        <!-- Roxy Mas - Ikon fashion/shopping -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-tshirt store-icon"></i>
+            <div class="store-name">Roxy Mas</div>
+        </div>
 
-        <!-- September -->
-        <a href="commingsoon.html" class="month-card september">
-            <div class="month-icon">
-                <i class="fas fa-leaf"></i>
-            </div>
-            <div class="month-name">September</div>
-        </a>
+        <!-- Ruko Benhil - Ikon ruko/shopping complex -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-city store-icon"></i>
+            <div class="store-name">Ruko Benhil</div>
+        </div>
 
-        <!-- Oktober -->
-        <a href="commingsoon.html" class="month-card oktober">
-            <div class="month-icon">
-                <i class="fas fa-cloud-rain"></i>
-            </div>
-            <div class="month-name">Oktober</div>
-        </a>
+        <!-- Ruko Rawasari - Ikon bangunan perkantoran -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-building-columns store-icon"></i>
+            <div class="store-name">Ruko Rawasari</div>
+        </div>
 
-        <!-- November -->
-        <a href="commingsoon.html"
-class="month-card november">
-            <div class="month-icon">
-                <i class="fas fa-tree"></i>
-            </div>
-            <div class="month-name">November</div>
-        </a>
+        <!-- Gajah Mada Plaza - Ikon plaza tua/klasik -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-monument store-icon"></i>
+            <div class="store-name">Gajah Mada</div>
+        </div>
 
-        <!-- Desember -->
-        <a href="commingsoon.html" class="month-card desember">
-            <div class="month-icon">
-                <i class="fas fa-gift"></i>
-            </div>
-            <div class="month-name">Desember</div>
-        </a>
+        <!-- FX Sudirman - Ikon gedung perkantoran modern -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-building store-icon"></i>
+            <div class="store-name">FX Sudirman</div>
+        </div>
+
+        <!-- Plaza Senayan - Ikon mall mewah -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-gem store-icon"></i>
+            <div class="store-name">Plaza Senayan</div>
+        </div>
+
+        <!-- Grand Indonesia - Ikon mall besar/luxury -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-crown store-icon"></i>
+            <div class="store-name">Grand Indonesia</div>
+        </div>
+
+        <!-- Menteng Huis - Ikon rumah Belanda/taman -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-house-chimney store-icon"></i>
+            <div class="store-name">Menteng Huis</div>
+        </div>
+
+        <!-- Green Pramuka Square - Ikon mall hijau/ramah lingkungan -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-leaf store-icon"></i>
+            <div class="store-name">Green Pramuka</div>
+        </div>
+
+        <!-- Cideng - Ikon area perkotaan -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-map-marker-alt store-icon"></i>
+            <div class="store-name">HBK Cideng</div>
+        </div>
+
+        <!-- RS St Carolus - Ikon rumah sakit -->
+        <div class="store-card" onclick="window.open('commingsoom.html', '_blank')">
+            <i class="fas fa-hospital-alt store-icon"></i>
+            <div class="store-name">RS St Carolus</div>
+        </div>
+
+        <!-- Transmart Cempaka - Ikon supermarket -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-shopping-bag store-icon"></i>
+            <div class="store-name">Transmart</div>
+        </div>
+
+        <!-- Ruko Pecenongan - Ikon ruko tua -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-warehouse store-icon"></i>
+            <div class="store-name">Ruko Pecenongan</div>
+        </div>
+
+        <!-- Senayan City - Ikon mall high-end -->
+        <div class="store-card" onclick="window.open('commingsoon.html', '_blank')">
+            <i class="fas fa-star store-icon"></i>
+            <div class="store-name">Senayan City</div>
+        </div>
     </div>
+
+    <script>
+        // Tambahkan efek klik lebih smooth
+        document.querySelectorAll('.store-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
 </body>
 </html>
