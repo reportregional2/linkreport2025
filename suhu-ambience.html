@@ -1,425 +1,415 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Suhu Ambience | Dashboard Inti 2026</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Area 2 Suhu Ambience</title>
+  <!-- Google Fonts & Font Awesome 6 (Gratis) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 2rem;
-        }
+    body {
+      background: linear-gradient(135deg, #f5f7fe 0%, #eef2fc 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* Container utama: sederhana, bersih, fokus pada judul & icon */
-        .dashboard-minimal {
-            max-width: 1300px;
-            width: 100%;
-            margin: 0 auto;
-        }
+    /* Container utama dengan sentuhan modern & glassmorphism premium */
+    .dashboard {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 2.5rem;
+      padding: 2rem 2rem 2.2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
 
-        /* Header hanya berisi judul utama tanpa hiasan berlebihan */
-        .header-pure {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    /* Header minimalis modern - tanpa fitur pilihan */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+      padding-bottom: 1rem;
+    }
 
-        .header-pure h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(125deg, #1f2b38, #2c3e50);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.02em;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+    .title-section h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(125deg, #1F2B48, #2C3E66, #1E3A5F);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .header-pure h1 i {
-            background: none;
-            color: #e67e22;
-            font-size: 2.4rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
+    .title-section h1 i {
+      background: linear-gradient(145deg, #4a6fa5, #1f3a5f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-size: 1.8rem;
+    }
 
-        /* Subjudul minimal — tetap ringkas, tapi tidak mengganggu fokus */
-        .sub-minimal {
-            font-size: 0.95rem;
-            color: #4a627a;
-            margin-top: 0.6rem;
-            font-weight: 500;
-            background: rgba(255,255,240,0.5);
-            display: inline-block;
-            padding: 0.2rem 1.5rem;
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
-        }
+    .subtitle {
+      color: #4a627a;
+      font-weight: 500;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      letter-spacing: 0.2px;
+      opacity: 0.8;
+    }
 
-        /* GRID: hanya menampilkan kartu dengan ikon dominan + judul (tanpa elemen rumit) 
-           Desain "less is more": tidak ada badge lokasi, tidak ada deskripsi panjang,
-           hanya ikon dan nama. Efek hover tetap halus dan modern */
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 2rem 1.5rem;
-            justify-items: center;
-            align-items: start;
-        }
+    .year-badge {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 0.45rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #1f2b48;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255,255,245,0.8);
+    }
 
-        /* Kartu super sederhana: persegi lembut, fokus ke ikon besar */
-        .icon-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 2rem;
-            width: 100%;
-            max-width: 150px;
-            padding: 1.5rem 0.8rem 1.2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: 1px solid rgba(255,255,255,0.6);
-            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.1);
-        }
+    /* GRID MODERN: rapi, responsif, interaksi tinggi */
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.6rem;
+      margin-top: 1.2rem;
+    }
 
-        .icon-card:hover {
-            transform: translateY(-6px);
-            background: white;
-            box-shadow: 0 18px 26px -12px rgba(0, 0, 0, 0.2);
-            border-color: rgba(230, 126, 34, 0.3);
-        }
+    /* Kartu bulan — desain bersih, hanya icon + nama bulan */
+    .month-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1.8rem 1rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.08);
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Ikon utama: besar, ekspresif, menjadi pusat perhatian */
-        .main-icon {
-            font-size: 3.3rem;
-            margin-bottom: 0.8rem;
-            display: inline-block;
-            transition: transform 0.2s;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8fafd;
-            border-radius: 2rem;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,0.02), 0 6px 12px -6px rgba(0,0,0,0.08);
-        }
+    /* Efek glassmorphism tambahan saat hover */
+    .month-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,245,0.4), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+      border-radius: 2rem;
+    }
 
-        .icon-card:hover .main-icon {
-            transform: scale(1.03);
-            background: #ffffff;
-            box-shadow: 0 12px 18px -8px rgba(0,0,0,0.12);
-        }
+    .month-card:hover::after {
+      opacity: 1;
+    }
 
-        /* Nama toko: tipografi bersih, tegas, tanpa hiasan tambahan */
-        .store-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #1e2f3f;
-            letter-spacing: -0.2px;
-            margin-top: 0.5rem;
-            padding: 0 0.2rem;
-            word-break: keep-all;
-        }
+    .month-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 28px 36px -16px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 245, 0.9);
+    }
 
-        /* Tidak ada elemen "badge-tag" atau "store-location" sesuai permintaan: hanya judul & icon */
+    /* Active effect sentuhan (untuk umpan balik klik) tidak merusak UX */
+    .month-card:active {
+      transform: scale(0.98);
+      transition: 0.05s linear;
+    }
 
-        /* Palet warna ikon yang lembut dan terang, setiap kartu memiliki identitas visual tanpa mengganggu */
-        .icon-card:nth-child(1) .main-icon { color: #e74c3c; background: #fff4f0; }
-        .icon-card:nth-child(2) .main-icon { color: #3498db; background: #eef5ff; }
-        .icon-card:nth-child(3) .main-icon { color: #2ecc71; background: #edfaf0; }
-        .icon-card:nth-child(4) .main-icon { color: #f39c12; background: #fef6e8; }
-        .icon-card:nth-child(5) .main-icon { color: #9b59b6; background: #f6f0fc; }
-        .icon-card:nth-child(6) .main-icon { color: #1abc9c; background: #e9f9f4; }
-        .icon-card:nth-child(7) .main-icon { color: #d35400; background: #fff3ea; }
-        .icon-card:nth-child(8) .main-icon { color: #34495e; background: #ecf0f3; }
-        .icon-card:nth-child(9) .main-icon { color: #27ae60; background: #ebf9ef; }
-        .icon-card:nth-child(10) .main-icon { color: #8e44ad; background: #f5edfc; }
-        .icon-card:nth-child(11) .main-icon { color: #c0392b; background: #fdeceb; }
-        .icon-card:nth-child(12) .main-icon { color: #16a085; background: #e8f6f2; }
-        .icon-card:nth-child(13) .main-icon { color: #e67e22; background: #fef4e8; }
-        .icon-card:nth-child(14) .main-icon { color: #7f8c8d; background: #edf1f4; }
-        .icon-card:nth-child(15) .main-icon { color: #2980b9; background: #ecf4fc; }
-        .icon-card:nth-child(16) .main-icon { color: #f1c40f; background: #fffbe6; }
-        .icon-card:nth-child(17) .main-icon { color: #e74c3c; background: #fff2ee; }
-        .icon-card:nth-child(18) .main-icon { color: #2c3e50; background: #ecf0f5; }
-        .icon-card:nth-child(19) .main-icon { color: #3498db; background: #eef4fc; }
-        .icon-card:nth-child(20) .main-icon { color: #e84393; background: #fef0f7; }
-        .icon-card:nth-child(21) .main-icon { color: #e67e22; background: #fff3e6; }
+    /* Area icon - ukuran besar dan warna berbeda tiap bulan */
+    .month-icon {
+      font-size: 3.2rem;
+      margin-bottom: 1rem;
+      transition: transform 0.2s ease, filter 0.2s;
+      display: inline-block;
+    }
 
-        /* Footer minimalis dan tidak berisik */
-        .footer-clean {
-            text-align: center;
-            margin-top: 3rem;
-            font-size: 0.7rem;
-            color: #5c6f87;
-            letter-spacing: 0.3px;
-            font-weight: 500;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 1.5rem;
-        }
+    .month-card:hover .month-icon {
+      transform: scale(1.07) translateY(-3px);
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+    }
 
-        /* Responsif: di layar kecil grid lebih compact, tetapi tetap fokus pada ikon dan judul */
-        @media (max-width: 760px) {
-            body {
-                padding: 1.2rem;
-            }
-            .icon-grid {
-                gap: 1.2rem;
-            }
-            .icon-card {
-                max-width: 120px;
-                padding: 1rem 0.4rem 1rem;
-            }
-            .main-icon {
-                width: 65px;
-                height: 65px;
-                font-size: 2.6rem;
-            }
-            .store-title {
-                font-size: 0.9rem;
-            }
-            .header-pure h1 {
-                font-size: 2rem;
-                gap: 0.5rem;
-            }
-            .header-pure h1 i {
-                font-size: 1.8rem;
-            }
-        }
+    /* Nama bulan tebal & modern, tidak ada deskripsi */
+    .month-name {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.3px;
+      color: #1a2c44;
+      margin-top: 0.5rem;
+      background: none;
+      transition: all 0.2s;
+    }
 
-        @media (max-width: 540px) {
-            .icon-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 0.9rem;
-            }
-            .icon-card {
-                max-width: 105px;
-                border-radius: 1.5rem;
-            }
-            .main-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 2.2rem;
-                border-radius: 1.2rem;
-            }
-            .store-title {
-                font-size: 0.8rem;
-            }
-            .header-pure h1 {
-                font-size: 1.7rem;
-            }
-        }
+    /* Footer minimalis */
+    .footer-note {
+      text-align: center;
+      margin-top: 2.8rem;
+      font-size: 0.72rem;
+      color: #6d85aa;
+      font-weight: 500;
+      border-top: 1px solid rgba(255,255,255,0.6);
+      padding-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
 
-        /* animasi fade in sangat ringan */
-        .icon-card {
-            animation: softAppear 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1) backwards;
-        }
-        @keyframes softAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.94);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        /* delay dinamis agar tidak monoton */
-        .icon-card:nth-child(1) { animation-delay: 0.01s; }
-        .icon-card:nth-child(2) { animation-delay: 0.03s; }
-        .icon-card:nth-child(3) { animation-delay: 0.05s; }
-        .icon-card:nth-child(4) { animation-delay: 0.07s; }
-        .icon-card:nth-child(5) { animation-delay: 0.09s; }
-        .icon-card:nth-child(6) { animation-delay: 0.11s; }
-        .icon-card:nth-child(7) { animation-delay: 0.13s; }
-        .icon-card:nth-child(8) { animation-delay: 0.15s; }
-        .icon-card:nth-child(9) { animation-delay: 0.17s; }
-        .icon-card:nth-child(10) { animation-delay: 0.19s; }
-        .icon-card:nth-child(11) { animation-delay: 0.21s; }
-        .icon-card:nth-child(12) { animation-delay: 0.23s; }
-        .icon-card:nth-child(13) { animation-delay: 0.25s; }
-        .icon-card:nth-child(14) { animation-delay: 0.27s; }
-        .icon-card:nth-child(15) { animation-delay: 0.29s; }
-        .icon-card:nth-child(16) { animation-delay: 0.31s; }
-        .icon-card:nth-child(17) { animation-delay: 0.33s; }
-        .icon-card:nth-child(18) { animation-delay: 0.35s; }
-        .icon-card:nth-child(19) { animation-delay: 0.37s; }
-        .icon-card:nth-child(20) { animation-delay: 0.39s; }
-        .icon-card:nth-child(21) { animation-delay: 0.41s; }
+    /* Responsif mobile */
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem;
+      }
+      .dashboard {
+        padding: 1.2rem;
+      }
+      .months-grid {
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .month-name {
+        font-size: 1.1rem;
+      }
+      .month-icon {
+        font-size: 2.4rem;
+      }
+      .title-section h1 {
+        font-size: 1.45rem;
+      }
+      .year-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 1rem;
+      }
+    }
 
-        /* Tidak ada efek garis di atas, tidak ada lokasi, hanya judul dan icon sesuai permintaan */
-    </style>
+    /* Animasi fade-in yang elegan */
+    @keyframes gentleRise {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .month-card {
+      animation: gentleRise 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+    }
+
+    /* Efek Stagger biar modern */
+    .month-card:nth-child(1) { animation-delay: 0.02s; }
+    .month-card:nth-child(2) { animation-delay: 0.05s; }
+    .month-card:nth-child(3) { animation-delay: 0.08s; }
+    .month-card:nth-child(4) { animation-delay: 0.11s; }
+    .month-card:nth-child(5) { animation-delay: 0.14s; }
+    .month-card:nth-child(6) { animation-delay: 0.17s; }
+    .month-card:nth-child(7) { animation-delay: 0.20s; }
+    .month-card:nth-child(8) { animation-delay: 0.23s; }
+    .month-card:nth-child(9) { animation-delay: 0.26s; }
+    .month-card:nth-child(10) { animation-delay: 0.29s; }
+    .month-card:nth-child(11) { animation-delay: 0.32s; }
+    .month-card:nth-child(12) { animation-delay: 0.35s; }
+
+    /* Hapus outline tap pada safari */
+    .month-card:focus-visible {
+      outline: 2px solid #3b5c9e;
+      outline-offset: 2px;
+    }
+  </style>
 </head>
 <body>
-<div class="dashboard-minimal">
-    <!-- Header : hanya JUDUL + ikon headline. Tidak ada paragraf/deskripsi berlebihan, 
-         sesuai arahan 'hanya judul dan icon', namun sebagai dashboard tetap ada subteks minimal (ringan) 
-         untuk konteks monitoring suhu, tapi tidak menganggu fokus utama: Judul besar dan Ikon. 
-         Jika benar-benar hanya judul dan icon tanpa elemen tambahan, subjudul bisa dihapus.
-         Saya sertakan subline ringan "pantau suhu" tapi tetap sederhana, tapi apabila dianggap mengganggu bisa dihilangkan.
-         Tetapi untuk menjaga UX tetap informatif tanpa merusak desain minimalis, saya pertahankan sbg teks kecil sekali,
-         tidak mengurangi esensi 'hanya judul & icon' di setiap store (karena store tetap hanya ikon & nama). 
-         Jika diinginkan benar-benar tanpa teks apapun selain header judul, maka sub judul opsional. Saya hapus paragraf deskripsi panjang, 
-         cukup satu elemen kecil untuk keterangan. -->
-    <div class="header-pure">
-        <h1>
-            <i class="fas fa-temperature-high"></i> 
-            Suhu Ambience
-        </h1>
-        <!-- versi sangat minimal, hanya berupa petunjuk monitoring yang singkat, tidak mengurangi konsep judul+ikon. 
-             tidak ada konten yang berlebihan. Saya biarkan satu baris ringan sebagai pembeda -->
-        <div class="sub-minimal">
-            <i class="fas fa-chart-simple"></i> Dashboard 2026
-        </div>
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div class="title-section">
+      <h1>
+        <i class="fas fa-calendar-week"></i> 
+        Dashboard Monitoring Suhu Ambience Area 2
+      </h1>
+      <div class="subtitle">
+        <i class="fas fa-palette"></i> Klik untuk buka tautan
+      </div>
     </div>
+    <div class="year-badge">
+      <i class="fas fa-globe"></i> 2026
+      <i class="fas fa-arrow-right-long" style="font-size: 0.7rem;"></i>
+    </div>
+  </div>
 
-    <!-- GRID UTAMA: setiap toko hanya menampilkan Ikon dan Nama (judul toko). 
-         Tidak ada badge, tidak ada lokasi, tidak ada suhu semu. Fokus ke icon dan nama tempat. 
-         Ini sesuai permintaan "hanya judul dan icon" -->
-    <div class="icon-grid">
-        <!-- Daftar store: ikon mewakili karakter toko, hanya nama toko sebagai judul -->
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/14Sbz0lXNdyxTZg3bRHZufDl5ccS_SboE/edit?usp=drivesdk&ouid=108148054875076859705&rtpof=true&sd=true 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-landmark"></i></div>
-            <div class="store-title">Sabang</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://reportdatastore.github.io/gambir/selected/select_suhu_ambience.html 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-subway"></i></div>
-            <div class="store-title">Gambir</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1I9KtIa3dee_oeDU9TavLwTcpdjTfGzMD/edit?usp=sharing&ouid=113283530292275352324&rtpof=true&sd=true 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-store"></i></div>
-            <div class="store-title">Atrium</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://ekabogainti-my.sharepoint.com/:x:/g/personal/hhb_manggaduamall_hokben_co_id/IQByesDZB3F2RpDr4Ke62PV8Aeblz3KJbcggeoyb2IYZ_0M?e=GQFjvG 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-tags"></i></div>
-            <div class="store-title">Mangga Dua</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1Yxu_KbvN0ay2CPivBZ-ILPPOpaI_v0kr/edit?gid=1728763408#gid=1728763408 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-flag-checkered"></i></div>
-            <div class="store-title">PRJ</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1m6X7dlFvMLaBKVpjrNJ35jSAGhtej3o_/edit?usp=drive_link&ouid=104473231976212478022&rtpof=true&sd=true 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-tree"></i></div>
-            <div class="store-title">Cempaka Mas</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://docs.google.com/spreadsheets/d/1c418QS6q2kpxdCgkclMWUXWEWTbrFOVs61PNnT4qWIM/edit?gid=1095870333#gid=1095870333
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-tshirt"></i></div>
-            <div class="store-title">Roxy Mas</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/10f9IdYML3ezqj-z7koWDCTWfHA7xrN0DUfSIKz8uLYQ/edit?usp=drive_link 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-city"></i></div>
-            <div class="store-title">Ruko Benhil</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1bYLhCMQIFLU1msIWSgkYqP_5AN4OZ0H_/edit?usp=drive_link&ouid=114730350578774934844&rtpof=true&sd=true 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-building-columns"></i></div>
-            <div class="store-title">Ruko Rawasari</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1nocYF0JUitXZcvXv2dZIyhGn1qATKRc7n3pX4Le3B7s/edit?gid=247142687#gid=247142687 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-monument"></i></div>
-            <div class="store-title">Gajah Mada</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/u/0/d/1_vcyoPl3RIdl0OwVm-zPzCxc9YPkqOEyyjAce9SXvE4/htmlview#gid=1819695282 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-building"></i></div>
-            <div class="store-title">FX Sudirman</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/16T5MgVObYGYMWRgKvuG3C1-S5XPmHnyivPPtKCaU3pM/edit?usp=sharing 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-gem"></i></div>
-            <div class="store-title">Plaza Senayan</div>
-        </div>
-        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
-            <div class="main-icon"><i class="fas fa-crown"></i></div>
-            <div class="store-title">Grand Indonesia</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://docs.google.com/spreadsheets/d/1c4hdL28TrvHBNqoL_BvLuYQE1UkqKA7nQtf04ZwUSg8/edit?usp=sharing', '_blank')">
-            <div class="main-icon"><i class="fas fa-house-chimney"></i></div>
-            <div class="store-title">Menteng Huis</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://reportregional2.github.io/green.pramuka/reports/daily/select_suhu_amb.html', '_blank')">
-            <div class="main-icon"><i class="fas fa-leaf"></i></div>
-            <div class="store-title">Green Pramuka</div>
-        </div>
-        <div class="icon-card" onclick="window.open(' https://docs.google.com/spreadsheets/d/1ALFNjWcqJRC0kCksG8DZx24FHDkXe5jGjUakbp53S_s/edit?usp=drivesdk 
-', '_blank')">
-            <div class="main-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="store-title">HBK Cideng</div>
-        </div>
-        <div class="icon-card" onclick="window.open('commingsoon.html', '_blank')">
-            <div class="main-icon"><i class="fas fa-hospital-alt"></i></div>
-            <div class="store-title">RS St Carolus</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://docs.google.com/spreadsheets/d/1EPY-qZDfXxob2JuI3bZRuWzrGN9qEN2Q/edit?usp=sharing&ouid=107991384911430170781&rtpof=true&sd=true', '_blank')">
-            <div class="main-icon"><i class="fas fa-shopping-bag"></i></div>
-            <div class="store-title">Transmart</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://docs.google.com/spreadsheets/d/1NYUh-erjgxwQpTvMyEXiX0okt2CYX8rH/edit?gid=186171807#gid=186171807', '_blank')">
-            <div class="main-icon"><i class="fas fa-warehouse"></i></div>
-            <div class="store-title">Ruko Pecenongan</div>
-        </div>
-        <div class="icon-card" onclick="window.open('https://docs.google.com/spreadsheets/d/11Dtkl9AbjeshNPPvoiCwPWsIy12VNV8jWIMO_vSVxec/edit?gid=1868272739#gid=1868272739', '_blank')">
-            <div class="main-icon"><i class="fas fa-star"></i></div>
-            <div class="store-title">Senayan City</div>
-        </div>
-        <!-- Opsional jika ingin menambah titik pantau lain, namun tetap dengan prinsip icon + judul -->
-    </div>
-
-    <div class="footer-clean">
-        <i class="fas fa-chart-line"></i> Monitoring outlet • sentuh / klik untuk laporan
-    </div>
+  <!-- GRID 12 BULAN : hanya icon (dengan warna berbeda) + nama bulan -->
+  <div class="months-grid" id="monthsGrid"></div>
+  
+  <div class="footer-note">
+    <i class="fas fa-link"></i> © 2026 RK . All rights reserved
+    <i class="fas fa-meteor" style="opacity:0.7"></i>
+  </div>
 </div>
 
 <script>
-    // Menjaga interaksi ringan: efek klik tanpa mengganggu navigasi window.open
-    // Desain tetap sederhana: ketika kartu ditekan, ada umpan balik sentuhan minimal
-    const cards = document.querySelectorAll('.icon-card');
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            // efek sentuhan cepat untuk interaksi halus (tapi tidak merusak navigasi)
-            e.stopPropagation(); // tidak mengganggu aksi default dari onclick
-            card.style.transform = 'scale(0.96)';
-            card.style.transition = 'transform 0.08s linear';
-            setTimeout(() => {
-                card.style.transform = '';
-                card.style.transition = '';
-            }, 100);
-        });
+  // Data setiap bulan: nama, url tujuan (contoh link menarik sesuai tema bulan), 
+  // serta warna icon yang BERBEDA untuk setiap bulan (gradasi solid modern)
+  const monthsData = [
+    { 
+      name: "Januari", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-snowflake",
+      iconColor: "#4d9de0"   // biru es dingin
+    },
+    { 
+      name: "Februari", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-heart",
+      iconColor: "#e84393"   // pink Valentine
+    },
+    { 
+      name: "Maret", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-seedling",
+      iconColor: "#6ab04c"   // hijau segar musim semi
+    },
+    { 
+      name: "April", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-cloud-rain",
+      iconColor: "#45aaf2"   // biru hujan
+    },
+    { 
+      name: "Mei", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-leaf",
+      iconColor: "#2ecc71"   // hijau daun tropis
+    },
+    { 
+      name: "Juni", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-sun",
+      iconColor: "#f1c40f"   // kuning mentari terik
+    },
+    { 
+      name: "Juli", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-umbrella-beach",
+      iconColor: "#f39c12"   // oranye pantai
+    },
+    { 
+      name: "Agustus", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-tree",
+      iconColor: "#27ae60"   // hijau hutan
+    },
+    { 
+      name: "September", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-wind",
+      iconColor: "#3498db"   // biru angin sepoi
+    },
+    { 
+      name: "Oktober", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-candy-cane",
+      iconColor: "#e67e22"   // jingga halloween
+    },
+    { 
+      name: "November", 
+      url: "commingsoon.html", 
+      iconClass: "fas fa-cloud-moon",
+      iconColor: "#9b59b6"   // ungu senja kabut
+    },
+    { 
+      name: "Desember", 
+      url: "", 
+      iconClass: "fas fa-gift",
+      iconColor: "#e74c3c"   // merah hadiah natal
+    }
+  ];
 
-        // sentuhan tambahan untuk mobile responsif memastikan link berfungsi
-        card.addEventListener('touchstart', () => {
-            // hanya visual, tidak overide klik
+  /**
+   * Fungsi untuk render grid bulan tanpa keterangan, hanya icon + nama
+   * Setiap icon diberi style warna inline yang berbeda-beda sesuai data.
+   * Setiap kartu adalah link yang membuka URL di tab baru (_blank)
+   */
+  function renderMonthsGrid() {
+    const gridContainer = document.getElementById('monthsGrid');
+    if (!gridContainer) return;
+    gridContainer.innerHTML = '';
+
+    monthsData.forEach((month) => {
+      // Buat elemen <a> sebagai kartu, karena interaksi klik langsung membuka link
+      const cardLink = document.createElement('a');
+      cardLink.className = 'month-card';
+      // Set target _blank untuk membuka di tab baru, juga rel keamanan
+      cardLink.href = month.url;
+      cardLink.target = '_blank';
+      cardLink.rel = 'noopener noreferrer';
+
+      // Inner struktur: hanya icon (dengan warna dinamis) + nama bulan
+      // Icon dibungkus div agar styling terpusat
+      cardLink.innerHTML = `
+        <div class="month-icon">
+          <i class="${month.iconClass}" style="color: ${month.iconColor}; transition: all 0.2s ease;"></i>
+        </div>
+        <div class="month-name">${month.name}</div>
+      `;
+
+      // Tambahkan efek hover tambahan untuk memperkuat warna icon saat hover (opsional, membuat warna lebih hidup)
+      // Kita bisa menambahkan event mouseover untuk mencerahkan warna? Tidak wajib, tapi untuk pengalaman lebih baik.
+      // Tetapi karena sudah ada efek transisi, kita bisa menambahkan sedikit efek shadow pada icon.
+      const iconElem = cardLink.querySelector('.month-icon i');
+      if (iconElem) {
+        cardLink.addEventListener('mouseenter', () => {
+          iconElem.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))';
+          iconElem.style.transform = 'scale(1.02)';
         });
+        cardLink.addEventListener('mouseleave', () => {
+          iconElem.style.filter = '';
+          iconElem.style.transform = '';
+        });
+      }
+
+      gridContainer.appendChild(cardLink);
     });
+  }
 
-    // Debug ringan (tidak mengganggu tampilan)
-    console.log('Dashboard Minimal — hanya judul & ikon | Suhu Ambience 2026');
+  // Inisialisasi dashboard segera setelah DOM siap
+  document.addEventListener('DOMContentLoaded', () => {
+    renderMonthsGrid();
+    // Tambahan sentuhan: gaya modern untuk setiap kartu sudah mencakup pointer
+    // Tidak ada fitur bulan terpilih, tidak ada reset.
+  });
 </script>
 </body>
 </html>
